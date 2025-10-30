@@ -1,0 +1,23 @@
+{
+    "name": "@repo/auth",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "src/index.ts",
+    "types": "src/index.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "check-types": "tsc -p tsconfig.json --noEmit"
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "@repo/db": "workspace:*",
+        "typescript": "5.9.2"
+    },
+    "dependencies": {
+        "better-auth": "^1.3.34"
+    }
+}
