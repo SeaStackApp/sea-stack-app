@@ -1,0 +1,23 @@
+// Prisma schema for the shared database package
+// Default to PostgreSQL via DATABASE_URL. For Prisma Accelerate (rust-free engine)
+// use the generator option `engineType = "dataproxy"` and set an Accelerate URL in DATABASE_URL.
+// Optionally set DIRECT_URL for migrations from local/dev.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
