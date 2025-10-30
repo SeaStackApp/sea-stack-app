@@ -20,18 +20,15 @@ importers:
 
   apps/docs:
     dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       next:
         specifier: ^16.0.0
-        version: 16.0.0(react-dom@19.1.0(react@19.2.0))(react@19.2.0)
+        version: 16.0.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.2.0)
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -43,11 +40,11 @@ importers:
         specifier: ^22.15.3
         version: 22.15.3
       '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
+        specifier: 19.2.0
+        version: 19.2.0
       '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
+        specifier: 19.2.0
+        version: 19.2.0(@types/react@19.2.0)
       eslint:
         specifier: ^9.38.0
         version: 9.38.0
@@ -57,18 +54,15 @@ importers:
 
   apps/web:
     dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       next:
         specifier: ^16.0.0
-        version: 16.0.0(react-dom@19.1.0(react@19.2.0))(react@19.2.0)
+        version: 16.0.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.2.0)
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -80,11 +74,11 @@ importers:
         specifier: ^22.15.3
         version: 22.15.3
       '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
+        specifier: 19.2.0
+        version: 19.2.0
       '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
+        specifier: 19.2.0
+        version: 19.2.0(@types/react@19.2.0)
       eslint:
         specifier: ^9.38.0
         version: 9.38.0
@@ -132,37 +126,6 @@ importers:
         version: 8.40.0(eslint@9.38.0)(typescript@5.9.2)
 
   packages/typescript-config: {}
-
-  packages/ui:
-    dependencies:
-      react:
-        specifier: ^19.2.0
-        version: 19.2.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.2.0)
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@types/node':
-        specifier: ^22.15.3
-        version: 22.15.3
-      '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
-      '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
-      eslint:
-        specifier: ^9.38.0
-        version: 9.38.0
-      typescript:
-        specifier: 5.9.2
-        version: 5.9.2
 
 packages:
 
@@ -441,13 +404,13 @@ packages:
   '@types/node@22.15.3':
     resolution: {integrity: sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==}
 
-  '@types/react-dom@19.1.1':
-    resolution: {integrity: sha512-jFf/woGTVTjUJsl2O7hcopJ1r0upqoq/vIOoCj0yLh3RIXxWcljlpuZ+vEBRXsymD1jhfeJrlyTy/S1UW+4y1w==}
+  '@types/react-dom@19.2.0':
+    resolution: {integrity: sha512-brtBs0MnE9SMx7px208g39lRmC5uHZs96caOJfTjFcYSLHNamvaSMfJNagChVNkup2SdtOxKX1FDBkRSJe1ZAg==}
     peerDependencies:
-      '@types/react': ^19.0.0
+      '@types/react': ^19.2.0
 
-  '@types/react@19.1.0':
-    resolution: {integrity: sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w==}
+  '@types/react@19.2.0':
+    resolution: {integrity: sha512-1LOH8xovvsKsCBq1wnT4ntDUdCJKmnEakhsuoUSy6ExlHCkGP2hqnatagYTgFk6oeL0VU31u7SNjunPN+GchtA==}
 
   '@typescript-eslint/eslint-plugin@8.40.0':
     resolution: {integrity: sha512-w/EboPlBwnmOBtRbiOvzjD+wdiZdgFeo17lkltrtn7X37vagKKWJABvyfsJXTlHe6XBzugmYgd4A4nW+k8Mixw==}
@@ -1206,10 +1169,10 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-dom@19.1.0:
-    resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
+  react-dom@19.2.0:
+    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
-      react: ^19.1.0
+      react: ^19.2.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -1252,8 +1215,8 @@ packages:
     resolution: {integrity: sha512-x/+Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==}
     engines: {node: '>= 0.4'}
 
-  scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -1690,11 +1653,11 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/react-dom@19.1.1(@types/react@19.1.0)':
+  '@types/react-dom@19.2.0(@types/react@19.2.0)':
     dependencies:
-      '@types/react': 19.1.0
+      '@types/react': 19.2.0
 
-  '@types/react@19.1.0':
+  '@types/react@19.2.0':
     dependencies:
       csstype: 3.1.3
 
@@ -2522,14 +2485,14 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@16.0.0(react-dom@19.1.0(react@19.2.0))(react@19.2.0):
+  next@16.0.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       '@next/env': 16.0.0
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001751
       postcss: 8.4.31
       react: 19.2.0
-      react-dom: 19.1.0(react@19.2.0)
+      react-dom: 19.2.0(react@19.2.0)
       styled-jsx: 5.1.6(react@19.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.0.0
@@ -2640,10 +2603,10 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.1.0(react@19.2.0):
+  react-dom@19.2.0(react@19.2.0):
     dependencies:
       react: 19.2.0
-      scheduler: 0.26.0
+      scheduler: 0.27.0
 
   react-is@16.13.1: {}
 
@@ -2702,7 +2665,7 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  scheduler@0.26.0: {}
+  scheduler@0.27.0: {}
 
   semver@6.3.1: {}
 
