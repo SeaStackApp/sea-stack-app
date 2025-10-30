@@ -1,5 +1,4 @@
 'use client';
-
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,20 +11,17 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
 
-export function SignupForm({
+export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<'div'>) {
-    const [name, setName] = useState('');
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const router = useRouter();
-
     return (
         <div className={cn('flex flex-col gap-6', className)} {...props}>
             <Card className='overflow-hidden p-0'>
@@ -35,11 +31,10 @@ export function SignupForm({
                         onSubmit={async (e) => {
                             e.preventDefault();
                             const { data, error } =
-                                await authClient.signUp.email(
+                                await authClient.signIn.email(
                                     {
                                         email,
                                         password,
-                                        name,
                                     },
                                     {
                                         onSuccess: () => {
@@ -57,24 +52,12 @@ export function SignupForm({
                         <FieldGroup>
                             <div className='flex flex-col items-center gap-2 text-center'>
                                 <h1 className='text-2xl font-bold'>
-                                    Welcome to SeaStack !
+                                    Welcome back
                                 </h1>
-                                <p className='text-muted-foreground text-sm text-balance'>
-                                    Enter your email below to create your
-                                    account
+                                <p className='text-muted-foreground text-balance'>
+                                    Login to your SeaStack account
                                 </p>
                             </div>
-                            <Field>
-                                <FieldLabel htmlFor='name'>Name</FieldLabel>
-                                <Input
-                                    id='name'
-                                    type='text'
-                                    placeholder='John Doe'
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                />
-                            </Field>
                             <Field>
                                 <FieldLabel htmlFor='email'>Email</FieldLabel>
                                 <Input
@@ -87,60 +70,37 @@ export function SignupForm({
                                 />
                             </Field>
                             <Field>
-                                <Field className='grid grid-cols-2 gap-4'>
-                                    <Field>
-                                        <FieldLabel htmlFor='password'>
-                                            Password
-                                        </FieldLabel>
-                                        <Input
-                                            id='password'
-                                            type='password'
-                                            value={password}
-                                            onChange={(e) =>
-                                                setPassword(e.target.value)
-                                            }
-                                            required
-                                        />
-                                    </Field>
-                                    <Field>
-                                        <FieldLabel htmlFor='confirm-password'>
-                                            Confirm Password
-                                        </FieldLabel>
-                                        <Input
-                                            id='confirm-password'
-                                            type='password'
-                                            value={confirmPassword}
-                                            onChange={(e) =>
-                                                setConfirmPassword(
-                                                    e.target.value
-                                                )
-                                            }
-                                            required
-                                        />
-                                    </Field>
-                                </Field>
-                                <FieldDescription>
-                                    Must be at least 8 characters long.
-                                </FieldDescription>
+                                <div className='flex items-center'>
+                                    <FieldLabel htmlFor='password'>
+                                        Password
+                                    </FieldLabel>
+                                    <a
+                                        href='#'
+                                        className='ml-auto text-sm underline-offset-2 hover:underline'
+                                    >
+                                        Forgot your password?
+                                    </a>
+                                </div>
+                                <Input
+                                    id='password'
+                                    type='password'
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    required
+                                />
                             </Field>
                             <Field>
-                                <Button
-                                    type='submit'
-                                    disabled={
-                                        password !== confirmPassword ||
-                                        password.length <= 8
-                                    }
-                                >
-                                    Create Account
-                                </Button>
+                                <Button type='submit'>Login</Button>
                             </Field>
                             <FieldSeparator className='*:data-[slot=field-separator-content]:bg-card'>
                                 Or
                             </FieldSeparator>
 
                             <FieldDescription className='text-center'>
-                                Already have an account?{' '}
-                                <a href='/sign-in'>Sign in</a>
+                                Don&apos;t have an account?{' '}
+                                <a href='/sign-up'>Sign up</a>
                             </FieldDescription>
                         </FieldGroup>
                     </form>
