@@ -46,13 +46,6 @@ export default function KeyLine({
                 <TableCell className='text-center'>
                     <Button
                         variant='ghost'
-                        onClick={() => setShowDeleteModal(true)}
-                    >
-                        <TrashIcon /> Delete
-                    </Button>
-
-                    <Button
-                        variant='ghost'
                         onClick={async () => {
                             const data = await t.sshKeys.getKeyData.query({
                                 keyId: sshKey.id,
@@ -75,6 +68,12 @@ export default function KeyLine({
                         }}
                     >
                         <DownloadIcon /> public key
+                    </Button>
+                    <Button
+                        variant='ghost'
+                        onClick={() => setShowDeleteModal(true)}
+                    >
+                        <TrashIcon /> Delete
                     </Button>
                 </TableCell>
             </TableRow>
