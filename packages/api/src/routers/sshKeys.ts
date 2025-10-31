@@ -4,9 +4,9 @@ import {
     sshKeyIdSchema,
     updateKeySchema,
 } from '@repo/schemas';
-import { encrypt } from '../utils/crypto';
+import { encrypt, decrypt } from '../utils/crypto';
 import { utils } from 'ssh2';
-import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
 
 export const sshKeysRouter = router({
     createKey: protectedProcedure
@@ -78,4 +78,28 @@ export const sshKeysRouter = router({
             bits: 4096,
         });
     }),
+
+    getKeyData: protectedProcedure
+        .input(sshKeyIdSchema)
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            const key = await prisma.sSHKey.findFirst({
+                where: {
+                    id: input.keyId,
+                    organizations: {
+                        some: {
+                            id: organizationId,
+                        },
+                    },
+                },
+            });
+            if (!key)
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Could not find the requested SSH key',
+                });
+            return {
+                ...key,
+                privateKey: decrypt(key.privateKey),
+            };
+        }),
 });

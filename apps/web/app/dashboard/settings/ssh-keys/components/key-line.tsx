@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { appRouter } from '@repo/api';
 import { inferProcedureOutput } from '@trpc/server';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTRPC } from '@/lib/trpc';
+import { useTRPC, useTRPCClient } from '@/lib/trpc';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -15,6 +15,8 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
+import { DownloadIcon, TrashIcon } from 'lucide-react';
+import { downloadFileFromString } from '@/lib/downloadFileFormString';
 
 export default function KeyLine({
     sshKey,
@@ -25,6 +27,7 @@ export default function KeyLine({
 }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const trpc = useTRPC();
+    const t = useTRPCClient();
     const client = useQueryClient();
     const deleteMutation = useMutation(
         trpc.sshKeys.delete.mutationOptions({
@@ -45,7 +48,33 @@ export default function KeyLine({
                         variant='ghost'
                         onClick={() => setShowDeleteModal(true)}
                     >
-                        Delete
+                        <TrashIcon /> Delete
+                    </Button>
+
+                    <Button
+                        variant='ghost'
+                        onClick={async () => {
+                            const data = await t.sshKeys.getKeyData.query({
+                                keyId: sshKey.id,
+                            });
+                            downloadFileFromString(data.privateKey, sshKey.id);
+                        }}
+                    >
+                        <DownloadIcon /> private key
+                    </Button>
+                    <Button
+                        variant='ghost'
+                        onClick={async () => {
+                            const data = await t.sshKeys.getKeyData.query({
+                                keyId: sshKey.id,
+                            });
+                            downloadFileFromString(
+                                data.publicKey,
+                                sshKey.id + '.pub'
+                            );
+                        }}
+                    >
+                        <DownloadIcon /> public key
                     </Button>
                 </TableCell>
             </TableRow>
