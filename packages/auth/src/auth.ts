@@ -12,4 +12,36 @@ export const auth = betterAuth({
         enabled: true,
     },
     plugins: [apiKey(), organization(), passkey()],
+
+    user: {
+        deleteUser: {
+            enabled: true,
+        },
+    },
+
+    databaseHooks: {
+        session: {
+            create: {
+                before: async (session) => {
+                    const organization = await prisma.organization.findFirst({
+                        where: {
+                            members: {
+                                some: {
+                                    userId: session.userId,
+                                },
+                            },
+                        },
+                    });
+                    return {
+                        data: {
+                            ...session,
+                            ...(organization && {
+                                activeOrganizationId: organization.id,
+                            }),
+                        },
+                    };
+                },
+            },
+        },
+    },
 });
