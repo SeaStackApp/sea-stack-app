@@ -13,17 +13,12 @@ import {
     TableHead,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import KeyLine from '@/app/dashboard/settings/ssh-keys/components/key-line';
 
 export default function SSHKeysPage() {
     const trpc = useTRPC();
     const listSSHKeysQuery = useQuery(trpc.sshKeys.list.queryOptions());
-    const deleteMutation = useMutation(
-        trpc.sshKeys.delete.mutationOptions({
-            onSuccess: async () => {
-                await listSSHKeysQuery.refetch();
-            },
-        })
-    );
+
     if (!listSSHKeysQuery.data) return null;
 
     return (
@@ -43,23 +38,7 @@ export default function SSHKeysPage() {
                 </TableHeader>
                 <TableBody>
                     {listSSHKeysQuery.data.map((key) => (
-                        <TableRow>
-                            <TableCell className='font-medium'>
-                                {key.id}
-                            </TableCell>
-                            <TableCell className='text-center'>
-                                <Button
-                                    variant='ghost'
-                                    onClick={() => {
-                                        deleteMutation.mutate({
-                                            keyId: key.id,
-                                        });
-                                    }}
-                                >
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
+                        <KeyLine sshKey={key} key={key.id} />
                     ))}
                 </TableBody>
             </Table>
