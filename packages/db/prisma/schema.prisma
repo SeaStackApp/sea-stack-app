@@ -122,6 +122,9 @@ model Organization {
     metadata    String?
     members     Member[]
     invitations Invitation[]
+    projects    Project[]
+    servers     Server[]
+    sshKeys     SSHKey[]
 
     @@unique([slug])
     @@map("organization")
@@ -168,4 +171,53 @@ model Passkey {
     aaguid       String?
 
     @@map("passkey")
+}
+
+model Project {
+    id                     String                  @id @default(uuid(7))
+    name                   String
+    description            String?
+    deploymentEnvironments DeploymentEnvironment[]
+    environmentVariables   String                  @default("")
+    organizations          Organization[]
+}
+
+model DeploymentEnvironment {
+    id                   String    @id @default(uuid(7))
+    services             Service[]
+    project              Project   @relation(fields: [projectId], references: [id])
+    projectId            String
+    environmentVariables String    @default("")
+}
+
+model Service {
+    id                      String                @id @default(uuid(7))
+    name                    String
+    description             String?
+    deploymentEnvironment   DeploymentEnvironment @relation(fields: [deploymentEnvironmentId], references: [id])
+    deploymentEnvironmentId String
+    environmentVariables    String                @default("")
+    server                  Server                @relation(fields: [serverId], references: [id])
+    serverId                String
+}
+
+model Server {
+    id       String    @id @default(uuid(7))
+    services Service[]
+    hostname String
+    port     Int
+    user     String
+    key      SSHKey    @relation(fields: [sSHKeyId], references: [id])
+    sSHKeyId String
+
+    organizations Organization[]
+}
+
+model SSHKey {
+    id            String         @id @default(cuid(2))
+    // Encrypted private key
+    privateKey    String
+    publicKey     String
+    servers       Server[]
+    organizations Organization[]
 }
