@@ -11,11 +11,14 @@ import {
 } from '@/components/ui/breadcrumb';
 import packageJSON from 'package.json';
 import { FieldDescription } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
 export default function DashboardPage({
     children,
+    className,
 }: Readonly<{
     children: ReactNode;
+    className?: string;
 }>) {
     return (
         <>
@@ -41,7 +44,7 @@ export default function DashboardPage({
                     </Breadcrumb>
                 </div>
             </header>
-            {children}
+            <main className={cn('p-6', className)}>{children}</main>
             <FieldDescription className='p-6 text-center'>
                 SeaStack version {packageJSON.version}
             </FieldDescription>

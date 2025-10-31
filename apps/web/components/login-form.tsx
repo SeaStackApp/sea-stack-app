@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
+import { toast } from 'sonner';
 
 export function LoginForm({
     className,
@@ -38,6 +39,7 @@ export function LoginForm({
                                     },
                                     {
                                         onSuccess: () => {
+                                            toast.success('Login successful');
                                             void router.push('/');
                                         },
                                         onError: (ctx) => {

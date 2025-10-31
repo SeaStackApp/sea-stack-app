@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export function SignupForm({
     className,
@@ -43,6 +44,7 @@ export function SignupForm({
                                     },
                                     {
                                         onSuccess: () => {
+                                            toast.success('Signup successful');
                                             void router.push('/');
                                         },
                                         onError: (ctx) => {

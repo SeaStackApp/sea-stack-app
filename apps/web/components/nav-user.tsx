@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/sidebar';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export function NavUser({
     user,
@@ -128,6 +129,9 @@ export function NavUser({
                                 authClient.signOut({
                                     fetchOptions: {
                                         onSuccess: () => {
+                                            toast.success(
+                                                "You've been logged out."
+                                            );
                                             router.push('/'); // redirect to login page
                                         },
                                     },
