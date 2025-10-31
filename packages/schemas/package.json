@@ -1,5 +1,5 @@
 {
-    "name": "@repo/api",
+    "name": "@repo/schemas",
     "version": "0.1.0",
     "private": true,
     "type": "module",
@@ -13,13 +13,6 @@
         "check-types": "tsc -p tsconfig.json --noEmit"
     },
     "dependencies": {
-        "@repo/auth": "workspace:*",
-        "@repo/db": "workspace:*",
-        "@repo/schemas": "workspace:*",
-        "@trpc/react-query": "^11.7.1",
-        "@trpc/server": "^11.7.1",
-        "@types/ssh2": "^1.15.5",
-        "ssh2": "^1.17.0",
         "zod": "^3.25.76"
     },
     "devDependencies": {

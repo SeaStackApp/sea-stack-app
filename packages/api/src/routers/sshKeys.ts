@@ -1,16 +1,26 @@
 import { protectedProcedure, router } from '../trpc';
-import { createKeySchema } from '../schemas/sshKeys';
+import {
+    createKeySchema,
+    sshKeyIdSchema,
+    updateKeySchema,
+} from '@repo/schemas';
 import { encrypt } from '../utils/crypto';
+import { utils } from 'ssh2';
 import { z } from 'zod';
 
 export const sshKeysRouter = router({
     createKey: protectedProcedure
         .input(createKeySchema)
-        .mutation(({ ctx: { prisma }, input }) => {
+        .mutation(({ ctx: { prisma, organizationId }, input }) => {
             return prisma.sSHKey.create({
                 data: {
                     ...input,
                     privateKey: encrypt(input.privateKey),
+                    organizations: {
+                        connect: {
+                            id: organizationId,
+                        },
+                    },
                 },
             });
         }),
@@ -31,12 +41,25 @@ export const sshKeysRouter = router({
             });
         }
     ),
+
+    update: protectedProcedure
+        .input(updateKeySchema)
+        .mutation(({ ctx: { prisma, organizationId }, input }) => {
+            return prisma.sSHKey.update({
+                where: {
+                    id: input.keyId,
+                    organizations: {
+                        some: {
+                            id: organizationId,
+                        },
+                    },
+                },
+                data: input,
+            });
+        }),
+
     delete: protectedProcedure
-        .input(
-            z.object({
-                keyId: z.string(),
-            })
-        )
+        .input(sshKeyIdSchema)
         .mutation(({ ctx: { prisma, organizationId }, input }) => {
             return prisma.sSHKey.delete({
                 where: {
@@ -49,4 +72,10 @@ export const sshKeysRouter = router({
                 },
             });
         }),
+
+    generateRSAKeyPair: protectedProcedure.query(() => {
+        return utils.generateKeyPairSync('rsa', {
+            bits: 4096,
+        });
+    }),
 });

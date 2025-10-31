@@ -215,6 +215,7 @@ model Server {
 
 model SSHKey {
     id            String         @id @default(cuid(2))
+    name          String
     // Encrypted private key
     privateKey    String
     publicKey     String

@@ -25,6 +25,7 @@
         "@repo/api": "workspace:*",
         "@repo/auth": "workspace:*",
         "@repo/db": "workspace:*",
+        "@repo/schemas": "workspace:*",
         "@tailwindcss/postcss": "^4.1.16",
         "@tanstack/react-query": "^5.90.5",
         "@trpc/client": "^11.7.1",
@@ -41,6 +42,7 @@
         "react-dom": "^19.2.0",
         "react-hook-form": "^7.65.0",
         "sonner": "^2.0.7",
+        "ssh2": "^1.17.0",
         "tailwind-merge": "^3.3.1",
         "tailwindcss": "^4.1.16",
         "zod": "^3.25.76"

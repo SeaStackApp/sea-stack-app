@@ -13,8 +13,8 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useState } from 'react';
 
 export default function KeyLine({
     sshKey,
@@ -23,6 +23,7 @@ export default function KeyLine({
         typeof appRouter.sshKeys.list
     >[number];
 }) {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const trpc = useTRPC();
     const client = useQueryClient();
     const deleteMutation = useMutation(
@@ -35,40 +36,49 @@ export default function KeyLine({
         })
     );
     return (
-        <AlertDialog>
+        <>
             <TableRow>
                 <TableCell className='font-medium'>{sshKey.id}</TableCell>
+                <TableCell className='font-medium'>{sshKey.name}</TableCell>
                 <TableCell className='text-center'>
-                    <AlertDialogTrigger asChild={true}>
-                        <Button variant='ghost'>Delete</Button>
-                    </AlertDialogTrigger>
+                    <Button
+                        variant='ghost'
+                        onClick={() => setShowDeleteModal(true)}
+                    >
+                        Delete
+                    </Button>
                 </TableCell>
             </TableRow>
 
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>
-                        Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your account and remove your data from our
-                        servers.
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                        onClick={() => {
-                            deleteMutation.mutate({
-                                keyId: sshKey.id,
-                            });
-                        }}
-                    >
-                        Continue
-                    </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+            <AlertDialog
+                open={showDeleteModal}
+                onOpenChange={setShowDeleteModal}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your account and remove your data from our
+                            servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => {
+                                deleteMutation.mutate({
+                                    keyId: sshKey.id,
+                                });
+                            }}
+                        >
+                            Continue
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
     );
 }
