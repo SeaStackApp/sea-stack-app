@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Frame } from 'lucide-react';
+import { FolderOpenIcon, KeyIcon, ServerIcon } from 'lucide-react';
 
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -26,7 +26,22 @@ const data = [
             {
                 name: 'Projects',
                 url: '/dashboard/projects',
-                icon: Frame,
+                icon: FolderOpenIcon,
+            },
+        ],
+    },
+    {
+        name: 'Settings',
+        items: [
+            {
+                name: 'Servers',
+                url: '/dashboard/servers',
+                icon: ServerIcon,
+            },
+            {
+                name: 'SSH Keys',
+                url: '/dashboard/settings/ssh-keys',
+                icon: KeyIcon,
             },
         ],
     },

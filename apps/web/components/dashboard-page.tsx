@@ -23,7 +23,8 @@ export default function DashboardPage({
                     />
                 </div>
             </header>
-            <main className={cn('p-6', className)}>{children}</main>
+            <Separator />
+            <main className={cn('p-6 py-6', className)}>{children}</main>
             <FieldDescription className='p-6 text-center'>
                 SeaStack version {packageJSON.version}
             </FieldDescription>
