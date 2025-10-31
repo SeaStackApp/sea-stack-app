@@ -94,9 +94,28 @@ export function LoginForm({
                             <Field>
                                 <Button type='submit'>Login</Button>
                             </Field>
+
                             <FieldSeparator className='*:data-[slot=field-separator-content]:bg-card'>
                                 Or
                             </FieldSeparator>
+
+                            <Field>
+                                <Button
+                                    type='button'
+                                    variant='secondary'
+                                    onClick={async () => {
+                                        await authClient.signIn.passkey({
+                                            fetchOptions: {
+                                                onSuccess: () => {
+                                                    void router.push('/');
+                                                },
+                                            },
+                                        });
+                                    }}
+                                >
+                                    Use passkey
+                                </Button>
+                            </Field>
 
                             <FieldDescription className='text-center'>
                                 Don&apos;t have an account?{' '}
