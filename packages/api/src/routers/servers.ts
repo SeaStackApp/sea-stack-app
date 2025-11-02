@@ -1,5 +1,8 @@
 import { protectedProcedure, router } from '../trpc';
 import { createServerSchema, serverIdSchema } from '@repo/schemas';
+import { decrypt } from '../utils/crypto';
+import { TRPCError } from '@trpc/server';
+import { execRemote } from '../utils/execRemote';
 
 export const serversRouter = router({
     list: protectedProcedure.query(({ ctx: { prisma, organizationId } }) => {
@@ -42,5 +45,38 @@ export const serversRouter = router({
                     },
                 },
             });
+        }),
+
+    reboot: protectedProcedure
+        .input(serverIdSchema)
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            const server = await prisma.server.findFirst({
+                where: {
+                    id: input.serverId,
+                    organizations: {
+                        some: {
+                            id: organizationId,
+                        },
+                    },
+                },
+                include: {
+                    key: true,
+                },
+            });
+            if (!server)
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                });
+            const privateKey = decrypt(server.key.privateKey);
+
+            return execRemote(
+                {
+                    privateKey,
+                    host: server.hostname.trim(),
+                    port: server.port,
+                    username: server.user.trim(),
+                },
+                'reboot'
+            ).promise;
         }),
 });

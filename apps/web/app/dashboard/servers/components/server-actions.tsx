@@ -22,6 +22,8 @@ import { useState } from 'react';
 import { useTRPC, useTRPCClient } from '@/lib/trpc';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ServerActions({
     serverId,
@@ -43,8 +45,21 @@ export default function ServerActions({
                 <DropdownMenuContent className='w-56' align='start'>
                     <DropdownMenuLabel>Manage server</DropdownMenuLabel>
                     <DropdownMenuItem>Setup</DropdownMenuItem>
-                    <DropdownMenuItem>Terminal</DropdownMenuItem>
-                    <DropdownMenuItem variant='destructive'>
+                    <DropdownMenuItem asChild={true}>
+                        <Link href={`/dashboard/servers/${serverId}/terminal`}>
+                            Terminal
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        variant='destructive'
+                        onClick={async () => {
+                            console.log(
+                                await trpcClient.servers.reboot.query({
+                                    serverId,
+                                })
+                            );
+                        }}
+                    >
                         Restart
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
