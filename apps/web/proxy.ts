@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@repo/auth';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const session = await auth.api.getSession({
         headers: await headers(),
     });
@@ -12,6 +12,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
 }
 export const config = {
-    runtime: 'nodejs',
-    matcher: ['/dashboard/:path*'], // Apply middleware to specific routes
+    // Apply middleware to specific routes
+    matcher: ['/dashboard/:path*']
 };
