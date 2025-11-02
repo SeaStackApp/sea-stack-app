@@ -1,8 +1,8 @@
-import { protectedProcedure, router } from '../trpc';
+import { protectedProcedure, router, t } from '../trpc';
 import { createServerSchema, serverIdSchema } from '@repo/schemas';
-import { decrypt } from '../utils/crypto';
-import { TRPCError } from '@trpc/server';
-import { execRemote } from '../utils/execRemote';
+import { execRemoteServerCommand } from '../utils/execRemote';
+import { ee, remoteServerShell } from '../utils/remoteShell';
+import { z } from 'zod';
 
 export const serversRouter = router({
     list: protectedProcedure.query(({ ctx: { prisma, organizationId } }) => {
@@ -50,33 +50,62 @@ export const serversRouter = router({
     reboot: protectedProcedure
         .input(serverIdSchema)
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
-            const server = await prisma.server.findFirst({
-                where: {
-                    id: input.serverId,
-                    organizations: {
-                        some: {
-                            id: organizationId,
-                        },
-                    },
-                },
-                include: {
-                    key: true,
-                },
-            });
-            if (!server)
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                });
-            const privateKey = decrypt(server.key.privateKey);
-
-            return execRemote(
-                {
-                    privateKey,
-                    host: server.hostname.trim(),
-                    port: server.port,
-                    username: server.user.trim(),
-                },
+            return execRemoteServerCommand(
+                prisma,
+                input.serverId,
+                organizationId,
                 'reboot'
-            ).promise;
+            );
+        }),
+
+    uptime: protectedProcedure
+        .input(serverIdSchema)
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            return execRemoteServerCommand(
+                prisma,
+                input.serverId,
+                organizationId,
+                'uptime'
+            );
+        }),
+
+    shell: protectedProcedure
+        .input(serverIdSchema)
+        .subscription(async function* ({
+            ctx: { prisma, organizationId, user },
+            input,
+            signal,
+        }) {
+            const iterable = ee.toIterable('stdout');
+            const channelId = input.serverId + user.id;
+
+            if (signal) signal.onabort = () => ee.emit('close', channelId);
+
+            await remoteServerShell(
+                prisma,
+                input.serverId,
+                organizationId,
+                channelId
+            );
+
+            function* maybeYield([cId, data]: [string, any]) {
+                if (cId !== channelId) return;
+                yield data;
+            }
+
+            for await (const d of iterable) {
+                yield* maybeYield(d);
+            }
+        }),
+
+    shellInput: protectedProcedure
+        .input(
+            serverIdSchema.extend({
+                data: z.string(),
+            })
+        )
+        .mutation(({ ctx: { user }, input }) => {
+            ee.emit('stdin', input.serverId + user.id, input.data);
+            return;
         }),
 });

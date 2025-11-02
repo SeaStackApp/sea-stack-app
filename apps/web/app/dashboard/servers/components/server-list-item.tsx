@@ -2,6 +2,7 @@ import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
 import { TableCell, TableRow } from '@/components/ui/table';
 import ServerActions from '@/app/dashboard/servers/components/server-actions';
+import ServerUptime from '@/app/dashboard/servers/components/server-uptime';
 
 export default function ServerListItem({
     server,
@@ -17,6 +18,9 @@ export default function ServerListItem({
             <TableCell>{server.hostname}</TableCell>
             <TableCell>{server.user}</TableCell>
             <TableCell>{server.port}</TableCell>
+            <TableCell>
+                <ServerUptime serverId={server.id} />
+            </TableCell>
             <TableCell className='text-right'>
                 <ServerActions serverId={server.id} />
             </TableCell>

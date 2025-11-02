@@ -22,7 +22,6 @@ import { useState } from 'react';
 import { useTRPC, useTRPCClient } from '@/lib/trpc';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function ServerActions({
@@ -31,6 +30,7 @@ export default function ServerActions({
     serverId: string;
 }>) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showRestartModal, setShowRestartModal] = useState(false);
     const trpcClient = useTRPCClient();
     const queryClient = useQueryClient();
     const trpc = useTRPC();
@@ -52,12 +52,8 @@ export default function ServerActions({
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         variant='destructive'
-                        onClick={async () => {
-                            console.log(
-                                await trpcClient.servers.reboot.query({
-                                    serverId,
-                                })
-                            );
+                        onClick={() => {
+                            setShowRestartModal(true);
                         }}
                     >
                         Restart
@@ -101,6 +97,37 @@ export default function ServerActions({
                             }}
                         >
                             Continue
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog
+                open={showRestartModal}
+                onOpenChange={setShowRestartModal}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Restart server?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action will restart the server. Running tasks
+                            will be interrupted.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={async () => {
+                                await trpcClient.servers.reboot.query({
+                                    serverId,
+                                });
+                                toast.success('Server rebooted successfully.');
+                                await queryClient.invalidateQueries({
+                                    queryKey: trpc.servers.uptime.queryKey(),
+                                });
+                            }}
+                        >
+                            Restart
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

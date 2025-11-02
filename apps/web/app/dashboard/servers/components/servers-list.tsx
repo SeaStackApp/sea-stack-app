@@ -25,8 +25,9 @@ export default function ServersList() {
                     <TableHead className='w-[100px]'>Id</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Hostname</TableHead>
-                    <TableHead>Hostname</TableHead>
+                    <TableHead>Username</TableHead>
                     <TableHead>Port</TableHead>
+                    <TableHead>Uptime</TableHead>
                     <TableHead className='text-right'></TableHead>
                 </TableRow>
             </TableHeader>

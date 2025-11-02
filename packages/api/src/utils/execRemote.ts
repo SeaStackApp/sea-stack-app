@@ -1,4 +1,7 @@
 import { Client, ConnectConfig } from 'ssh2';
+import { PrismaClient } from '@repo/db';
+import { getServerWithKey } from './getServerWithKey';
+import { decrypt } from './crypto';
 
 export const execRemote = (config: ConnectConfig, command: string) => {
     let stream = new ReadableStream();
@@ -50,4 +53,24 @@ export const execRemote = (config: ConnectConfig, command: string) => {
         }
     );
     return { stream, promise };
+};
+
+export const execRemoteServerCommand = async (
+    prisma: PrismaClient,
+    serverId: string,
+    organizationId: string,
+    command: string
+) => {
+    const server = await getServerWithKey(prisma, serverId, organizationId);
+    const privateKey = decrypt(server.key.privateKey);
+
+    return execRemote(
+        {
+            privateKey,
+            host: server.hostname.trim(),
+            port: server.port,
+            username: server.user.trim(),
+        },
+        command
+    ).promise;
 };

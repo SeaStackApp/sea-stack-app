@@ -3,12 +3,14 @@ import { useTheme } from 'next-themes';
 import { useEffect, useRef } from 'react';
 import { Terminal as XTerm } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
+import { useTRPCClient } from '@/lib/trpc';
 
 export default function ServerTerminal({
     serverId,
 }: Readonly<{ serverId: string }>) {
     const { resolvedTheme } = useTheme();
     const termRef = useRef<HTMLDivElement>(null);
+    const trpc = useTRPCClient();
 
     useEffect(() => {
         const container = document.getElementById(serverId);
@@ -26,8 +28,27 @@ export default function ServerTerminal({
         });
 
         term.open(termRef.current!);
-        term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
-    }, [serverId, resolvedTheme]);
+
+        const sub = trpc.servers.shell.subscribe(
+            {
+                serverId,
+            },
+            {
+                onData: (data) => {
+                    term.write(data);
+                },
+            }
+        );
+
+        term.onData(async (data) => {
+            await trpc.servers.shellInput.mutate({
+                serverId,
+                data,
+            });
+        });
+
+        return () => sub.unsubscribe();
+    }, [serverId, resolvedTheme, trpc]);
 
     return (
         <div className='flex flex-col gap-4'>
