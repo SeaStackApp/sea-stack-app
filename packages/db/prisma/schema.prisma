@@ -202,13 +202,14 @@ model Service {
 }
 
 model Server {
-    id       String    @id @default(uuid(7))
+    id       String    @id @default(cuid(2))
+    name     String
     services Service[]
     hostname String
     port     Int
     user     String
-    key      SSHKey    @relation(fields: [sSHKeyId], references: [id])
-    sSHKeyId String
+    key      SSHKey    @relation(fields: [SSHKeyId], references: [id])
+    SSHKeyId String
 
     organizations Organization[]
 }

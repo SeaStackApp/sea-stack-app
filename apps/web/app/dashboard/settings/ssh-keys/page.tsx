@@ -13,12 +13,13 @@ import {
 } from '@/components/ui/table';
 import KeyLine from '@/app/dashboard/settings/ssh-keys/components/key-line';
 import AddSSHKey from '@/app/dashboard/settings/ssh-keys/components/add-ssh-key';
+import PaddedSpinner from '@/components/padded-spinner';
 
 export default function SSHKeysPage() {
     const trpc = useTRPC();
     const listSSHKeysQuery = useQuery(trpc.sshKeys.list.queryOptions());
 
-    if (!listSSHKeysQuery.data) return null;
+    if (!listSSHKeysQuery.data) return <PaddedSpinner />;
 
     return (
         <DashboardPage className='space-y-2'>
