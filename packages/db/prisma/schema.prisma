@@ -14,6 +14,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum Proxy {
+    SEASTACK_TREAFIK
+    SEASTACK_NGINX
+}
+
 /**
  * Better Auth Models
  */
@@ -125,6 +130,8 @@ model Organization {
     projects    Project[]
     servers     Server[]
     sshKeys     SSHKey[]
+    registries  Registry?    @relation(fields: [registryId], references: [id])
+    registryId  String?
 
     @@unique([slug])
     @@map("organization")
@@ -210,8 +217,10 @@ model Server {
     user     String
     key      SSHKey    @relation(fields: [SSHKeyId], references: [id])
     SSHKeyId String
+    proxy    Proxy     @default(SEASTACK_TREAFIK)
 
     organizations Organization[]
+    registries    Registry[]
 }
 
 model SSHKey {
@@ -222,4 +231,14 @@ model SSHKey {
     publicKey     String
     servers       Server[]
     organizations Organization[]
+}
+
+model Registry {
+    id            String         @id @default(cuid(2))
+    name          String
+    username      String
+    // Encrypted password
+    password      String
+    organizations Organization[]
+    servers       Server[]
 }
