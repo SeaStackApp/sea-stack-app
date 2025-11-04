@@ -9,7 +9,7 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
     web:
-        image: sloir/seastack
+        image: ghcr.io/seastackapp/seastack:latest
         depends_on:
             - postgres
         ports:
