@@ -1,0 +1,9 @@
+services:
+  web:
+    image: sloir/seastack
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+          - latest
+

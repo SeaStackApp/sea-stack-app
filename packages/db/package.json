@@ -10,7 +10,6 @@
         "prisma/schema.prisma"
     ],
     "scripts": {
-        "postinstall": "prisma generate",
         "generate": "prisma generate",
         "db:push": "prisma db push",
         "migrate:dev": "prisma migrate dev",

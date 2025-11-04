@@ -1,0 +1,20 @@
+# General
+.git
+.gitignore
+node_modules
+.pnpm-store
+pnpm-store
+npm-cache
+yarn.lock
+**/*.log
+**/.env*
+.DS_Store
+
+# Turbo / Next
+**/.next/cache
+**/.turbo
+**/.vercel
+
+# Docker
+Dockerfile*
+!.dockerignore

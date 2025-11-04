@@ -1,0 +1,24 @@
+services:
+    postgres:
+        image: postgres:16-alpine
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+    web:
+        image: sloir/seastack
+        depends_on:
+            - postgres
+        ports:
+            - "3000:3000"
+        environment:
+            DATABASE_URL: "postgresql://postgres:password@localhost:5432/public?schema=public"
+            BETTER_AUTH_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+            BETTER_AUTH_URL: http://localhost:3000
+            ENCRYPTION_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+
+volumes:
+    postgres_data:

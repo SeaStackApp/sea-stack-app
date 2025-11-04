@@ -1,0 +1,78 @@
+# Multi-stage Dockerfile for Next.js (standalone) in a pnpm + turbo monorepo
+# Runtime Node requirement per repo engines: Node >= 24.8.0
+
+# -----------------------
+# 1) Base image with pnpm
+# -----------------------
+FROM node:24-bookworm-slim AS base
+# Enable corepack (manages pnpm)
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+RUN apt-get update -y && apt-get install -y openssl
+WORKDIR /app
+
+# -----------------------
+# 2) Dependencies layer
+#    - install all workspace deps using lockfile
+# -----------------------
+FROM base AS deps
+
+# Only copy files needed to compute dependency graph to leverage Docker cache
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
+# Copy package manifests for workspaces (kept minimal for caching)
+COPY apps/web/package.json ./apps/web/package.json
+COPY packages ./packages
+
+# Install dependencies (workspace-aware)
+# Using frozen-lockfile to ensure reproducible builds
+RUN pnpm install --frozen-lockfile
+
+# -----------------------
+# 3) Build layer
+#    - builds Next.js app with standalone output
+# -----------------------
+FROM deps AS build
+# Ensure full source is available for build
+COPY . .
+
+
+ENV DATABASE_URL=postgres://postgres:password@postgres:5432/postgres
+ENV BETTER_AUTH_SECRET=CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+ENV BETTER_AUTH_URL=http://localhost:3000
+ENV ENCRYPTION_SECRET=CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+
+# Generate Prisma client (in case not covered by postinstall) before app build
+# Safe to run without a live DB connection; it only reads schema
+RUN pnpm --filter @repo/db... generate || pnpm --filter @repo/db generate || true
+
+# Build only the web app (Next.js)
+RUN pnpm --filter web build
+
+# -----------------------
+# 4) Runtime layer
+#    - copy Next.js standalone output only
+# -----------------------
+FROM base AS runner
+ENV NODE_ENV=production
+
+# Optional: create a non-root user for security
+RUN useradd -m nextjs
+
+# Copy the standalone server and required assets from the build stage
+# Next.js standalone places a full minimal Node.js server and node_modules into .next/standalone
+COPY --from=build /app/apps/web/.next/standalone ./
+# Static assets used by the server
+COPY --from=build /app/apps/web/.next/static ./apps/web/.next/static
+# Public assets used at runtime
+COPY --from=build /app/apps/web/public ./apps/web/public
+# Copy prisma schema and migrations
+COPY ./packages/db/prisma ./prisma
+
+# The app listens on PORT (defaults to 3000)
+ENV PORT=3000
+EXPOSE 3000
+
+# Switch to the app directory inside standalone output and run the server
+WORKDIR /app/apps/web
+USER nextjs
+
+CMD ["node", "server.js"]
