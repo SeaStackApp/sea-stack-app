@@ -1,13 +1,8 @@
-import { protectedProcedure, router, t } from '../trpc';
+import { protectedProcedure, router } from '../trpc';
 import { createServerSchema, serverIdSchema } from '@repo/schemas';
 import { execRemoteServerCommand } from '../utils/execRemote';
 import { ee, remoteServerShell } from '../utils/remoteShell';
 import { z } from 'zod';
-import { getSystemInformations } from '../utils/remote-server/system-informations';
-import { getSSHClient } from '../utils/getSSHClient';
-import { TRPCError } from '@trpc/server';
-import { Client } from 'ssh2';
-import { installPackages } from '../utils/remote-server/install-packages';
 import { setupServer } from '../utils/remote-server/setup-server';
 
 export const serversRouter = router({

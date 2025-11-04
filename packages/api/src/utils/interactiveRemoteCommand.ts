@@ -39,6 +39,10 @@ export const remoteExec = (
                     stdout += data.toString();
                 });
 
+                stream.stderr.on('data', (data) => {
+                    stderr += data.toString();
+                });
+
                 stream.on('close', (code: number, _signal: string) => {
                     if (code === 0) {
                         resolve(transform(stdout));

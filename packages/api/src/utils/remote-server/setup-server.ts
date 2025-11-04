@@ -6,8 +6,8 @@ import { installPackages } from './install-packages';
 import { TRPCError } from '@trpc/server';
 import { setupSwarm } from './docker';
 import { remoteExec } from '../interactiveRemoteCommand';
-
-export const MAIN_DIRECTORY = '/etc/seastack';
+import { setupTraefik } from './treafik';
+import { MAIN_DIRECTORY } from './config';
 
 export const createMainDirectory = async (client: Client) => {
     await remoteExec(client, `mkdir -p ${MAIN_DIRECTORY}`);
@@ -26,6 +26,7 @@ export const setupServer = async (
         await createMainDirectory(client);
         await installPackages(client, system);
         await setupSwarm(client);
+        await setupTraefik(client);
     } catch (e: unknown) {
         if (e instanceof TRPCError) throw e;
         console.error(e);
