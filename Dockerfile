@@ -57,6 +57,9 @@ ENV NODE_ENV=production
 # Optional: create a non-root user for security
 RUN useradd -m nextjs
 
+# Install Prisma CLI globally for runtime migrations (use npm for predictable global bin path)
+RUN npm i -g prisma@6.18.0
+
 # Copy the standalone server and required assets from the build stage
 # Next.js standalone places a full minimal Node.js server and node_modules into .next/standalone
 COPY --from=build /app/apps/web/.next/standalone ./
@@ -69,10 +72,13 @@ COPY ./packages/db/prisma ./prisma
 
 # The app listens on PORT (defaults to 3000)
 ENV PORT=3000
+# Path to Prisma schema (copied from packages/db/prisma)
+ENV PRISMA_SCHEMA_PATH=/app/prisma/schema.prisma
 EXPOSE 3000
 
 # Switch to the app directory inside standalone output and run the server
 WORKDIR /app/apps/web
 USER nextjs
 
-CMD ["node", "server.js"]
+# Run database migrations before starting the app
+CMD ["sh", "-c", "prisma migrate deploy --schema $PRISMA_SCHEMA_PATH && node server.js"]
