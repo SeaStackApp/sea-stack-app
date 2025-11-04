@@ -1,9 +1,10 @@
 services:
   web:
-    image: sloir/seastack
+    image: ghcr.io/seastackapp/seastack:latest
     build:
       context: .
       dockerfile: Dockerfile
       tags:
           - latest
+          - v${VERSION?No version specified}
 
