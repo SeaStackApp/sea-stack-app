@@ -14,10 +14,7 @@ export const execRemote = (config: ConnectConfig, command: string) => {
             let stdout = '',
                 stderr = '';
 
-            console.info(command);
-
             conn.on('ready', () => {
-                console.info('ready');
                 conn.exec(command, (err, stream) => {
                     if (err) {
                         throw err;

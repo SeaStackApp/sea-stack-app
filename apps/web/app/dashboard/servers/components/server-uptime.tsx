@@ -16,7 +16,10 @@ export default function ServerUptime({
 
     if (data && data.stdout)
         return (
-            <Badge variant='secondary' className='bg-green-800'>
+            <Badge
+                variant='secondary'
+                className='bg-green-500 dark:bg-green-800'
+            >
                 {data.stdout.split(',')[0]?.split(' ').slice(3).join(' ')}
             </Badge>
         );
