@@ -236,6 +236,7 @@ model SSHKey {
 model Registry {
     id            String         @id @default(cuid(2))
     name          String
+    url           String
     username      String
     // Encrypted password
     password      String

@@ -1,7 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { FolderOpenIcon, KeyIcon, ServerIcon } from 'lucide-react';
+import {
+    ContainerIcon,
+    FolderOpenIcon,
+    KeyIcon,
+    ServerIcon,
+} from 'lucide-react';
 
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -42,6 +47,11 @@ const data = [
                 name: 'SSH Keys',
                 url: '/dashboard/settings/ssh-keys',
                 icon: KeyIcon,
+            },
+            {
+                name: 'Docker registries',
+                url: '/dashboard/settings/registries',
+                icon: ContainerIcon,
             },
         ],
     },
