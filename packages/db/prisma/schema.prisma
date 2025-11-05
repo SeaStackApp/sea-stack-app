@@ -181,7 +181,7 @@ model Passkey {
 }
 
 model Project {
-    id                     String                  @id @default(uuid(7))
+    id                     String                  @id @default(cuid(2))
     name                   String
     description            String?
     deploymentEnvironments DeploymentEnvironment[]
@@ -190,7 +190,7 @@ model Project {
 }
 
 model DeploymentEnvironment {
-    id                   String    @id @default(uuid(7))
+    id                   String    @id @default(cuid(2))
     name                 String    @default("production")
     services             Service[]
     project              Project   @relation(fields: [projectId], references: [id])
@@ -199,7 +199,7 @@ model DeploymentEnvironment {
 }
 
 model Service {
-    id                      String                @id @default(uuid(7))
+    id                      String                @id @default(uuid())
     name                    String
     description             String?
     deploymentEnvironment   DeploymentEnvironment @relation(fields: [deploymentEnvironmentId], references: [id])
