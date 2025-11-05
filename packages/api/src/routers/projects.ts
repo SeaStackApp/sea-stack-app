@@ -1,6 +1,7 @@
 import { protectedProcedure, router } from '../trpc';
 import { createProjectSchema, projectIdSchema } from '@repo/schemas';
-import { deploymentQueue } from '../queues';
+import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
 
 export const projectsRouter = router({
     create: protectedProcedure
@@ -70,10 +71,46 @@ export const projectsRouter = router({
             });
         }),
 
-    test: protectedProcedure.query(async () => {
-        const job = await deploymentQueue.add('dd', {
-            test: 'hello',
-        });
-        console.log('Job added', job.id);
-    }),
+    getEnvironment: protectedProcedure
+        .input(
+            z.object({
+                environmentId: z.string(),
+            })
+        )
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            try {
+                return prisma.deploymentEnvironment.findUniqueOrThrow({
+                    where: {
+                        id: input.environmentId,
+                        project: {
+                            organizations: {
+                                some: {
+                                    id: organizationId,
+                                },
+                            },
+                        },
+                    },
+                    include: {
+                        project: {
+                            omit: {
+                                environmentVariables: true,
+                            },
+                            include: {
+                                deploymentEnvironments: {
+                                    omit: {
+                                        environmentVariables: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                });
+            } catch (e) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message:
+                        'Could not find the deployment environment in the organization',
+                });
+            }
+        }),
 });
