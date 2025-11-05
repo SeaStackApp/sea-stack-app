@@ -1,5 +1,6 @@
 import { protectedProcedure, router } from '../trpc';
 import { createProjectSchema, projectIdSchema } from '@repo/schemas';
+import { deploymentQueue } from '../queues';
 
 export const projectsRouter = router({
     create: protectedProcedure
@@ -68,4 +69,11 @@ export const projectsRouter = router({
                 },
             });
         }),
+
+    test: protectedProcedure.query(async () => {
+        const job = await deploymentQueue.add('dd', {
+            test: 'hello',
+        });
+        console.log('Job added', job.id);
+    }),
 });
