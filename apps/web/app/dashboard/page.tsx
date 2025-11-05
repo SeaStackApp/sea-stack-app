@@ -1,3 +1,5 @@
+import DashboardPage from '@/components/dashboard-page';
+
 export default function Page() {
-    return null;
+    return <DashboardPage>{null}</DashboardPage>;
 }
