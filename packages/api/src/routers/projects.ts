@@ -44,7 +44,19 @@ export const projectsRouter = router({
 
     delete: protectedProcedure
         .input(projectIdSchema)
-        .query(({ ctx: { prisma, organizationId }, input }) => {
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            await prisma.deploymentEnvironment.deleteMany({
+                where: {
+                    project: {
+                        id: input.projectId,
+                        organizations: {
+                            some: {
+                                id: organizationId,
+                            },
+                        },
+                    },
+                },
+            });
             return prisma.project.delete({
                 where: {
                     id: input.projectId,
