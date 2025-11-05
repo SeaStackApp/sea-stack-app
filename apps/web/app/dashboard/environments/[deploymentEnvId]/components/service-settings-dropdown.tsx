@@ -24,6 +24,14 @@ import { toast } from 'sonner';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
 
+/**
+ * Renders a settings dropdown for a service that includes a destructive "Delete service" action and a confirmation dialog.
+ *
+ * The confirmation dialog warns that deleting the service will also remove associated tasks and containers. Confirming shows an error toast with message "Not implemented yet", invalidates the `listServices` query cache, and closes the dialog.
+ *
+ * @param service - The service item (an element from `appRouter.services.listServices`) that the menu and dialog act upon; its `name` is shown in the confirmation description.
+ * @returns The dropdown menu trigger and content plus the alert dialog UI for confirming service deletion.
+ */
 export default function ServiceSettingsDropdown({
     service,
 }: Readonly<{

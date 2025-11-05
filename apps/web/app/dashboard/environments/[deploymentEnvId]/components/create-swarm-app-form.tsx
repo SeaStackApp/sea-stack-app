@@ -28,6 +28,13 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 
+/**
+ * Renders a form for creating a Docker Swarm service with fields for name, description, deployment server, and image.
+ *
+ * @param onCreate - Optional callback invoked after a successful creation.
+ * @param environmentId - Environment identifier used as the default environment for the new service.
+ * @returns The rendered form element for creating a swarm service.
+ */
 export default function CreateSwarmAppForm({
     onCreate,
     environmentId,

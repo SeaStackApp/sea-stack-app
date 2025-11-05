@@ -16,6 +16,17 @@ import { CreateService } from '@/app/dashboard/environments/[deploymentEnvId]/co
 import { useRouter } from 'next/navigation';
 import ServiceSettingsDropdown from '@/app/dashboard/environments/[deploymentEnvId]/components/service-settings-dropdown';
 
+/**
+ * Render the services page for a deployment environment.
+ *
+ * Displays a loading spinner while environment or services data are unavailable, then renders
+ * breadcrumbs, the environment title and badge, a create-service control, and a grid of service
+ * cards (each card navigates to the service detail; the card action contains a settings dropdown
+ * whose clicks do not trigger navigation).
+ *
+ * @param deploymentEnvId - The id of the deployment environment to scope service and environment data
+ * @returns A JSX element that renders the environment's services page
+ */
 export default function EnvServicesPage({
     deploymentEnvId,
 }: {
