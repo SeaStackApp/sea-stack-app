@@ -63,10 +63,6 @@ export default function CreateSwarmAppForm({
 
     if (!servers) return <PaddedSpinner />;
 
-    if (!servers) return <PaddedSpinner />;
-
-    return (
-
     return (
         <Form {...form}>
             <form
