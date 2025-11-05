@@ -53,7 +53,7 @@ export default function ProjectSettingsDropdown({
                         {project.deploymentEnvironments.map((env) => (
                             <DropdownMenuItem asChild={true} key={env.id}>
                                 <Link
-                                    href={`/dashboard/projects/${projectId}/environments/${env.id}`}
+                                    href={`/dashboard/environments/${env.id}`}
                                 >
                                     {env.name}
                                 </Link>
