@@ -55,7 +55,7 @@ export default function EnvServicesPage({
                     {env.project.name}{' '}
                     <Badge className='align-middle ml-2'>{env.name}</Badge>
                 </PageTitle>
-                <CreateService envirommentId={deploymentEnvId} />
+                <CreateService environmentId={deploymentEnvId} />
             </div>
 
             <div className='grid grid-cols-4 my-6 gap-2'>

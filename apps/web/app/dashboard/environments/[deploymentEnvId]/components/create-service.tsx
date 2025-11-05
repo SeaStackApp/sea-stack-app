@@ -17,9 +17,9 @@ import * as React from 'react';
 import CreateSwarmAppForm from '@/app/dashboard/environments/[deploymentEnvId]/components/create-swarm-app-form';
 
 export const CreateService = ({
-    envirommentId,
+    environmentId,
 }: Readonly<{
-    envirommentId: string;
+    environmentId: string;
 }>) => {
     const [showSwarmAppModal, setShowSwarmAppModal] = useState(false);
     return (
@@ -50,7 +50,7 @@ export const CreateService = ({
                             Create a swarm application from a docker image.
                         </DialogDescription>
                         <CreateSwarmAppForm
-                            environmentId={envirommentId}
+                            environmentId={environmentId}
                             onCreate={() => setShowSwarmAppModal(false)}
                         />
                     </DialogHeader>
