@@ -7,3 +7,7 @@ export const createSwarmServiceSchema = z.object({
     serverId: z.string(),
     environmentId: z.string(),
 });
+
+export const serviceIdSchema = z.object({
+    serviceId: z.string(),
+});
