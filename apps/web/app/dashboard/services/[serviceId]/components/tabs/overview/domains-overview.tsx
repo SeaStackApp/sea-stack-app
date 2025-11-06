@@ -22,7 +22,7 @@ export default function DomainsOverview() {
                             No domains added to this service.
                         </EmptyTitle>
                         <EmptyDescription>
-                            Add a domains to make your service accessible.
+                            Add domains to make your service accessible.
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>
