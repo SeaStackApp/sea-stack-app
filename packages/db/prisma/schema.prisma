@@ -207,6 +207,14 @@ model Service {
     environmentVariables    String                @default("")
     server                  Server                @relation(fields: [serverId], references: [id])
     serverId                String
+    swarmService            SwarmService?
+}
+
+model SwarmService {
+    id       String  @id
+    service  Service @relation(fields: [id], references: [id])
+    image    String
+    replicas Int?
 }
 
 model Server {

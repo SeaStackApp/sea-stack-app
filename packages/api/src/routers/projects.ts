@@ -1,5 +1,7 @@
 import { protectedProcedure, router } from '../trpc';
 import { createProjectSchema, projectIdSchema } from '@repo/schemas';
+import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
 
 export const projectsRouter = router({
     create: protectedProcedure
@@ -67,5 +69,47 @@ export const projectsRouter = router({
                     },
                 },
             });
+        }),
+
+    getEnvironment: protectedProcedure
+        .input(
+            z.object({
+                environmentId: z.string(),
+            })
+        )
+        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+            const env = await prisma.deploymentEnvironment.findUnique({
+                where: {
+                    id: input.environmentId,
+                    project: {
+                        organizations: {
+                            some: {
+                                id: organizationId,
+                            },
+                        },
+                    },
+                },
+                include: {
+                    project: {
+                        omit: {
+                            environmentVariables: true,
+                        },
+                        include: {
+                            deploymentEnvironments: {
+                                omit: {
+                                    environmentVariables: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+            if (!env)
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message:
+                        'Could not find the requested environment in the organization',
+                });
+            return env;
         }),
 });

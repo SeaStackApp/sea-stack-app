@@ -1,5 +1,5 @@
 import DashboardPage from '@/components/dashboard-page';
-import EnvAppsPage from '@/app/dashboard/environments/[deploymentEnvId]/components/EnvAppsPage';
+import EnvServicesPage from '@/app/dashboard/environments/[deploymentEnvId]/components/env-services-page';
 
 export default async function EnvironmentApplicationListPage({
     params,
@@ -10,7 +10,7 @@ export default async function EnvironmentApplicationListPage({
 }>) {
     return (
         <DashboardPage>
-            <EnvAppsPage deploymentEnvId={(await params).deploymentEnvId} />
+            <EnvServicesPage deploymentEnvId={(await params).deploymentEnvId} />
         </DashboardPage>
     );
 }

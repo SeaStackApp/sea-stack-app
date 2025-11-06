@@ -11,13 +11,7 @@ import React from 'react';
 
 export default function AppBreadcrumbs() {
     const { breadcrumbs } = useAppPageContext();
-    const components = [
-        {
-            title: 'Home',
-            url: '/',
-        },
-        ...breadcrumbs,
-    ].map((bc) => (
+    const components = breadcrumbs.map((bc) => (
         <BreadcrumbItem>
             <BreadcrumbLink href={bc.url}>{bc.title}</BreadcrumbLink>
         </BreadcrumbItem>
