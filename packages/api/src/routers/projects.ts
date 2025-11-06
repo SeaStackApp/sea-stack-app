@@ -78,39 +78,38 @@ export const projectsRouter = router({
             })
         )
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
-            try {
-                return prisma.deploymentEnvironment.findUniqueOrThrow({
-                    where: {
-                        id: input.environmentId,
-                        project: {
-                            organizations: {
-                                some: {
-                                    id: organizationId,
+            const env = prisma.deploymentEnvironment.findUnique({
+                where: {
+                    id: input.environmentId,
+                    project: {
+                        organizations: {
+                            some: {
+                                id: organizationId,
+                            },
+                        },
+                    },
+                },
+                include: {
+                    project: {
+                        omit: {
+                            environmentVariables: true,
+                        },
+                        include: {
+                            deploymentEnvironments: {
+                                omit: {
+                                    environmentVariables: true,
                                 },
                             },
                         },
                     },
-                    include: {
-                        project: {
-                            omit: {
-                                environmentVariables: true,
-                            },
-                            include: {
-                                deploymentEnvironments: {
-                                    omit: {
-                                        environmentVariables: true,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                });
-            } catch (e) {
+                },
+            });
+            if (!env)
                 throw new TRPCError({
                     code: 'NOT_FOUND',
                     message:
-                        'Could not find the deployment environment in the organization',
+                        'Could not find the requested environment in the organisation',
                 });
-            }
+            return env;
         }),
 });
