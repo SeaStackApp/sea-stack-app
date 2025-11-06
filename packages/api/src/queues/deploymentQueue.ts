@@ -9,6 +9,6 @@ export const deploymentQueue = new Queue<DeploymentJob>(queueName, {
     connection: redis,
 });
 
-new Worker<DeploymentJob>(queueName, async (job) => {}, {
+new Worker<DeploymentJob>(queueName, async () => {}, {
     connection: redis,
 });
