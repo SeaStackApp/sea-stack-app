@@ -108,7 +108,7 @@ export const projectsRouter = router({
                 throw new TRPCError({
                     code: 'NOT_FOUND',
                     message:
-                        'Could not find the requested environment in the organisation',
+                        'Could not find the requested environment in the organization',
                 });
             return env;
         }),
