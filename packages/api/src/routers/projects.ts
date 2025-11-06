@@ -78,7 +78,7 @@ export const projectsRouter = router({
             })
         )
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
-            const env = prisma.deploymentEnvironment.findUnique({
+            const env = await prisma.deploymentEnvironment.findUnique({
                 where: {
                     id: input.environmentId,
                     project: {
