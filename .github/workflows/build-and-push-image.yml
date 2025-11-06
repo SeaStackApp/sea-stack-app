@@ -29,25 +29,26 @@ jobs:
       - name: Get previous version
         id: get_prev_version
         run: |
-          git checkout HEAD^1 -- apps/web/package.json 2>/dev/null || \
-            echo "No previous version"
-          PREV_VERSION=$(jq -r '.version' apps/web/package.json 2>/dev/null || \
-            echo "none")
+          if git checkout HEAD^1 -- apps/web/package.json 2>/dev/null; then
+            PREV_VERSION=$(jq -r '.version' apps/web/package.json)
+            git checkout HEAD -- apps/web/package.json
+          else
+            PREV_VERSION="none"
+          fi
           echo "prev_version=$PREV_VERSION" >> $GITHUB_OUTPUT
           echo "Previous version: $PREV_VERSION"
-          git checkout HEAD -- apps/web/package.json
 
       - name: Check if version changed
         id: check
         run: |
           CURRENT="${{ steps.get_version.outputs.version }}"
           PREVIOUS="${{ steps.get_prev_version.outputs.prev_version }}"
-          if [ "$CURRENT" != "$PREVIOUS" ] && [ "$PREVIOUS" != "none" ]; then
+          if [ "$CURRENT" != "$PREVIOUS" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Version changed from $PREVIOUS to $CURRENT"
           else
             echo "changed=false" >> $GITHUB_OUTPUT
-            echo "Version did not change or no previous version found"
+            echo "Version did not change"
           fi
 
   build-and-push:
@@ -71,13 +72,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract version from package.json
-        id: package_version
-        run: |
-          VERSION=$(jq -r '.version' apps/web/package.json)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Building version: $VERSION"
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -85,6 +79,6 @@ jobs:
           push: true
           tags: |
             ghcr.io/seastackapp/seastack:latest
-            ghcr.io/seastackapp/seastack:${{ steps.package_version.outputs.version }}
+            ghcr.io/seastackapp/seastack:${{ needs.check-version-change.outputs.new_version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
