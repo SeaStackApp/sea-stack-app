@@ -11,13 +11,14 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import ProjectSettingsDropdown from '@/app/dashboard/projects/components/project-settings-dropdown';
+import CardsGrid from '@/components/cards-grid';
 
 export default function ProjectList() {
     const trpc = useTRPC();
     const projectListQuery = useQuery(trpc.projects.list.queryOptions());
     if (!projectListQuery.data) return <PaddedSpinner />;
     return (
-        <div className='grid grid-cols-4 my-6 gap-2'>
+        <CardsGrid>
             {projectListQuery.data.map((project) => (
                 <Card key={project.id}>
                     <CardHeader>
@@ -33,6 +34,6 @@ export default function ProjectList() {
                     </CardHeader>
                 </Card>
             ))}
-        </div>
+        </CardsGrid>
     );
 }

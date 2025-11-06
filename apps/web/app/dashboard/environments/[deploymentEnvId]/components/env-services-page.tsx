@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import { CreateService } from '@/app/dashboard/environments/[deploymentEnvId]/components/create-service';
 import { useRouter } from 'next/navigation';
 import ServiceSettingsDropdown from '@/app/dashboard/environments/[deploymentEnvId]/components/service-settings-dropdown';
+import CardsGrid from '@/components/cards-grid';
 
 export default function EnvServicesPage({
     deploymentEnvId,
@@ -58,7 +59,7 @@ export default function EnvServicesPage({
                 <CreateService environmentId={deploymentEnvId} />
             </div>
 
-            <div className='grid grid-cols-4 my-6 gap-2'>
+            <CardsGrid>
                 {services.map((service) => (
                     <Card
                         key={service.id}
@@ -80,7 +81,7 @@ export default function EnvServicesPage({
                         </CardHeader>
                     </Card>
                 ))}
-            </div>
+            </CardsGrid>
         </>
     );
 }

@@ -26,6 +26,7 @@ import { toast } from 'sonner';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
 import Link from 'next/link';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 export default function ProjectSettingsDropdown({
     project,
@@ -37,11 +38,19 @@ export default function ProjectSettingsDropdown({
     const trpcClient = useTRPCClient();
     const queryClient = useQueryClient();
     const trpc = useTRPC();
+    const defaultEnv = project.deploymentEnvironments[0];
     return (
-        <>
+        <ButtonGroup>
+            {defaultEnv && (
+                <Button asChild={true} variant='secondary'>
+                    <Link href={`/dashboard/environments/${defaultEnv.id}`}>
+                        {defaultEnv.name}
+                    </Link>
+                </Button>
+            )}
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant='ghost'>
+                    <Button variant='secondary'>
                         <MoreHorizontalIcon />
                     </Button>
                 </DropdownMenuTrigger>
@@ -103,6 +112,6 @@ export default function ProjectSettingsDropdown({
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </>
+        </ButtonGroup>
     );
 }
