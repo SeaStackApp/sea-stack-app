@@ -208,6 +208,7 @@ model Service {
     server                  Server                @relation(fields: [serverId], references: [id])
     serverId                String
     swarmService            SwarmService?
+    domains                 Domain[]
 }
 
 model SwarmService {
@@ -215,6 +216,16 @@ model SwarmService {
     service  Service @relation(fields: [id], references: [id])
     image    String
     replicas Int?
+}
+
+model Domain {
+    id                String  @id @default(uuid())
+    domain            String
+    internalPort      Int
+    internalContainer String?
+    https             Boolean
+    service           Service @relation(fields: [serviceId], references: [id])
+    serviceId         String
 }
 
 model Server {

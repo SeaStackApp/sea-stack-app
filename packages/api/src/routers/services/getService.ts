@@ -31,6 +31,7 @@ export const getService = protectedProcedure
                         },
                     },
                 },
+                domains: true,
             },
         });
     });
