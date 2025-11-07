@@ -2,8 +2,13 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import DomainsOverview from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domains-overview';
 import { RedirectsOverview } from '@/app/dashboard/services/[serviceId]/components/tabs/overview/redirects-overview';
+import { Service } from '@/app/dashboard/services/[serviceId]/Service';
 
-export default function OverviewTab() {
+export default function OverviewTab({
+    service,
+}: Readonly<{
+    service: Service;
+}>) {
     return (
         <TabsContent value='overview' className='mt-2 space-y-4'>
             <Card>
@@ -12,7 +17,7 @@ export default function OverviewTab() {
                 </CardHeader>
             </Card>
 
-            <DomainsOverview />
+            <DomainsOverview service={service} />
             <RedirectsOverview />
         </TabsContent>
     );

@@ -69,7 +69,7 @@ export default function ServicePage({
                     <TabsTrigger value='backups'>Backups</TabsTrigger>
                     <TabsTrigger value='advanced'>Advanced</TabsTrigger>
                 </TabsList>
-                <OverviewTab />
+                <OverviewTab service={service} />
                 {['logs', 'terminal', 'deployments', 'backups', 'advanced'].map(
                     (x) => (
                         <TodoTab value={x} key={x} />
