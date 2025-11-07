@@ -1,8 +1,9 @@
 import { TabsContent } from '@/components/ui/tabs';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardAction, CardHeader, CardTitle } from '@/components/ui/card';
 import DomainsOverview from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domains-overview';
 import { RedirectsOverview } from '@/app/dashboard/services/[serviceId]/components/tabs/overview/redirects-overview';
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
+import { Badge } from '@/components/ui/badge';
 
 export default function OverviewTab({
     service,
@@ -14,6 +15,9 @@ export default function OverviewTab({
             <Card>
                 <CardHeader>
                     <CardTitle>Overview</CardTitle>
+                    <CardAction>
+                        <Badge variant='secondary'>{service.server.name}</Badge>
+                    </CardAction>
                 </CardHeader>
             </Card>
 
