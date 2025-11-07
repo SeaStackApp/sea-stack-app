@@ -50,7 +50,7 @@ export default function CreateDomainForm({
             onCreate?.();
         } catch (error) {
             console.error(error);
-            toast.error('Unable to create registry');
+            toast.error('Unable to create domain');
         }
     }
 
