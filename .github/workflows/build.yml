@@ -45,6 +45,8 @@ jobs:
       - name: Build web app
         run: pnpm --filter web build
         env:
+          # CI-only placeholder values for build testing
+          # These are not real credentials and are safe for public repositories
           DATABASE_URL: postgresql://user:password@localhost:5432/test
           REDIS_HOST: localhost
           REDIS_PORT: 6379
