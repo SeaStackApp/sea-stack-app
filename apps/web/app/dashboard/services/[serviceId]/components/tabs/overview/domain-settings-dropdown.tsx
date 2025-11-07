@@ -71,18 +71,24 @@ export default function DomainSettingsDropdown({
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={async () => {
-                                await trpcClient.domains.delete.query({
-                                    domainId,
-                                });
-                                await queryClient.invalidateQueries({
-                                    queryKey: trpc.services.getService.queryKey(
-                                        {
-                                            serviceId: domain.serviceId,
-                                        }
-                                    ),
-                                });
-                                setShowDeleteModal(false);
-                                toast.success('Domain deleted successfully.');
+                                try {
+                                    await trpcClient.domains.delete.mutate({
+                                        domainId,
+                                    });
+                                    await queryClient.invalidateQueries({
+                                        queryKey:
+                                            trpc.services.getService.queryKey({
+                                                serviceId: domain.serviceId,
+                                            }),
+                                    });
+                                    setShowDeleteModal(false);
+                                    toast.success(
+                                        'Domain deleted successfully.'
+                                    );
+                                } catch (error) {
+                                    console.error(error);
+                                    toast.error('Unable to delete domain.');
+                                }
                             }}
                         >
                             Continue
