@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4.1.0
         with:
-          node-version: '20'
+          node-version: '24.8.0'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4.0.0
@@ -31,7 +31,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4.1.2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -47,8 +47,9 @@ jobs:
       - name: Build web app
         run: pnpm --filter web build
         env:
-          # CI-only placeholder values for build testing
-          # These are not real credentials and are safe for public repositories
+          # CI-only placeholder values for build testing.
+          # These values are only used to satisfy build-time validation in CI and are not used for runtime operations or actual connections.
+          # They are not real credentials and are safe for public repositories.
           DATABASE_URL: postgresql://user:password@localhost:5432/test
           REDIS_HOST: localhost
           REDIS_PORT: 6379
