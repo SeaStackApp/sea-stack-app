@@ -22,6 +22,10 @@ import { MoreHorizontalIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ButtonGroup } from '@/components/ui/button-group';
 import type { Service } from '@/app/dashboard/services/[serviceId]/Service';
+import { useTRPC, useTRPCClient } from '@/lib/trpc';
+import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export default function ServiceSettingsDropdown({
     service,
@@ -29,6 +33,10 @@ export default function ServiceSettingsDropdown({
     service: Service;
 }>) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const trpcClient = useTRPCClient();
+    const queryClient = useQueryClient();
+    const trpc = useTRPC();
+    const router = useRouter();
 
     return (
         <ButtonGroup>
@@ -73,7 +81,33 @@ export default function ServiceSettingsDropdown({
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction>Continue</AlertDialogAction>
+                        <AlertDialogAction
+                            onClick={async () => {
+                                try {
+                                    await trpcClient.services.deleteService.mutate(
+                                        {
+                                            serviceId: service.id,
+                                        }
+                                    );
+                                    await queryClient.invalidateQueries({
+                                        queryKey:
+                                            trpc.services.listServices.queryKey(),
+                                    });
+                                    setShowDeleteModal(false);
+                                    toast.success(
+                                        'Service deleted successfully.'
+                                    );
+                                    router.push('/dashboard');
+                                } catch (error) {
+                                    console.error(error);
+                                    toast.error(
+                                        'Unable to delete service. Please try again later.'
+                                    );
+                                }
+                            }}
+                        >
+                            Continue
+                        </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>

@@ -18,11 +18,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { MoreHorizontalIcon } from 'lucide-react';
 import { useState } from 'react';
-import { useTRPC } from '@/lib/trpc';
+import { useTRPC, useTRPCClient } from '@/lib/trpc';
 import { useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
+import { toast } from 'sonner';
 
 export default function ServiceSettingsDropdown({
     service,
@@ -34,6 +34,7 @@ export default function ServiceSettingsDropdown({
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const queryClient = useQueryClient();
     const trpc = useTRPC();
+    const trpcClient = useTRPCClient();
     return (
         <>
             <DropdownMenu>
@@ -73,12 +74,26 @@ export default function ServiceSettingsDropdown({
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={async () => {
-                                toast.error('Not implemented yet');
-                                await queryClient.invalidateQueries({
-                                    queryKey:
-                                        trpc.services.listServices.queryKey(),
-                                });
-                                setShowDeleteModal(false);
+                                try {
+                                    await trpcClient.services.deleteService.mutate(
+                                        {
+                                            serviceId: service.id,
+                                        }
+                                    );
+                                    await queryClient.invalidateQueries({
+                                        queryKey:
+                                            trpc.services.listServices.queryKey(),
+                                    });
+                                    setShowDeleteModal(false);
+                                    toast.success(
+                                        'Service deleted successfully.'
+                                    );
+                                } catch (error) {
+                                    console.error(error);
+                                    toast.error(
+                                        'Unable to delete service. Please try again later.'
+                                    );
+                                }
                             }}
                         >
                             Continue
