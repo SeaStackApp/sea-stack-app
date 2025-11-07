@@ -31,6 +31,7 @@ export default function CreateDomainForm({
         resolver: zodResolver(createDomainSchema),
         defaultValues: {
             serviceId: service.id,
+            https: false,
         },
     });
     const trpc = useTRPCClient();
