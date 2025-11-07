@@ -84,7 +84,11 @@ export default function CreateDomainForm({
                                 <Input
                                     value={field.value}
                                     onChange={(e) =>
-                                        field.onChange(+e.target.value)
+                                        field.onChange(
+                                            e.target.value === '' 
+                                                ? undefined 
+                                                : parseInt(e.target.value, 10)
+                                        )
                                     }
                                     type='number'
                                 />
