@@ -5,6 +5,7 @@ import PaddedSpinner from '@/components/padded-spinner';
 import {
     Card,
     CardAction,
+    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
@@ -79,6 +80,9 @@ export default function EnvServicesPage({
                                 <ServiceSettingsDropdown service={service} />
                             </CardAction>
                         </CardHeader>
+                        <CardContent className='flex justify-end'>
+                            <Badge>{service.server.name}</Badge>
+                        </CardContent>
                     </Card>
                 ))}
             </CardsGrid>

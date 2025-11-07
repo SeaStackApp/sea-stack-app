@@ -24,6 +24,7 @@ export const listServices = protectedProcedure
             },
             include: {
                 swarmService: true,
+                server: true,
             },
         });
     });
