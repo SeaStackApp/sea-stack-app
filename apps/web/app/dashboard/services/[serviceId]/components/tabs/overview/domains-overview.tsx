@@ -14,12 +14,7 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from '@/components/ui/empty';
-import {
-    GlobeIcon,
-    MoreVerticalIcon,
-    ShieldCheckIcon,
-    ShieldOffIcon,
-} from 'lucide-react';
+import { GlobeIcon, ShieldCheckIcon, ShieldOffIcon } from 'lucide-react';
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
 import AddDomainButton from '@/app/dashboard/services/[serviceId]/components/tabs/overview/add-domain-button';
 import {
@@ -31,7 +26,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+import DomainSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domain-settings-dropdown';
 
 export default function DomainsOverview({
     service,
@@ -101,9 +96,9 @@ export default function DomainsOverview({
                                             )}
                                         </TableCell>
                                         <TableCell className='text-right'>
-                                            <Button variant='ghost'>
-                                                <MoreVerticalIcon />
-                                            </Button>
+                                            <DomainSettingsDropdown
+                                                domain={domain}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))}

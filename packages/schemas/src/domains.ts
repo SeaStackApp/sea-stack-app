@@ -22,3 +22,7 @@ export const createDomainSchema = serviceIdSchema.extend({
     internalContainer: z.string().optional(),
     https: z.boolean(),
 });
+
+export const domainIdSchema = z.object({
+    domainId: z.string(),
+});

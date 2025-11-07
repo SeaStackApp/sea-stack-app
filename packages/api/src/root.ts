@@ -5,6 +5,7 @@ import { serversRouter } from './routers/servers';
 import { registriesRouter } from './routers/registries';
 import { projectsRouter } from './routers/projects';
 import { servicesRouter } from './routers/services';
+import { domainsRouter } from './routers/domains';
 
 export const appRouter = router({
     health: healthRouter,
@@ -13,6 +14,7 @@ export const appRouter = router({
     registries: registriesRouter,
     projects: projectsRouter,
     services: servicesRouter,
+    domains: domainsRouter,
 });
 
 export type AppRouter = typeof appRouter;
