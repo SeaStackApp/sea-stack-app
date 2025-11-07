@@ -127,7 +127,7 @@ export default function CreateDomainForm({
                     }}
                 />
 
-                <Button type='submit'>Add Registry</Button>
+                <Button type='submit'>Add Domain</Button>
             </form>
         </Form>
     );
