@@ -85,6 +85,9 @@ export default function ServiceSettingsDropdown({
                                             trpc.services.listServices.queryKey(),
                                     });
                                     setShowDeleteModal(false);
+                                    toast.success(
+                                        'Service deleted successfully.'
+                                    );
                                 } catch (error) {
                                     console.error(error);
                                     toast.error(
