@@ -19,6 +19,7 @@ export const getService = protectedProcedure
             },
             include: {
                 swarmService: true,
+                server: true,
                 deploymentEnvironment: {
                     omit: {
                         environmentVariables: true,
