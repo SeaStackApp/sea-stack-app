@@ -5,7 +5,7 @@ import { checkDomainExistsInOrganization } from '../utils/checks/checkDomainExis
 export const domainsRouter = router({
     delete: protectedProcedure
         .input(domainIdSchema)
-        .query(async ({ ctx: { prisma, organizationId }, input }) => {
+        .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
             await checkDomainExistsInOrganization(
                 prisma,
                 input.domainId,
