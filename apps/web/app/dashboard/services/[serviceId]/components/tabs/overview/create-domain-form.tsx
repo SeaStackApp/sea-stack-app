@@ -85,8 +85,8 @@ export default function CreateDomainForm({
                                     value={field.value}
                                     onChange={(e) =>
                                         field.onChange(
-                                            e.target.value === '' 
-                                                ? undefined 
+                                            e.target.value === ''
+                                                ? undefined
                                                 : parseInt(e.target.value, 10)
                                         )
                                     }
@@ -108,14 +108,13 @@ export default function CreateDomainForm({
                     name='https'
                     render={({ field }) => {
                         return (
-                            <Label className='hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950'>
+                            <Label className='hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-primary has-[[aria-checked=true]]:bg-secondary '>
                                 <Checkbox
-                                    id='toggle-2'
                                     checked={field.value}
                                     onCheckedChange={(checked) =>
                                         field.onChange(checked)
                                     }
-                                    className='data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700'
+                                    className='data-[state=checked]:border-accent data-[state=checked]:bg-primary data-[state=checked]:text-accent '
                                 />
                                 <div className='grid gap-1.5 font-normal'>
                                     <p className='text-sm leading-none font-medium'>
