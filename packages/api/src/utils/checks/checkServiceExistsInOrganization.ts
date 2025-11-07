@@ -9,6 +9,7 @@ export const checkServiceExistsInOrganization = async (
     if (
         !(await prisma.service.findFirst({
             where: {
+                id: serviceId,
                 deploymentEnvironment: {
                     project: {
                         organizations: {
