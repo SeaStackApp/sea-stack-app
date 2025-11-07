@@ -18,7 +18,7 @@ export const traefikHostSchema = z
 
 export const createDomainSchema = serviceIdSchema.extend({
     domain: traefikHostSchema,
-    internalPort: z.number(),
+    internalPort: z.number().int().min(1).max(65535),
     internalContainer: z.string().optional(),
     https: z.boolean(),
 });
