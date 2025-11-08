@@ -241,6 +241,7 @@ model Server {
 
     organizations Organization[]
     registries    Registry[]
+    networks      Network[]
 }
 
 model SSHKey {
@@ -262,4 +263,17 @@ model Registry {
     password      String
     organizations Organization[]
     servers       Server[]
+}
+
+model Network {
+    id         String  @id @default(cuid(2))
+    name       String
+    driver     String  @default("overlay")
+    subnet     String?
+    gateway    String?
+    attachable Boolean @default(false)
+    labels     Json?
+    options    Json?
+
+    servers Server[]
 }
