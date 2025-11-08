@@ -7,7 +7,7 @@ describe('tRPC procedures', () => {
     describe('protectedProcedure', () => {
         it('should throw UNAUTHORIZED when user is not authenticated', async () => {
             const ctx = createMockContext();
-            
+
             // Create a test procedure
             const testProcedure = protectedProcedure.query(() => {
                 return { success: true };
@@ -20,6 +20,7 @@ describe('tRPC procedures', () => {
                     getRawInput: async () => undefined,
                     path: 'test',
                     type: 'query',
+                    signal: undefined,
                 })
             ).rejects.toThrow(TRPCError);
 
@@ -29,6 +30,7 @@ describe('tRPC procedures', () => {
                     getRawInput: async () => undefined,
                     path: 'test',
                     type: 'query',
+                    signal: undefined,
                 })
             ).rejects.toMatchObject({
                 code: 'UNAUTHORIZED',
@@ -56,6 +58,7 @@ describe('tRPC procedures', () => {
                     getRawInput: async () => undefined,
                     path: 'test',
                     type: 'query',
+                    signal: undefined,
                 })
             ).rejects.toThrow(TRPCError);
 
@@ -65,6 +68,7 @@ describe('tRPC procedures', () => {
                     getRawInput: async () => undefined,
                     path: 'test',
                     type: 'query',
+                    signal: undefined,
                 })
             ).rejects.toMatchObject({
                 code: 'UNAUTHORIZED',
@@ -85,6 +89,7 @@ describe('tRPC procedures', () => {
                 getRawInput: async () => undefined,
                 path: 'test',
                 type: 'query',
+                signal: undefined,
             });
 
             expect(result).toEqual({ success: true });

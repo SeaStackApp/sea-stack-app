@@ -1,12 +1,4 @@
-import type { AnyRouter } from '@trpc/server';
-import type { Context } from '../../context';
+import { t } from '../../trpc';
+import { appRouter } from '../../root';
 
-/**
- * Create a caller for testing tRPC procedures
- */
-export function createCaller<TRouter extends AnyRouter>(
-    router: TRouter,
-    ctx: Context
-) {
-    return router.createCaller(ctx);
-}
+export const createCaller = t.createCallerFactory(appRouter);
