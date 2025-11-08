@@ -245,6 +245,9 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@jest/globals':
+        specifier: ^30.2.0
+        version: 30.2.0
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
