@@ -10,7 +10,10 @@
     ],
     "scripts": {
         "build": "tsc -p tsconfig.json",
-        "check-types": "tsc -p tsconfig.json --noEmit"
+        "check-types": "tsc -p tsconfig.json --noEmit",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+        "test:watch": "NODE_OPTIONS='--experimental-vm-modules' jest --watch",
+        "test:coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage"
     },
     "dependencies": {
         "@repo/auth": "workspace:*",
@@ -27,7 +30,11 @@
     },
     "devDependencies": {
         "@repo/typescript-config": "workspace:*",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@types/jest": "^30.0.0",
         "@types/node": "^22.15.3",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.5",
         "typescript": "5.9.2"
     }
 }

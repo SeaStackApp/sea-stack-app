@@ -4,11 +4,14 @@
         "outDir": "dist",
         "rootDir": "src",
         "declaration": true,
-        "composite": true,
         "tsBuildInfoFile": "dist/.tsbuildinfo",
-        "moduleResolution": "Bundler"
+        "composite": false,
+        "incremental": true
     },
     "include": [
         "src"
+    ],
+    "exclude": [
+        "src/**/__tests__/**"
     ]
 }
