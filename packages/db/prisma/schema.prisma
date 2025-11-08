@@ -209,6 +209,7 @@ model Service {
     serverId                String
     swarmService            SwarmService?
     domains                 Domain[]
+    networks                Network[]
 }
 
 model SwarmService {
@@ -262,4 +263,18 @@ model Registry {
     password      String
     organizations Organization[]
     servers       Server[]
+}
+
+model Network {
+    id         String  @id @default(cuid(2))
+    name       String
+    driver     String  @default("overlay")
+    subnet     String?
+    gateway    String?
+    attachable Boolean @default(false)
+    labels     Json?
+    options    Json?
+
+    attachToReverseProxy Boolean   @default(false)
+    services             Service[]
 }
