@@ -1,10 +1,12 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
+import { Prisma } from '@repo/db';
+import { TRPCError } from '@trpc/server';
 
 export const getService = protectedProcedure
     .input(serviceIdSchema)
     .query(async ({ ctx, input }) => {
-        return ctx.prisma.service.findUnique({
+        const service = await ctx.prisma.service.findUnique({
             where: {
                 id: input.serviceId,
                 deploymentEnvironment: {
@@ -33,6 +35,17 @@ export const getService = protectedProcedure
                     },
                 },
                 domains: true,
+                networks: {
+                    omit: {
+                        labels: true,
+                        options: true,
+                    },
+                },
             },
         });
+        if (!service)
+            throw new TRPCError({
+                code: 'NOT_FOUND',
+            });
+        return service;
     });

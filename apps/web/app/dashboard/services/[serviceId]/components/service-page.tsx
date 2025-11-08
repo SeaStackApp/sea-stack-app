@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ServiceSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/service-settings-dropdown';
 import TodoTab from '@/app/dashboard/services/[serviceId]/components/tabs/Todo';
+import AdvancedTab from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/advanced-tab';
 
 export default function ServicePage({
     serviceId,
@@ -70,11 +71,10 @@ export default function ServicePage({
                     <TabsTrigger value='advanced'>Advanced</TabsTrigger>
                 </TabsList>
                 <OverviewTab service={service} />
-                {['logs', 'terminal', 'deployments', 'backups', 'advanced'].map(
-                    (x) => (
-                        <TodoTab value={x} key={x} />
-                    )
-                )}
+                <AdvancedTab service={service} />
+                {['logs', 'terminal', 'deployments', 'backups'].map((x) => (
+                    <TodoTab value={x} key={x} />
+                ))}
             </Tabs>
         </div>
     );

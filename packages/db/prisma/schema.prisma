@@ -209,6 +209,7 @@ model Service {
     serverId                String
     swarmService            SwarmService?
     domains                 Domain[]
+    networks                Network[]
 }
 
 model SwarmService {
@@ -241,7 +242,6 @@ model Server {
 
     organizations Organization[]
     registries    Registry[]
-    networks      Network[]
 }
 
 model SSHKey {
@@ -275,5 +275,6 @@ model Network {
     labels     Json?
     options    Json?
 
-    servers Server[]
+    attachToReverseProxy Boolean   @default(false)
+    services             Service[]
 }
