@@ -25,8 +25,14 @@ export const servicesRouter = router({
 
         try {
             const docker = new Docker(connection);
-            const networks = await docker.listNetworks({});
-            return networks.map((n) => n.Name);
+            if (!(await docker.networkExits('test_public'))) {
+                await docker.createNetwork({
+                    Name: 'test_public',
+                    Attachable: true,
+                    Driver: 'overlay',
+                });
+            }
+            return await docker.listNetworks({});
         } catch (e) {
             console.error(e);
         } finally {

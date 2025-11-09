@@ -1,9 +1,11 @@
-import { request } from 'node:http';
+import { request, RequestOptions } from 'node:http';
 import { Client } from 'ssh2';
 
 type Options = {
     method: 'POST' | 'GET' | 'HEAD' | 'DELETE';
     headers: Record<string, string>;
+    body?: string;
+    json?: boolean;
 };
 
 export const dockerRequest = (
@@ -14,7 +16,6 @@ export const dockerRequest = (
         headers: {},
     }
 ) => {
-    console.log('Docker', path);
     return new Promise((resolve: (value: string) => void, reject) => {
         ssh.exec('docker system dial-stdio', (err, stream) => {
             if (err) return reject(err);
@@ -26,9 +27,11 @@ export const dockerRequest = (
                 path,
                 headers: {
                     Host: 'docker',
+                    'Content-Type': 'application/json',
+                    'Content-Length': opts.body?.length || 0,
                     ...opts.headers,
                 },
-            };
+            } satisfies RequestOptions;
 
             const req = request(options, (res) => {
                 let data = '';
@@ -39,6 +42,8 @@ export const dockerRequest = (
                     stream.end();
                 });
             });
+
+            if (opts.body) req.write(opts.body);
 
             req.on('error', (err) => console.error('Request error:', err));
             req.end();
