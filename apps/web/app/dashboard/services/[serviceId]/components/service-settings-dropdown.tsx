@@ -26,6 +26,7 @@ import { useTRPC, useTRPCClient } from '@/lib/trpc';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import DeployButton from '@/app/dashboard/services/[serviceId]/components/deploy-button';
 
 export default function ServiceSettingsDropdown({
     service,
@@ -40,7 +41,7 @@ export default function ServiceSettingsDropdown({
 
     return (
         <ButtonGroup>
-            <Button variant='outline'>Deploy</Button>
+            <DeployButton serviceId={service.id} />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant='outline'>

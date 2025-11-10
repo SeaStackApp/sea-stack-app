@@ -37,8 +37,8 @@ export const dockerRequest = (
                 let data = '';
                 res.on('data', (chunk) => (data += chunk));
                 res.on('end', () => {
-                    console.log('Response:', res.statusCode, data);
-                    resolve(data);
+                    if (res.statusCode && res.statusCode >= 400) reject(data);
+                    else resolve(data);
                     stream.end();
                 });
             });
