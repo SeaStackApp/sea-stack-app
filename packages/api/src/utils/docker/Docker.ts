@@ -3,7 +3,10 @@ import { Client } from 'ssh2';
 import { operations, paths } from './schema';
 
 export default class Docker {
-    constructor(private connection: Client) {}
+    constructor(
+        private connection: Client,
+        private auth?: string | undefined
+    ) {}
 
     /**
      * List networks on docker
@@ -90,6 +93,7 @@ export default class Docker {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                ...(this.auth && { 'X-Registry-Auth': this.auth }),
             },
             body: JSON.stringify(body),
         })) as operations['ServiceCreate']['responses']['201']['content']['application/json'];
@@ -107,6 +111,7 @@ export default class Docker {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    ...(this.auth && { 'X-Registry-Auth': this.auth }),
                 },
                 body: JSON.stringify(body),
             }

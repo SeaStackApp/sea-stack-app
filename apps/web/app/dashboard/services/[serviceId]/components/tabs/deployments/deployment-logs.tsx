@@ -118,7 +118,7 @@ export default function DeploymentLogs({
         return () => subscription.unsubscribe();
     }, [trpcClient, deploymentId]);
     return (
-        <div className='w-full h-52 relative'>
+        <div className='w-full h-[80vh] relative'>
             <ScrollFollow
                 startFollowing={true}
                 render={({ follow, onScroll }) => (
