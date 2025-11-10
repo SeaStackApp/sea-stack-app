@@ -7,7 +7,7 @@ import {
     TRAEFIK_SERVICE_NAME,
     TRAEFIK_VERSION,
     TREAFIK_DYNAMIC_PATH,
-} from './config';
+} from '../../configs/config';
 
 export const setupTraefik = async (client: Client) => {
     // Check if traefik network exists

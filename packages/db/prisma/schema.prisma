@@ -210,6 +210,7 @@ model Service {
     swarmService            SwarmService?
     domains                 Domain[]
     networks                Network[]
+    deployments             Deployment[]
 }
 
 model SwarmService {
@@ -277,4 +278,14 @@ model Network {
 
     attachToReverseProxy Boolean   @default(false)
     services             Service[]
+}
+
+model Deployment {
+    id String @id @default(uuid(7))
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    service   Service @relation(fields: [serviceId], references: [id])
+    serviceId String
 }

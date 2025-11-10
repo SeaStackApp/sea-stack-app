@@ -1,4 +1,4 @@
-import { TREAFIK_DYNAMIC_PATH } from '../utils/remote-server/config';
+import { TREAFIK_DYNAMIC_PATH } from './config';
 
 export const getTraefikConfig = () => {
     return `global:

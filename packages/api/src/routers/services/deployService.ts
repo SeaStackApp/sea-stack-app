@@ -6,6 +6,8 @@ import { getSSHClient } from '../../utils/getSSHClient';
 import { Client } from 'ssh2';
 import { deploySwarmService } from '../../utils/docker/swarm/deploySwarmService';
 import { isSwarmService } from '../../utils/docker/swarm/isSwarmService';
+import createDeployment from '../../utils/deployments/createDeployment';
+import { getDeploymentLogger } from '../../utils/deployments/getDeploymentLogger';
 
 export const deployService = protectedProcedure
     .input(serviceIdSchema)
@@ -29,12 +31,18 @@ export const deployService = protectedProcedure
                     service.serverId,
                     organizationId
                 );
-                console.info('Deploying service ', service.name);
+                const deployment = await createDeployment(prisma, serviceId);
+                const logger = getDeploymentLogger(deployment.id);
+                logger.info(
+                    `[${service.name}] Started deployment on server ${service.server.name}`
+                );
                 if (isSwarmService(service)) {
+                    logger.debug('Service is a swarm application');
                     return await deploySwarmService(
                         connection,
                         prisma,
-                        service
+                        service,
+                        logger
                     );
                 }
 
