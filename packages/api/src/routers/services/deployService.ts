@@ -38,6 +38,12 @@ export const deployService = protectedProcedure
                 );
                 if (isSwarmService(service)) {
                     logger.debug('Service is a swarm application');
+                    const sleep = (ms: number): Promise<void> => {
+                        return new Promise((resolve) =>
+                            setTimeout(resolve, ms)
+                        );
+                    };
+                    await sleep(10000);
                     return await deploySwarmService(
                         connection,
                         prisma,

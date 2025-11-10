@@ -40,6 +40,12 @@ export const getServiceData = (
                     options: true,
                 },
             },
+            deployments: {
+                take: 10,
+                orderBy: {
+                    id: 'desc',
+                },
+            },
         },
     });
 };
