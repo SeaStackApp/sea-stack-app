@@ -12,7 +12,7 @@ import { MAIN_DIRECTORY } from '../../configs/config';
 export const createMainDirectory = async (client: Client) => {
     await remoteExec(client, `mkdir -p ${MAIN_DIRECTORY}`);
     await remoteExec(client, `chown -R $USER ${MAIN_DIRECTORY}`);
-    await remoteExec(client, `chmod -R 755 ${MAIN_DIRECTORY}`);
+    await remoteExec(client, `chmod -R 700 ${MAIN_DIRECTORY}`);
 };
 export const setupServer = async (
     prisma: PrismaClient,
