@@ -58,7 +58,7 @@ export default function ServicePage({
             <Separator className='mt-5' />
 
             <Tabs
-                defaultValue={sp.get('tab') ?? 'overview'}
+                value={sp.get('tab') ?? 'overview'}
                 onValueChange={(e) => {
                     router.push('?tab=' + e);
                 }}

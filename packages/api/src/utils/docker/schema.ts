@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/containers/json": {
+    '/containers/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -20,7 +20,7 @@ export interface paths {
          *     than inspecting a single container. For example, the list of linked
          *     containers is not propagated .
          */
-        get: operations["ContainerList"];
+        get: operations['ContainerList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -29,7 +29,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/create": {
+    '/containers/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -39,14 +39,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a container */
-        post: operations["ContainerCreate"];
+        post: operations['ContainerCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/json": {
+    '/containers/{id}/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -57,7 +57,7 @@ export interface paths {
          * Inspect a container
          * @description Return low-level information about a container.
          */
-        get: operations["ContainerInspect"];
+        get: operations['ContainerInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -66,7 +66,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/top": {
+    '/containers/{id}/top': {
         parameters: {
             query?: never;
             header?: never;
@@ -78,7 +78,7 @@ export interface paths {
          * @description On Unix systems, this is done by running the `ps` command. This endpoint
          *     is not supported on Windows.
          */
-        get: operations["ContainerTop"];
+        get: operations['ContainerTop'];
         put?: never;
         post?: never;
         delete?: never;
@@ -87,7 +87,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/logs": {
+    '/containers/{id}/logs': {
         parameters: {
             query?: never;
             header?: never;
@@ -101,7 +101,7 @@ export interface paths {
          *     Note: This endpoint works only for containers with the `json-file` or
          *     `journald` logging driver.
          */
-        get: operations["ContainerLogs"];
+        get: operations['ContainerLogs'];
         put?: never;
         post?: never;
         delete?: never;
@@ -110,7 +110,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/changes": {
+    '/containers/{id}/changes': {
         parameters: {
             query?: never;
             header?: never;
@@ -126,7 +126,7 @@ export interface paths {
          *     - `1`: Added ("A")
          *     - `2`: Deleted ("D")
          */
-        get: operations["ContainerChanges"];
+        get: operations['ContainerChanges'];
         put?: never;
         post?: never;
         delete?: never;
@@ -135,7 +135,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/export": {
+    '/containers/{id}/export': {
         parameters: {
             query?: never;
             header?: never;
@@ -146,7 +146,7 @@ export interface paths {
          * Export a container
          * @description Export the contents of a container as a tarball.
          */
-        get: operations["ContainerExport"];
+        get: operations['ContainerExport'];
         put?: never;
         post?: never;
         delete?: never;
@@ -155,7 +155,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/stats": {
+    '/containers/{id}/stats': {
         parameters: {
             query?: never;
             header?: never;
@@ -191,7 +191,7 @@ export interface paths {
          *     * number_cpus = `length(cpu_stats.cpu_usage.percpu_usage)` or `cpu_stats.online_cpus`
          *     * CPU usage % = `(cpu_delta / system_cpu_delta) * number_cpus * 100.0`
          */
-        get: operations["ContainerStats"];
+        get: operations['ContainerStats'];
         put?: never;
         post?: never;
         delete?: never;
@@ -200,7 +200,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/resize": {
+    '/containers/{id}/resize': {
         parameters: {
             query?: never;
             header?: never;
@@ -213,14 +213,14 @@ export interface paths {
          * Resize a container TTY
          * @description Resize the TTY for a container.
          */
-        post: operations["ContainerResize"];
+        post: operations['ContainerResize'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/start": {
+    '/containers/{id}/start': {
         parameters: {
             query?: never;
             header?: never;
@@ -230,14 +230,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Start a container */
-        post: operations["ContainerStart"];
+        post: operations['ContainerStart'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/stop": {
+    '/containers/{id}/stop': {
         parameters: {
             query?: never;
             header?: never;
@@ -247,14 +247,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Stop a container */
-        post: operations["ContainerStop"];
+        post: operations['ContainerStop'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/restart": {
+    '/containers/{id}/restart': {
         parameters: {
             query?: never;
             header?: never;
@@ -264,14 +264,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Restart a container */
-        post: operations["ContainerRestart"];
+        post: operations['ContainerRestart'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/kill": {
+    '/containers/{id}/kill': {
         parameters: {
             query?: never;
             header?: never;
@@ -285,14 +285,14 @@ export interface paths {
          * @description Send a POSIX signal to a container, defaulting to killing to the
          *     container.
          */
-        post: operations["ContainerKill"];
+        post: operations['ContainerKill'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/update": {
+    '/containers/{id}/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -306,14 +306,14 @@ export interface paths {
          * @description Change various configuration options of a container without having to
          *     recreate it.
          */
-        post: operations["ContainerUpdate"];
+        post: operations['ContainerUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/rename": {
+    '/containers/{id}/rename': {
         parameters: {
             query?: never;
             header?: never;
@@ -323,14 +323,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Rename a container */
-        post: operations["ContainerRename"];
+        post: operations['ContainerRename'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/pause": {
+    '/containers/{id}/pause': {
         parameters: {
             query?: never;
             header?: never;
@@ -348,14 +348,14 @@ export interface paths {
          *     cgroup the process is unaware, and unable to capture, that it is being
          *     suspended, and subsequently resumed.
          */
-        post: operations["ContainerPause"];
+        post: operations['ContainerPause'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/unpause": {
+    '/containers/{id}/unpause': {
         parameters: {
             query?: never;
             header?: never;
@@ -368,14 +368,14 @@ export interface paths {
          * Unpause a container
          * @description Resume a container which has been paused.
          */
-        post: operations["ContainerUnpause"];
+        post: operations['ContainerUnpause'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/attach": {
+    '/containers/{id}/attach': {
         parameters: {
             query?: never;
             header?: never;
@@ -481,14 +481,14 @@ export interface paths {
          *     connection is simply the raw data from the process PTY and client's
          *     `stdin`.
          */
-        post: operations["ContainerAttach"];
+        post: operations['ContainerAttach'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/attach/ws": {
+    '/containers/{id}/attach/ws': {
         parameters: {
             query?: never;
             header?: never;
@@ -496,7 +496,7 @@ export interface paths {
             cookie?: never;
         };
         /** Attach to a container via a websocket */
-        get: operations["ContainerAttachWebsocket"];
+        get: operations['ContainerAttachWebsocket'];
         put?: never;
         post?: never;
         delete?: never;
@@ -505,7 +505,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/wait": {
+    '/containers/{id}/wait': {
         parameters: {
             query?: never;
             header?: never;
@@ -518,14 +518,14 @@ export interface paths {
          * Wait for a container
          * @description Block until a container stops, then returns the exit code.
          */
-        post: operations["ContainerWait"];
+        post: operations['ContainerWait'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}": {
+    '/containers/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -536,13 +536,13 @@ export interface paths {
         put?: never;
         post?: never;
         /** Remove a container */
-        delete: operations["ContainerDelete"];
+        delete: operations['ContainerDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/archive": {
+    '/containers/{id}/archive': {
         parameters: {
             query?: never;
             header?: never;
@@ -553,14 +553,14 @@ export interface paths {
          * Get an archive of a filesystem resource in a container
          * @description Get a tar archive of a resource in the filesystem of container id.
          */
-        get: operations["ContainerArchive"];
+        get: operations['ContainerArchive'];
         /**
          * Extract an archive of files or folders to a directory in a container
          * @description Upload a tar archive to be extracted to a path in the filesystem of container id.
          *     `path` parameter is asserted to be a directory. If it exists as a file, 400 error
          *     will be returned with message "not a directory".
          */
-        put: operations["PutContainerArchive"];
+        put: operations['PutContainerArchive'];
         post?: never;
         delete?: never;
         options?: never;
@@ -570,11 +570,11 @@ export interface paths {
          *     a base64 - encoded JSON object with some filesystem header information
          *     about the path.
          */
-        head: operations["ContainerArchiveInfo"];
+        head: operations['ContainerArchiveInfo'];
         patch?: never;
         trace?: never;
     };
-    "/containers/prune": {
+    '/containers/prune': {
         parameters: {
             query?: never;
             header?: never;
@@ -584,14 +584,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Delete stopped containers */
-        post: operations["ContainerPrune"];
+        post: operations['ContainerPrune'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/json": {
+    '/images/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -602,7 +602,7 @@ export interface paths {
          * List Images
          * @description Returns a list of images on the server. Note that it uses a different, smaller representation of an image than inspecting a single image.
          */
-        get: operations["ImageList"];
+        get: operations['ImageList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -611,7 +611,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/build": {
+    '/build': {
         parameters: {
             query?: never;
             header?: never;
@@ -630,14 +630,14 @@ export interface paths {
          *
          *     The build is canceled if the client drops the connection by quitting or being killed.
          */
-        post: operations["ImageBuild"];
+        post: operations['ImageBuild'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/build/prune": {
+    '/build/prune': {
         parameters: {
             query?: never;
             header?: never;
@@ -647,14 +647,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Delete builder cache */
-        post: operations["BuildPrune"];
+        post: operations['BuildPrune'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/create": {
+    '/images/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -667,14 +667,14 @@ export interface paths {
          * Create an image
          * @description Pull or import an image.
          */
-        post: operations["ImageCreate"];
+        post: operations['ImageCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/{name}/json": {
+    '/images/{name}/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -685,7 +685,7 @@ export interface paths {
          * Inspect an image
          * @description Return low-level information about an image.
          */
-        get: operations["ImageInspect"];
+        get: operations['ImageInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -694,7 +694,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/{name}/history": {
+    '/images/{name}/history': {
         parameters: {
             query?: never;
             header?: never;
@@ -705,7 +705,7 @@ export interface paths {
          * Get the history of an image
          * @description Return parent layers of an image.
          */
-        get: operations["ImageHistory"];
+        get: operations['ImageHistory'];
         put?: never;
         post?: never;
         delete?: never;
@@ -714,7 +714,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/{name}/push": {
+    '/images/{name}/push': {
         parameters: {
             query?: never;
             header?: never;
@@ -733,14 +733,14 @@ export interface paths {
          *
          *     The push is cancelled if the HTTP connection is closed.
          */
-        post: operations["ImagePush"];
+        post: operations['ImagePush'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/{name}/tag": {
+    '/images/{name}/tag': {
         parameters: {
             query?: never;
             header?: never;
@@ -753,14 +753,14 @@ export interface paths {
          * Tag an image
          * @description Tag an image so that it becomes part of a repository.
          */
-        post: operations["ImageTag"];
+        post: operations['ImageTag'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/{name}": {
+    '/images/{name}': {
         parameters: {
             query?: never;
             header?: never;
@@ -778,13 +778,13 @@ export interface paths {
          *     Images can't be removed if they have descendant images, are being
          *     used by a running container or are being used by a build.
          */
-        delete: operations["ImageDelete"];
+        delete: operations['ImageDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/images/search": {
+    '/images/search': {
         parameters: {
             query?: never;
             header?: never;
@@ -795,7 +795,7 @@ export interface paths {
          * Search images
          * @description Search for an image on Docker Hub.
          */
-        get: operations["ImageSearch"];
+        get: operations['ImageSearch'];
         put?: never;
         post?: never;
         delete?: never;
@@ -804,7 +804,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/prune": {
+    '/images/prune': {
         parameters: {
             query?: never;
             header?: never;
@@ -814,14 +814,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Delete unused images */
-        post: operations["ImagePrune"];
+        post: operations['ImagePrune'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/auth": {
+    '/auth': {
         parameters: {
             query?: never;
             header?: never;
@@ -835,14 +835,14 @@ export interface paths {
          * @description Validate credentials for a registry and, if available, get an identity
          *     token for accessing the registry without password.
          */
-        post: operations["SystemAuth"];
+        post: operations['SystemAuth'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/info": {
+    '/info': {
         parameters: {
             query?: never;
             header?: never;
@@ -850,7 +850,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get system information */
-        get: operations["SystemInfo"];
+        get: operations['SystemInfo'];
         put?: never;
         post?: never;
         delete?: never;
@@ -859,7 +859,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/version": {
+    '/version': {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export interface paths {
          * Get version
          * @description Returns the version of Docker that is running and various information about the system that Docker is running on.
          */
-        get: operations["SystemVersion"];
+        get: operations['SystemVersion'];
         put?: never;
         post?: never;
         delete?: never;
@@ -879,7 +879,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/_ping": {
+    '/_ping': {
         parameters: {
             query?: never;
             header?: never;
@@ -890,7 +890,7 @@ export interface paths {
          * Ping
          * @description This is a dummy endpoint you can use to test if the server is accessible.
          */
-        get: operations["SystemPing"];
+        get: operations['SystemPing'];
         put?: never;
         post?: never;
         delete?: never;
@@ -899,11 +899,11 @@ export interface paths {
          * Ping
          * @description This is a dummy endpoint you can use to test if the server is accessible.
          */
-        head: operations["SystemPingHead"];
+        head: operations['SystemPingHead'];
         patch?: never;
         trace?: never;
     };
-    "/commit": {
+    '/commit': {
         parameters: {
             query?: never;
             header?: never;
@@ -913,14 +913,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a new image from a container */
-        post: operations["ImageCommit"];
+        post: operations['ImageCommit'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/events": {
+    '/events': {
         parameters: {
             query?: never;
             header?: never;
@@ -953,7 +953,7 @@ export interface paths {
          *
          *     The Builder reports `prune` events
          */
-        get: operations["SystemEvents"];
+        get: operations['SystemEvents'];
         put?: never;
         post?: never;
         delete?: never;
@@ -962,7 +962,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/system/df": {
+    '/system/df': {
         parameters: {
             query?: never;
             header?: never;
@@ -970,7 +970,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get data usage information */
-        get: operations["SystemDataUsage"];
+        get: operations['SystemDataUsage'];
         put?: never;
         post?: never;
         delete?: never;
@@ -979,7 +979,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/{name}/get": {
+    '/images/{name}/get': {
         parameters: {
             query?: never;
             header?: never;
@@ -1008,7 +1008,7 @@ export interface paths {
          *     }
          *     ```
          */
-        get: operations["ImageGet"];
+        get: operations['ImageGet'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1017,7 +1017,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/get": {
+    '/images/get': {
         parameters: {
             query?: never;
             header?: never;
@@ -1037,7 +1037,7 @@ export interface paths {
          *
          *     For details on the format, see the [export image endpoint](#operation/ImageGet).
          */
-        get: operations["ImageGetAll"];
+        get: operations['ImageGetAll'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1046,7 +1046,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/images/load": {
+    '/images/load': {
         parameters: {
             query?: never;
             header?: never;
@@ -1061,14 +1061,14 @@ export interface paths {
          *
          *     For details on the format, see the [export image endpoint](#operation/ImageGet).
          */
-        post: operations["ImageLoad"];
+        post: operations['ImageLoad'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/containers/{id}/exec": {
+    '/containers/{id}/exec': {
         parameters: {
             query?: never;
             header?: never;
@@ -1081,14 +1081,14 @@ export interface paths {
          * Create an exec instance
          * @description Run a command inside a running container.
          */
-        post: operations["ContainerExec"];
+        post: operations['ContainerExec'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/exec/{id}/start": {
+    '/exec/{id}/start': {
         parameters: {
             query?: never;
             header?: never;
@@ -1103,14 +1103,14 @@ export interface paths {
          *     returns immediately after starting the command. Otherwise, it sets up an
          *     interactive session with the command.
          */
-        post: operations["ExecStart"];
+        post: operations['ExecStart'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/exec/{id}/resize": {
+    '/exec/{id}/resize': {
         parameters: {
             query?: never;
             header?: never;
@@ -1124,14 +1124,14 @@ export interface paths {
          * @description Resize the TTY session used by an exec instance. This endpoint only works
          *     if `tty` was specified as part of creating and starting the exec instance.
          */
-        post: operations["ExecResize"];
+        post: operations['ExecResize'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/exec/{id}/json": {
+    '/exec/{id}/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export interface paths {
          * Inspect an exec instance
          * @description Return low-level information about an exec instance.
          */
-        get: operations["ExecInspect"];
+        get: operations['ExecInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1151,7 +1151,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/volumes": {
+    '/volumes': {
         parameters: {
             query?: never;
             header?: never;
@@ -1159,7 +1159,7 @@ export interface paths {
             cookie?: never;
         };
         /** List volumes */
-        get: operations["VolumeList"];
+        get: operations['VolumeList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1168,7 +1168,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/volumes/create": {
+    '/volumes/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1178,14 +1178,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a volume */
-        post: operations["VolumeCreate"];
+        post: operations['VolumeCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/volumes/{name}": {
+    '/volumes/{name}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1193,21 +1193,21 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a volume */
-        get: operations["VolumeInspect"];
+        get: operations['VolumeInspect'];
         /** "Update a volume. Valid only for Swarm cluster volumes" */
-        put: operations["VolumeUpdate"];
+        put: operations['VolumeUpdate'];
         post?: never;
         /**
          * Remove a volume
          * @description Instruct the driver to remove the volume.
          */
-        delete: operations["VolumeDelete"];
+        delete: operations['VolumeDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/volumes/prune": {
+    '/volumes/prune': {
         parameters: {
             query?: never;
             header?: never;
@@ -1217,14 +1217,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Delete unused volumes */
-        post: operations["VolumePrune"];
+        post: operations['VolumePrune'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/networks": {
+    '/networks': {
         parameters: {
             query?: never;
             header?: never;
@@ -1240,7 +1240,7 @@ export interface paths {
          *     inspecting a single network. For example, the list of containers attached
          *     to the network is not propagated in API versions 1.28 and up.
          */
-        get: operations["NetworkList"];
+        get: operations['NetworkList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1249,7 +1249,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/networks/{id}": {
+    '/networks/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1257,17 +1257,17 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a network */
-        get: operations["NetworkInspect"];
+        get: operations['NetworkInspect'];
         put?: never;
         post?: never;
         /** Remove a network */
-        delete: operations["NetworkDelete"];
+        delete: operations['NetworkDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/networks/create": {
+    '/networks/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1277,14 +1277,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a network */
-        post: operations["NetworkCreate"];
+        post: operations['NetworkCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/networks/{id}/connect": {
+    '/networks/{id}/connect': {
         parameters: {
             query?: never;
             header?: never;
@@ -1297,14 +1297,14 @@ export interface paths {
          * Connect a container to a network
          * @description The network must be either a local-scoped network or a swarm-scoped network with the `attachable` option set. A network cannot be re-attached to a running container
          */
-        post: operations["NetworkConnect"];
+        post: operations['NetworkConnect'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/networks/{id}/disconnect": {
+    '/networks/{id}/disconnect': {
         parameters: {
             query?: never;
             header?: never;
@@ -1314,14 +1314,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Disconnect a container from a network */
-        post: operations["NetworkDisconnect"];
+        post: operations['NetworkDisconnect'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/networks/prune": {
+    '/networks/prune': {
         parameters: {
             query?: never;
             header?: never;
@@ -1331,14 +1331,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Delete unused networks */
-        post: operations["NetworkPrune"];
+        post: operations['NetworkPrune'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins": {
+    '/plugins': {
         parameters: {
             query?: never;
             header?: never;
@@ -1349,7 +1349,7 @@ export interface paths {
          * List plugins
          * @description Returns information about installed plugins.
          */
-        get: operations["PluginList"];
+        get: operations['PluginList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1358,7 +1358,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/plugins/privileges": {
+    '/plugins/privileges': {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get plugin privileges */
-        get: operations["GetPluginPrivileges"];
+        get: operations['GetPluginPrivileges'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1375,7 +1375,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/plugins/pull": {
+    '/plugins/pull': {
         parameters: {
             query?: never;
             header?: never;
@@ -1389,14 +1389,14 @@ export interface paths {
          * @description Pulls and installs a plugin. After the plugin is installed, it can be
          *     enabled using the [`POST /plugins/{name}/enable` endpoint](#operation/PostPluginsEnable).
          */
-        post: operations["PluginPull"];
+        post: operations['PluginPull'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/json": {
+    '/plugins/{name}/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -1404,7 +1404,7 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a plugin */
-        get: operations["PluginInspect"];
+        get: operations['PluginInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1413,7 +1413,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}": {
+    '/plugins/{name}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1424,13 +1424,13 @@ export interface paths {
         put?: never;
         post?: never;
         /** Remove a plugin */
-        delete: operations["PluginDelete"];
+        delete: operations['PluginDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/enable": {
+    '/plugins/{name}/enable': {
         parameters: {
             query?: never;
             header?: never;
@@ -1440,14 +1440,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Enable a plugin */
-        post: operations["PluginEnable"];
+        post: operations['PluginEnable'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/disable": {
+    '/plugins/{name}/disable': {
         parameters: {
             query?: never;
             header?: never;
@@ -1457,14 +1457,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Disable a plugin */
-        post: operations["PluginDisable"];
+        post: operations['PluginDisable'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/upgrade": {
+    '/plugins/{name}/upgrade': {
         parameters: {
             query?: never;
             header?: never;
@@ -1474,14 +1474,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Upgrade a plugin */
-        post: operations["PluginUpgrade"];
+        post: operations['PluginUpgrade'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/create": {
+    '/plugins/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1491,14 +1491,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a plugin */
-        post: operations["PluginCreate"];
+        post: operations['PluginCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/push": {
+    '/plugins/{name}/push': {
         parameters: {
             query?: never;
             header?: never;
@@ -1511,14 +1511,14 @@ export interface paths {
          * Push a plugin
          * @description Push a plugin to the registry.
          */
-        post: operations["PluginPush"];
+        post: operations['PluginPush'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/plugins/{name}/set": {
+    '/plugins/{name}/set': {
         parameters: {
             query?: never;
             header?: never;
@@ -1528,14 +1528,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Configure a plugin */
-        post: operations["PluginSet"];
+        post: operations['PluginSet'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/nodes": {
+    '/nodes': {
         parameters: {
             query?: never;
             header?: never;
@@ -1543,7 +1543,7 @@ export interface paths {
             cookie?: never;
         };
         /** List nodes */
-        get: operations["NodeList"];
+        get: operations['NodeList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1552,7 +1552,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/nodes/{id}": {
+    '/nodes/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1560,17 +1560,17 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a node */
-        get: operations["NodeInspect"];
+        get: operations['NodeInspect'];
         put?: never;
         post?: never;
         /** Delete a node */
-        delete: operations["NodeDelete"];
+        delete: operations['NodeDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/nodes/{id}/update": {
+    '/nodes/{id}/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -1580,14 +1580,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update a node */
-        post: operations["NodeUpdate"];
+        post: operations['NodeUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/swarm": {
+    '/swarm': {
         parameters: {
             query?: never;
             header?: never;
@@ -1595,7 +1595,7 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect swarm */
-        get: operations["SwarmInspect"];
+        get: operations['SwarmInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1604,7 +1604,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/swarm/init": {
+    '/swarm/init': {
         parameters: {
             query?: never;
             header?: never;
@@ -1614,14 +1614,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Initialize a new swarm */
-        post: operations["SwarmInit"];
+        post: operations['SwarmInit'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/swarm/join": {
+    '/swarm/join': {
         parameters: {
             query?: never;
             header?: never;
@@ -1631,14 +1631,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Join an existing swarm */
-        post: operations["SwarmJoin"];
+        post: operations['SwarmJoin'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/swarm/leave": {
+    '/swarm/leave': {
         parameters: {
             query?: never;
             header?: never;
@@ -1648,14 +1648,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Leave a swarm */
-        post: operations["SwarmLeave"];
+        post: operations['SwarmLeave'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/swarm/update": {
+    '/swarm/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -1665,14 +1665,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update a swarm */
-        post: operations["SwarmUpdate"];
+        post: operations['SwarmUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/swarm/unlockkey": {
+    '/swarm/unlockkey': {
         parameters: {
             query?: never;
             header?: never;
@@ -1680,7 +1680,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the unlock key */
-        get: operations["SwarmUnlockkey"];
+        get: operations['SwarmUnlockkey'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1689,7 +1689,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/swarm/unlock": {
+    '/swarm/unlock': {
         parameters: {
             query?: never;
             header?: never;
@@ -1699,14 +1699,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Unlock a locked manager */
-        post: operations["SwarmUnlock"];
+        post: operations['SwarmUnlock'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/services": {
+    '/services': {
         parameters: {
             query?: never;
             header?: never;
@@ -1714,7 +1714,7 @@ export interface paths {
             cookie?: never;
         };
         /** List services */
-        get: operations["ServiceList"];
+        get: operations['ServiceList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1723,7 +1723,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/services/create": {
+    '/services/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1733,14 +1733,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a service */
-        post: operations["ServiceCreate"];
+        post: operations['ServiceCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/services/{id}": {
+    '/services/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1748,17 +1748,17 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a service */
-        get: operations["ServiceInspect"];
+        get: operations['ServiceInspect'];
         put?: never;
         post?: never;
         /** Delete a service */
-        delete: operations["ServiceDelete"];
+        delete: operations['ServiceDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/services/{id}/update": {
+    '/services/{id}/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -1768,14 +1768,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update a service */
-        post: operations["ServiceUpdate"];
+        post: operations['ServiceUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/services/{id}/logs": {
+    '/services/{id}/logs': {
         parameters: {
             query?: never;
             header?: never;
@@ -1790,7 +1790,7 @@ export interface paths {
          *     **Note**: This endpoint works only for services with the `local`,
          *     `json-file` or `journald` logging drivers.
          */
-        get: operations["ServiceLogs"];
+        get: operations['ServiceLogs'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1799,7 +1799,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/tasks": {
+    '/tasks': {
         parameters: {
             query?: never;
             header?: never;
@@ -1807,7 +1807,7 @@ export interface paths {
             cookie?: never;
         };
         /** List tasks */
-        get: operations["TaskList"];
+        get: operations['TaskList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1816,7 +1816,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/tasks/{id}": {
+    '/tasks/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1824,7 +1824,7 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a task */
-        get: operations["TaskInspect"];
+        get: operations['TaskInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1833,7 +1833,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/tasks/{id}/logs": {
+    '/tasks/{id}/logs': {
         parameters: {
             query?: never;
             header?: never;
@@ -1848,7 +1848,7 @@ export interface paths {
          *     **Note**: This endpoint works only for services with the `local`,
          *     `json-file` or `journald` logging drivers.
          */
-        get: operations["TaskLogs"];
+        get: operations['TaskLogs'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1857,7 +1857,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/secrets": {
+    '/secrets': {
         parameters: {
             query?: never;
             header?: never;
@@ -1865,7 +1865,7 @@ export interface paths {
             cookie?: never;
         };
         /** List secrets */
-        get: operations["SecretList"];
+        get: operations['SecretList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1874,7 +1874,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/secrets/create": {
+    '/secrets/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1884,14 +1884,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a secret */
-        post: operations["SecretCreate"];
+        post: operations['SecretCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/secrets/{id}": {
+    '/secrets/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1899,17 +1899,17 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a secret */
-        get: operations["SecretInspect"];
+        get: operations['SecretInspect'];
         put?: never;
         post?: never;
         /** Delete a secret */
-        delete: operations["SecretDelete"];
+        delete: operations['SecretDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/secrets/{id}/update": {
+    '/secrets/{id}/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -1919,14 +1919,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update a Secret */
-        post: operations["SecretUpdate"];
+        post: operations['SecretUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/configs": {
+    '/configs': {
         parameters: {
             query?: never;
             header?: never;
@@ -1934,7 +1934,7 @@ export interface paths {
             cookie?: never;
         };
         /** List configs */
-        get: operations["ConfigList"];
+        get: operations['ConfigList'];
         put?: never;
         post?: never;
         delete?: never;
@@ -1943,7 +1943,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/configs/create": {
+    '/configs/create': {
         parameters: {
             query?: never;
             header?: never;
@@ -1953,14 +1953,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create a config */
-        post: operations["ConfigCreate"];
+        post: operations['ConfigCreate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/configs/{id}": {
+    '/configs/{id}': {
         parameters: {
             query?: never;
             header?: never;
@@ -1968,17 +1968,17 @@ export interface paths {
             cookie?: never;
         };
         /** Inspect a config */
-        get: operations["ConfigInspect"];
+        get: operations['ConfigInspect'];
         put?: never;
         post?: never;
         /** Delete a config */
-        delete: operations["ConfigDelete"];
+        delete: operations['ConfigDelete'];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/configs/{id}/update": {
+    '/configs/{id}/update': {
         parameters: {
             query?: never;
             header?: never;
@@ -1988,14 +1988,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update a Config */
-        post: operations["ConfigUpdate"];
+        post: operations['ConfigUpdate'];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/distribution/{name}/json": {
+    '/distribution/{name}/json': {
         parameters: {
             query?: never;
             header?: never;
@@ -2006,7 +2006,7 @@ export interface paths {
          * Get image information from the registry
          * @description Return image digest and platform information by contacting the registry.
          */
-        get: operations["DistributionInspect"];
+        get: operations['DistributionInspect'];
         put?: never;
         post?: never;
         delete?: never;
@@ -2015,7 +2015,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/session": {
+    '/session': {
         parameters: {
             query?: never;
             header?: never;
@@ -2051,7 +2051,7 @@ export interface paths {
          *     Upgrade: h2c
          *     ```
          */
-        post: operations["Session"];
+        post: operations['Session'];
         delete?: never;
         options?: never;
         head?: never;
@@ -2087,7 +2087,7 @@ export interface components {
              */
             PublicPort?: number;
             /** @enum {string} */
-            Type: "tcp" | "udp" | "sctp";
+            Type: 'tcp' | 'udp' | 'sctp';
         };
         /**
          * @description MountPoint represents a mount point configuration inside the container.
@@ -2106,7 +2106,7 @@ export interface components {
              * @example volume
              * @enum {string}
              */
-            Type?: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
+            Type?: 'bind' | 'volume' | 'image' | 'tmpfs' | 'npipe' | 'cluster';
             /**
              * @description Name is the name reference to the underlying data defined by `Source`
              *     e.g., the volume name.
@@ -2226,7 +2226,7 @@ export interface components {
              *     - `cluster` a Swarm cluster volume
              * @enum {string}
              */
-            Type?: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
+            Type?: 'bind' | 'volume' | 'image' | 'tmpfs' | 'npipe' | 'cluster';
             /** @description Whether the mount should be read-only. */
             ReadOnly?: boolean;
             /** @description The consistency requirement for the mount: `default`, `consistent`, `cached`, or `delegated`. */
@@ -2237,7 +2237,13 @@ export interface components {
                  * @description A propagation mode with the value `[r]private`, `[r]shared`, or `[r]slave`.
                  * @enum {string}
                  */
-                Propagation?: "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave";
+                Propagation?:
+                    | 'private'
+                    | 'rprivate'
+                    | 'shared'
+                    | 'rshared'
+                    | 'slave'
+                    | 'rslave';
                 /**
                  * @description Disable recursive bind mount.
                  * @default false
@@ -2337,7 +2343,7 @@ export interface components {
              *     - `on-failure` Restart only when the container exit code is non-zero
              * @enum {string}
              */
-            Name?: "" | "no" | "always" | "unless-stopped" | "on-failure";
+            Name?: '' | 'no' | 'always' | 'unless-stopped' | 'on-failure';
             /** @description If `on-failure` is used, the number of times to retry before giving up. */
             MaximumRetryCount?: number;
         };
@@ -2381,7 +2387,7 @@ export interface components {
              *     [{"Path": "device_path", "Rate": rate}]
              *     ```
              */
-            BlkioDeviceReadBps?: components["schemas"]["ThrottleDevice"][];
+            BlkioDeviceReadBps?: components['schemas']['ThrottleDevice'][];
             /**
              * @description Limit write rate (bytes per second) to a device, in the form:
              *
@@ -2389,7 +2395,7 @@ export interface components {
              *     [{"Path": "device_path", "Rate": rate}]
              *     ```
              */
-            BlkioDeviceWriteBps?: components["schemas"]["ThrottleDevice"][];
+            BlkioDeviceWriteBps?: components['schemas']['ThrottleDevice'][];
             /**
              * @description Limit read rate (IO per second) from a device, in the form:
              *
@@ -2397,7 +2403,7 @@ export interface components {
              *     [{"Path": "device_path", "Rate": rate}]
              *     ```
              */
-            BlkioDeviceReadIOps?: components["schemas"]["ThrottleDevice"][];
+            BlkioDeviceReadIOps?: components['schemas']['ThrottleDevice'][];
             /**
              * @description Limit write rate (IO per second) to a device, in the form:
              *
@@ -2405,7 +2411,7 @@ export interface components {
              *     [{"Path": "device_path", "Rate": rate}]
              *     ```
              */
-            BlkioDeviceWriteIOps?: components["schemas"]["ThrottleDevice"][];
+            BlkioDeviceWriteIOps?: components['schemas']['ThrottleDevice'][];
             /**
              * Format: int64
              * @description The length of a CPU period in microseconds.
@@ -2439,11 +2445,11 @@ export interface components {
              */
             CpusetMems?: string;
             /** @description A list of devices to add to the container. */
-            Devices?: components["schemas"]["DeviceMapping"][];
+            Devices?: components['schemas']['DeviceMapping'][];
             /** @description a list of cgroup rules to apply to the container */
             DeviceCgroupRules?: string[];
             /** @description A list of requests for devices to be sent to device drivers. */
-            DeviceRequests?: components["schemas"]["DeviceRequest"][];
+            DeviceRequests?: components['schemas']['DeviceRequest'][];
             /**
              * Format: int64
              * @description Hard limit for kernel TCP buffer memory (in bytes). Depending on the
@@ -2572,7 +2578,7 @@ export interface components {
              * @example 8272408576
              */
             MemoryBytes?: number;
-            GenericResources?: components["schemas"]["GenericResources"];
+            GenericResources?: components['schemas']['GenericResources'];
         };
         /**
          * @description User-defined resources can be either Integer resources (e.g, `SSD=3`) or
@@ -2663,14 +2669,14 @@ export interface components {
              * @example healthy
              * @enum {string}
              */
-            Status?: "none" | "starting" | "healthy" | "unhealthy";
+            Status?: 'none' | 'starting' | 'healthy' | 'unhealthy';
             /**
              * @description FailingStreak is the number of consecutive failures
              * @example 0
              */
             FailingStreak?: number;
             /** @description Log contains the last few results (oldest first) */
-            Log?: components["schemas"]["HealthcheckResult"][];
+            Log?: components['schemas']['HealthcheckResult'][];
         } | null;
         /** @description HealthcheckResult stores information about a single run of a healthcheck probe */
         HealthcheckResult: {
@@ -2702,7 +2708,7 @@ export interface components {
             Output?: string;
         } | null;
         /** @description Container configuration that depends on the host we are running on */
-        HostConfig: components["schemas"]["Resources"] & {
+        HostConfig: components['schemas']['Resources'] & {
             /**
              * @description A list of volume bindings for this container. Each volume binding
              *     is a string in one of these forms:
@@ -2756,7 +2762,17 @@ export interface components {
                  *     if logging is disabled.
                  * @enum {string}
                  */
-                Type?: "local" | "json-file" | "syslog" | "journald" | "gelf" | "fluentd" | "awslogs" | "splunk" | "etwlogs" | "none";
+                Type?:
+                    | 'local'
+                    | 'json-file'
+                    | 'syslog'
+                    | 'journald'
+                    | 'gelf'
+                    | 'fluentd'
+                    | 'awslogs'
+                    | 'splunk'
+                    | 'etwlogs'
+                    | 'none';
                 /**
                  * @description Driver-specific configuration options for the logging driver.
                  * @example {
@@ -2775,8 +2791,8 @@ export interface components {
              *     container should connect to.
              */
             NetworkMode?: string;
-            PortBindings?: components["schemas"]["PortMap"];
-            RestartPolicy?: components["schemas"]["RestartPolicy"];
+            PortBindings?: components['schemas']['PortMap'];
+            RestartPolicy?: components['schemas']['RestartPolicy'];
             /**
              * @description Automatically remove the container when the container's process
              *     exits. This has no effect if `RestartPolicy` is set.
@@ -2790,7 +2806,7 @@ export interface components {
              */
             VolumesFrom?: string[];
             /** @description Specification for mounts to be added to the container. */
-            Mounts?: components["schemas"]["Mount"][];
+            Mounts?: components['schemas']['Mount'][];
             /**
              * @description Initial console size, as an `[height, width]` array.
              * @example [
@@ -2826,7 +2842,7 @@ export interface components {
              *     or `"host"`, depending on daemon version, kernel support and configuration.
              * @enum {string}
              */
-            CgroupnsMode?: "private" | "host";
+            CgroupnsMode?: 'private' | 'host';
             /** @description A list of DNS servers for the container to use. */
             Dns?: string[];
             /** @description A list of DNS options. */
@@ -2937,7 +2953,7 @@ export interface components {
              * @description Isolation technology of the container. (Windows only)
              * @enum {string}
              */
-            Isolation?: "default" | "process" | "hyperv" | "";
+            Isolation?: 'default' | 'process' | 'hyperv' | '';
             /**
              * @description The list of paths to be masked inside the container (this overrides
              *     the default set of paths).
@@ -3045,7 +3061,7 @@ export interface components {
              *     ]
              */
             Cmd?: string[];
-            Healthcheck?: components["schemas"]["HealthConfig"];
+            Healthcheck?: components['schemas']['HealthConfig'];
             /**
              * @description Command is already escaped (Windows only)
              * @default false
@@ -3156,7 +3172,7 @@ export interface components {
              *     ]
              */
             Cmd?: string[];
-            Healthcheck?: components["schemas"]["HealthConfig"];
+            Healthcheck?: components['schemas']['HealthConfig'];
             /**
              * @description Command is already escaped (Windows only)
              * @default false
@@ -3254,7 +3270,7 @@ export interface components {
              *     network with no particular endpoint configuration.
              */
             EndpointsConfig?: {
-                [key: string]: components["schemas"]["EndpointSettings"];
+                [key: string]: components['schemas']['EndpointSettings'];
             };
         };
         /** @description NetworkSettings exposes the network settings in the API */
@@ -3291,16 +3307,16 @@ export interface components {
              *     Deprecated: This field is never set and will be removed in a future release.
              */
             LinkLocalIPv6PrefixLen?: number;
-            Ports?: components["schemas"]["PortMap"];
+            Ports?: components['schemas']['PortMap'];
             /**
              * @description SandboxKey is the full path of the netns handle
              * @example /var/run/docker/netns/8ab54b426c38
              */
             SandboxKey?: string;
             /** @description Deprecated: This field is never set and will be removed in a future release. */
-            SecondaryIPAddresses?: components["schemas"]["Address"][] | null;
+            SecondaryIPAddresses?: components['schemas']['Address'][] | null;
             /** @description Deprecated: This field is never set and will be removed in a future release. */
-            SecondaryIPv6Addresses?: components["schemas"]["Address"][] | null;
+            SecondaryIPv6Addresses?: components['schemas']['Address'][] | null;
             /**
              * @description EndpointID uniquely represents a service endpoint in a Sandbox.
              *
@@ -3407,7 +3423,7 @@ export interface components {
             MacAddress?: string;
             /** @description Information about all networks that the container is connected to. */
             Networks?: {
-                [key: string]: components["schemas"]["EndpointSettings"];
+                [key: string]: components['schemas']['EndpointSettings'];
             };
         };
         /** @description Address represents an IPv4 or IPv6 IP address. */
@@ -3456,7 +3472,7 @@ export interface components {
          *     }
          */
         PortMap: {
-            [key: string]: components["schemas"]["PortBinding"][] | null;
+            [key: string]: components['schemas']['PortBinding'][] | null;
         };
         /**
          * @description PortBinding represents a binding between a host IP address and a host
@@ -3503,7 +3519,7 @@ export interface components {
         FilesystemChange: {
             /** @description Path to file or directory that has changed. */
             Path: string;
-            Kind: components["schemas"]["ChangeType"];
+            Kind: components['schemas']['ChangeType'];
         };
         /**
          * Format: uint8
@@ -3531,7 +3547,7 @@ export interface components {
              * @example sha256:ec3f0931a6e6b6855d76b2d7b0be30e81860baccd891b2e243280bf1cd8ad710
              */
             Id?: string;
-            Descriptor?: components["schemas"]["OCIDescriptor"];
+            Descriptor?: components['schemas']['OCIDescriptor'];
             /**
              * @description Manifests is a list of image manifests available in this image. It
              *     provides a more detailed view of the platform-specific image manifests or
@@ -3543,7 +3559,7 @@ export interface components {
              *     WARNING: This is experimental and may change at any time without any backward
              *     compatibility.
              */
-            Manifests?: components["schemas"]["ImageManifestSummary"][] | null;
+            Manifests?: components['schemas']['ImageManifestSummary'][] | null;
             /**
              * @description List of image names/tags in the local image cache that reference this
              *     image.
@@ -3620,7 +3636,7 @@ export interface components {
              * @example
              */
             Author?: string;
-            Config?: components["schemas"]["ImageConfig"];
+            Config?: components['schemas']['ImageConfig'];
             /**
              * @description Hardware CPU architecture that the image runs on.
              * @example arm
@@ -3648,7 +3664,7 @@ export interface components {
              * @example 1239828
              */
             Size?: number;
-            GraphDriver?: components["schemas"]["DriverData"];
+            GraphDriver?: components['schemas']['DriverData'];
             /** @description Information about the image's RootFS, including the layer IDs. */
             RootFS?: {
                 /** @example layers */
@@ -3777,8 +3793,8 @@ export interface components {
              *     WARNING: This is experimental and may change at any time without any backward
              *     compatibility.
              */
-            Manifests?: components["schemas"]["ImageManifestSummary"][];
-            Descriptor?: components["schemas"]["OCIDescriptor"];
+            Manifests?: components['schemas']['ImageManifestSummary'][];
+            Descriptor?: components['schemas']['OCIDescriptor'];
         };
         /**
          * @example {
@@ -3858,8 +3874,8 @@ export interface components {
              * @example local
              * @enum {string}
              */
-            Scope: "local" | "global";
-            ClusterVolume?: components["schemas"]["ClusterVolume"];
+            Scope: 'local' | 'global';
+            ClusterVolume?: components['schemas']['ClusterVolume'];
             /**
              * @description The driver specific options used when creating the volume.
              * @example {
@@ -3932,7 +3948,7 @@ export interface components {
             Labels?: {
                 [key: string]: string;
             };
-            ClusterVolumeSpec?: components["schemas"]["ClusterVolumeSpec"];
+            ClusterVolumeSpec?: components['schemas']['ClusterVolumeSpec'];
         };
         /**
          * VolumeListResponse
@@ -3940,7 +3956,7 @@ export interface components {
          */
         VolumeListResponse: {
             /** @description List of volumes */
-            Volumes?: components["schemas"]["Volume"][];
+            Volumes?: components['schemas']['Volume'][];
             /**
              * @description Warnings that occurred when fetching the list of volumes.
              * @example []
@@ -3987,7 +4003,7 @@ export interface components {
              * @example false
              */
             EnableIPv6?: boolean;
-            IPAM?: components["schemas"]["IPAM"];
+            IPAM?: components['schemas']['IPAM'];
             /**
              * @description Whether the network is created to only allow internal networking
              *     connectivity.
@@ -4008,7 +4024,7 @@ export interface components {
              * @example false
              */
             Ingress: boolean;
-            ConfigFrom?: components["schemas"]["ConfigReference"];
+            ConfigFrom?: components['schemas']['ConfigReference'];
             /**
              * @description Whether the network is a config-only network. Config-only networks are
              *     placeholder networks for network configurations to be used by other
@@ -4030,7 +4046,7 @@ export interface components {
              *     }
              */
             Containers?: {
-                [key: string]: components["schemas"]["NetworkContainer"];
+                [key: string]: components['schemas']['NetworkContainer'];
             };
             /**
              * @description Network-specific options uses when creating the network.
@@ -4060,7 +4076,7 @@ export interface components {
              * @description List of peer nodes for an overlay network. This field is only present
              *     for overlay networks, and omitted for other network types.
              */
-            Peers?: components["schemas"]["PeerInfo"][] | null;
+            Peers?: components['schemas']['PeerInfo'][] | null;
         };
         /**
          * @description The config-only network source to provide the configuration for
@@ -4089,7 +4105,7 @@ export interface components {
              *     {"Subnet": <CIDR>, "IPRange": <CIDR>, "Gateway": <IP address>, "AuxAddress": <device_name:IP address>}
              *     ```
              */
-            Config?: components["schemas"]["IPAMConfig"][];
+            Config?: components['schemas']['IPAMConfig'][];
             /**
              * @description Driver-specific options, specified as a map.
              * @example {
@@ -4162,7 +4178,7 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
              */
             error?: string | null;
-            errorDetail?: components["schemas"]["ErrorDetail"];
+            errorDetail?: components['schemas']['ErrorDetail'];
             status?: string;
             /**
              * @description Progress is a pre-formatted presentation of progressDetail.
@@ -4171,8 +4187,8 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
              */
             progress?: string | null;
-            progressDetail?: components["schemas"]["ProgressDetail"];
-            aux?: components["schemas"]["ImageID"];
+            progressDetail?: components['schemas']['ProgressDetail'];
+            aux?: components['schemas']['ImageID'];
         };
         /** @description BuildCache contains information about a build cache record. */
         BuildCache: {
@@ -4193,7 +4209,13 @@ export interface components {
              * @example regular
              * @enum {string}
              */
-            Type?: "internal" | "frontend" | "source.local" | "source.git.checkout" | "exec.cachemount" | "regular";
+            Type?:
+                | 'internal'
+                | 'frontend'
+                | 'source.local'
+                | 'source.git.checkout'
+                | 'exec.cachemount'
+                | 'regular';
             /**
              * @description Description of the build-step that produced the build cache.
              * @example mount / from exec /bin/sh -c echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
@@ -4249,7 +4271,7 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
              */
             error?: string | null;
-            errorDetail?: components["schemas"]["ErrorDetail"];
+            errorDetail?: components['schemas']['ErrorDetail'];
             status?: string;
             /**
              * @description Progress is a pre-formatted presentation of progressDetail.
@@ -4258,7 +4280,7 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
              */
             progress?: string | null;
-            progressDetail?: components["schemas"]["ProgressDetail"];
+            progressDetail?: components['schemas']['ProgressDetail'];
         };
         PushImageInfo: {
             /**
@@ -4268,7 +4290,7 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
              */
             error?: string | null;
-            errorDetail?: components["schemas"]["ErrorDetail"];
+            errorDetail?: components['schemas']['ErrorDetail'];
             status?: string;
             /**
              * @description Progress is a pre-formatted presentation of progressDetail.
@@ -4277,7 +4299,7 @@ export interface components {
              *     > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
              */
             progress?: string | null;
-            progressDetail?: components["schemas"]["ProgressDetail"];
+            progressDetail?: components['schemas']['ProgressDetail'];
         };
         /** @description DeviceInfo represents a device that can be used by a container. */
         DeviceInfo: {
@@ -4318,7 +4340,7 @@ export interface components {
         };
         /** @description Configuration for a network endpoint. */
         EndpointSettings: {
-            IPAMConfig?: components["schemas"]["EndpointIPAMConfig"];
+            IPAMConfig?: components['schemas']['EndpointIPAMConfig'];
             /**
              * @example [
              *       "container_1",
@@ -4498,7 +4520,7 @@ export interface components {
             Enabled: boolean;
             /** @description Settings that can be modified by users. */
             Settings: {
-                Mounts: components["schemas"]["PluginMount"][];
+                Mounts: components['schemas']['PluginMount'][];
                 /**
                  * @example [
                  *       "DEBUG=0"
@@ -4506,7 +4528,7 @@ export interface components {
                  */
                 Env: string[];
                 Args: string[];
-                Devices: components["schemas"]["PluginDevice"][];
+                Devices: components['schemas']['PluginDevice'][];
             };
             /**
              * @description plugin remote reference used to push/pull the plugin
@@ -4534,7 +4556,7 @@ export interface components {
                      *       "docker.volumedriver/1.0"
                      *     ]
                      */
-                    Types: components["schemas"]["PluginInterfaceType"][];
+                    Types: components['schemas']['PluginInterfaceType'][];
                     /** @example plugins.sock */
                     Socket: string;
                     /**
@@ -4542,7 +4564,7 @@ export interface components {
                      * @example some.protocol/v1.0
                      * @enum {string}
                      */
-                    ProtocolScheme?: "" | "moby.plugins.http/v1";
+                    ProtocolScheme?: '' | 'moby.plugins.http/v1';
                 };
                 /**
                  * @example [
@@ -4579,7 +4601,7 @@ export interface components {
                     Capabilities: string[];
                     /** @example false */
                     AllowAllDevices: boolean;
-                    Devices: components["schemas"]["PluginDevice"][];
+                    Devices: components['schemas']['PluginDevice'][];
                 };
                 /** @example /mnt/volumes */
                 PropagatedMount: string;
@@ -4587,7 +4609,7 @@ export interface components {
                 IpcHost: boolean;
                 /** @example false */
                 PidHost: boolean;
-                Mounts: components["schemas"]["PluginMount"][];
+                Mounts: components['schemas']['PluginMount'][];
                 /**
                  * @example [
                  *       {
@@ -4597,7 +4619,7 @@ export interface components {
                  *       }
                  *     ]
                  */
-                Env: components["schemas"]["PluginEnv"][];
+                Env: components['schemas']['PluginEnv'][];
                 Args: {
                     /** @example args */
                     Name: string;
@@ -4663,18 +4685,18 @@ export interface components {
              * @example manager
              * @enum {string}
              */
-            Role?: "worker" | "manager";
+            Role?: 'worker' | 'manager';
             /**
              * @description Availability of the node.
              * @example active
              * @enum {string}
              */
-            Availability?: "active" | "pause" | "drain";
+            Availability?: 'active' | 'pause' | 'drain';
         };
         Node: {
             /** @example 24ifsmvkjbyhk */
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /**
              * Format: dateTime
              * @description Date and time at which the node was added to the swarm in
@@ -4689,10 +4711,10 @@ export interface components {
              * @example 2017-08-09T07:09:37.632105588Z
              */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["NodeSpec"];
-            Description?: components["schemas"]["NodeDescription"];
-            Status?: components["schemas"]["NodeStatus"];
-            ManagerStatus?: components["schemas"]["ManagerStatus"];
+            Spec?: components['schemas']['NodeSpec'];
+            Description?: components['schemas']['NodeDescription'];
+            Status?: components['schemas']['NodeStatus'];
+            ManagerStatus?: components['schemas']['ManagerStatus'];
         };
         /**
          * @description NodeDescription encapsulates the properties of the Node as reported by the
@@ -4701,10 +4723,10 @@ export interface components {
         NodeDescription: {
             /** @example bf3067039e47 */
             Hostname?: string;
-            Platform?: components["schemas"]["Platform"];
-            Resources?: components["schemas"]["ResourceObject"];
-            Engine?: components["schemas"]["EngineDescription"];
-            TLSInfo?: components["schemas"]["TLSInfo"];
+            Platform?: components['schemas']['Platform'];
+            Resources?: components['schemas']['ResourceObject'];
+            Engine?: components['schemas']['EngineDescription'];
+            TLSInfo?: components['schemas']['TLSInfo'];
         };
         /** @description Platform represents the platform (Arch/OS). */
         Platform: {
@@ -4835,7 +4857,7 @@ export interface components {
          *     It provides the current status of the node, as seen by the manager.
          */
         NodeStatus: {
-            State?: components["schemas"]["NodeState"];
+            State?: components['schemas']['NodeState'];
             /** @example  */
             Message?: string;
             /**
@@ -4849,7 +4871,7 @@ export interface components {
          * @example ready
          * @enum {string}
          */
-        NodeState: "unknown" | "down" | "ready" | "disconnected";
+        NodeState: 'unknown' | 'down' | 'ready' | 'disconnected';
         /**
          * @description ManagerStatus represents the status of a manager.
          *
@@ -4862,7 +4884,7 @@ export interface components {
              * @example true
              */
             Leader: boolean;
-            Reachability?: components["schemas"]["Reachability"];
+            Reachability?: components['schemas']['Reachability'];
             /**
              * @description The IP address and port at which the manager is reachable.
              * @example 10.0.0.46:2377
@@ -4874,7 +4896,7 @@ export interface components {
          * @example reachable
          * @enum {string}
          */
-        Reachability: "unknown" | "unreachable" | "reachable";
+        Reachability: 'unknown' | 'unreachable' | 'reachable';
         /** @description User modifiable swarm configuration. */
         SwarmSpec: {
             /**
@@ -4970,7 +4992,7 @@ export interface components {
                      * @default cfssl
                      * @enum {string}
                      */
-                    Protocol: "cfssl";
+                    Protocol: 'cfssl';
                     /** @description URL where certificate signing requests should be sent. */
                     URL?: string;
                     /**
@@ -5053,7 +5075,7 @@ export interface components {
              * @example abajmipo7b4xz5ip2nrla6b11
              */
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /**
              * Format: dateTime
              * @description Date and time at which the swarm was initialised in
@@ -5068,8 +5090,8 @@ export interface components {
              * @example 2017-08-09T07:09:37.632105588Z
              */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["SwarmSpec"];
-            TLSInfo?: components["schemas"]["TLSInfo"];
+            Spec?: components['schemas']['SwarmSpec'];
+            TLSInfo?: components['schemas']['TLSInfo'];
             /**
              * @description Whether there is currently a root CA rotation in progress for the swarm
              * @example false
@@ -5109,8 +5131,8 @@ export interface components {
              */
             Manager?: string;
         };
-        Swarm: components["schemas"]["ClusterInfo"] & {
-            JoinTokens?: components["schemas"]["JoinTokens"];
+        Swarm: components['schemas']['ClusterInfo'] & {
+            JoinTokens?: components['schemas']['JoinTokens'];
         };
         /** @description User modifiable task configuration. */
         TaskSpec: {
@@ -5131,7 +5153,7 @@ export interface components {
                 Remote?: string;
                 /** @description Disable the plugin once scheduled. */
                 Disabled?: boolean;
-                PluginPrivilege?: components["schemas"]["PluginPrivilege"][];
+                PluginPrivilege?: components['schemas']['PluginPrivilege'][];
             };
             /**
              * @description Container spec for the service.
@@ -5230,14 +5252,14 @@ export interface components {
                     /** @description Options for configuring seccomp on the container */
                     Seccomp?: {
                         /** @enum {string} */
-                        Mode?: "default" | "unconfined" | "custom";
+                        Mode?: 'default' | 'unconfined' | 'custom';
                         /** @description The custom seccomp profile as a json object */
                         Profile?: string;
                     };
                     /** @description Options for configuring AppArmor on the container */
                     AppArmor?: {
                         /** @enum {string} */
-                        Mode?: "default" | "disabled";
+                        Mode?: 'default' | 'disabled';
                     };
                     /** @description Configuration of the no_new_privs bit in the container */
                     NoNewPrivileges?: boolean;
@@ -5252,7 +5274,7 @@ export interface components {
                  * @description Specification for mounts to be added to containers created as part
                  *     of the service.
                  */
-                Mounts?: components["schemas"]["Mount"][];
+                Mounts?: components['schemas']['Mount'][];
                 /** @description Signal to stop the container. */
                 StopSignal?: string;
                 /**
@@ -5261,7 +5283,7 @@ export interface components {
                  *     forcefully killing it.
                  */
                 StopGracePeriod?: number;
-                HealthCheck?: components["schemas"]["HealthConfig"];
+                HealthCheck?: components['schemas']['HealthConfig'];
                 /**
                  * @description A list of hostname/IP mappings to add to the container's `hosts`
                  *     file. The format of extra hosts is specified in the
@@ -5376,7 +5398,7 @@ export interface components {
                  *     (Windows only)
                  * @enum {string}
                  */
-                Isolation?: "default" | "process" | "hyperv" | "";
+                Isolation?: 'default' | 'process' | 'hyperv' | '';
                 /**
                  * @description Run an init inside the container that forwards signals and reaps
                  *     processes. This field is omitted if empty, and the default (as
@@ -5444,8 +5466,8 @@ export interface components {
              *     as part of the service.
              */
             Resources?: {
-                Limits?: components["schemas"]["Limit"];
-                Reservations?: components["schemas"]["ResourceObject"];
+                Limits?: components['schemas']['Limit'];
+                Reservations?: components['schemas']['ResourceObject'];
             };
             /**
              * @description Specification for the restart policy which applies to containers
@@ -5456,7 +5478,7 @@ export interface components {
                  * @description Condition for restart.
                  * @enum {string}
                  */
-                Condition?: "none" | "on-failure" | "any";
+                Condition?: 'none' | 'on-failure' | 'any';
                 /**
                  * Format: int64
                  * @description Delay between restart attempts.
@@ -5543,7 +5565,7 @@ export interface components {
                  *     If empty, then the platform filter is off, meaning there are no
                  *     scheduling restrictions.
                  */
-                Platforms?: components["schemas"]["Platform"][];
+                Platforms?: components['schemas']['Platform'][];
             };
             /**
              * Format: uint64
@@ -5554,7 +5576,7 @@ export interface components {
             /** @description Runtime is the type of runtime specified for the task executor. */
             Runtime?: string;
             /** @description Specifies which networks the service should attach to. */
-            Networks?: components["schemas"]["NetworkAttachmentConfig"][];
+            Networks?: components['schemas']['NetworkAttachmentConfig'][];
             /**
              * @description Specifies the log driver to use for tasks created from this spec. If
              *     not present, the default one for the swarm will be used, finally
@@ -5568,7 +5590,22 @@ export interface components {
             };
         };
         /** @enum {string} */
-        TaskState: "new" | "allocated" | "pending" | "assigned" | "accepted" | "preparing" | "ready" | "starting" | "running" | "complete" | "shutdown" | "failed" | "rejected" | "remove" | "orphaned";
+        TaskState:
+            | 'new'
+            | 'allocated'
+            | 'pending'
+            | 'assigned'
+            | 'accepted'
+            | 'preparing'
+            | 'ready'
+            | 'starting'
+            | 'running'
+            | 'complete'
+            | 'shutdown'
+            | 'failed'
+            | 'rejected'
+            | 'remove'
+            | 'orphaned';
         /** @description represents the status of a container. */
         ContainerStatus: {
             ContainerID?: string;
@@ -5577,17 +5614,17 @@ export interface components {
         };
         /** @description represents the port status of a task's host ports whose service has published host ports */
         PortStatus: {
-            Ports?: components["schemas"]["EndpointPortConfig"][];
+            Ports?: components['schemas']['EndpointPortConfig'][];
         };
         /** @description represents the status of a task. */
         TaskStatus: {
             /** Format: dateTime */
             Timestamp?: string;
-            State?: components["schemas"]["TaskState"];
+            State?: components['schemas']['TaskState'];
             Message?: string;
             Err?: string;
-            ContainerStatus?: components["schemas"]["ContainerStatus"];
-            PortStatus?: components["schemas"]["PortStatus"];
+            ContainerStatus?: components['schemas']['ContainerStatus'];
+            PortStatus?: components['schemas']['PortStatus'];
         };
         /**
          * @example {
@@ -5697,7 +5734,7 @@ export interface components {
         Task: {
             /** @description The ID of the task. */
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /** Format: dateTime */
             CreatedAt?: string;
             /** Format: dateTime */
@@ -5708,16 +5745,16 @@ export interface components {
             Labels?: {
                 [key: string]: string;
             };
-            Spec?: components["schemas"]["TaskSpec"];
+            Spec?: components['schemas']['TaskSpec'];
             /** @description The ID of the service this task is part of. */
             ServiceID?: string;
             Slot?: number;
             /** @description The ID of the node that this task is on. */
             NodeID?: string;
-            AssignedGenericResources?: components["schemas"]["GenericResources"];
-            Status?: components["schemas"]["TaskStatus"];
-            DesiredState?: components["schemas"]["TaskState"];
-            JobIteration?: components["schemas"]["ObjectVersion"];
+            AssignedGenericResources?: components['schemas']['GenericResources'];
+            Status?: components['schemas']['TaskStatus'];
+            DesiredState?: components['schemas']['TaskState'];
+            JobIteration?: components['schemas']['ObjectVersion'];
         };
         /** @description User modifiable configuration for a service. */
         ServiceSpec: {
@@ -5727,7 +5764,7 @@ export interface components {
             Labels?: {
                 [key: string]: string;
             };
-            TaskTemplate?: components["schemas"]["TaskSpec"];
+            TaskTemplate?: components['schemas']['TaskSpec'];
             /** @description Scheduling mode for the service. */
             Mode?: {
                 Replicated?: {
@@ -5777,7 +5814,7 @@ export interface components {
                  *     during the update.
                  * @enum {string}
                  */
-                FailureAction?: "continue" | "pause" | "rollback";
+                FailureAction?: 'continue' | 'pause' | 'rollback';
                 /**
                  * Format: int64
                  * @description Amount of time to monitor each updated task for failures, in
@@ -5796,7 +5833,7 @@ export interface components {
                  *     new task is started before the old task is shut down.
                  * @enum {string}
                  */
-                Order?: "stop-first" | "start-first";
+                Order?: 'stop-first' | 'start-first';
             };
             /** @description Specification for the rollback strategy of the service. */
             RollbackConfig?: {
@@ -5816,7 +5853,7 @@ export interface components {
                  *     running during the rollback.
                  * @enum {string}
                  */
-                FailureAction?: "continue" | "pause";
+                FailureAction?: 'continue' | 'pause';
                 /**
                  * Format: int64
                  * @description Amount of time to monitor each rolled back task for failures, in
@@ -5835,20 +5872,20 @@ export interface components {
                  *     is started before the old task is shut down.
                  * @enum {string}
                  */
-                Order?: "stop-first" | "start-first";
+                Order?: 'stop-first' | 'start-first';
             };
             /**
              * @description Specifies which networks the service should attach to.
              *
              *     Deprecated: This field is deprecated since v1.44. The Networks field in TaskSpec should be used instead.
              */
-            Networks?: components["schemas"]["NetworkAttachmentConfig"][];
-            EndpointSpec?: components["schemas"]["EndpointSpec"];
+            Networks?: components['schemas']['NetworkAttachmentConfig'][];
+            EndpointSpec?: components['schemas']['EndpointSpec'];
         };
         EndpointPortConfig: {
             Name?: string;
             /** @enum {string} */
-            Protocol?: "tcp" | "udp" | "sctp";
+            Protocol?: 'tcp' | 'udp' | 'sctp';
             /** @description The port inside the container. */
             TargetPort?: number;
             /** @description The port on the swarm hosts. */
@@ -5867,7 +5904,7 @@ export interface components {
              * @example ingress
              * @enum {string}
              */
-            PublishMode: "ingress" | "host";
+            PublishMode: 'ingress' | 'host';
         };
         /** @description Properties that can be configured to access and load balance a service. */
         EndpointSpec: {
@@ -5876,12 +5913,12 @@ export interface components {
              * @default vip
              * @enum {string}
              */
-            Mode: "vip" | "dnsrr";
+            Mode: 'vip' | 'dnsrr';
             /**
              * @description List of exposed ports that this service is accessible on from the
              *     outside. Ports can only be provided if `vip` resolution mode is used.
              */
-            Ports?: components["schemas"]["EndpointPortConfig"][];
+            Ports?: components['schemas']['EndpointPortConfig'][];
         };
         /**
          * @example {
@@ -5971,15 +6008,15 @@ export interface components {
          */
         Service: {
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /** Format: dateTime */
             CreatedAt?: string;
             /** Format: dateTime */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["ServiceSpec"];
+            Spec?: components['schemas']['ServiceSpec'];
             Endpoint?: {
-                Spec?: components["schemas"]["EndpointSpec"];
-                Ports?: components["schemas"]["EndpointPortConfig"][];
+                Spec?: components['schemas']['EndpointSpec'];
+                Ports?: components['schemas']['EndpointPortConfig'][];
                 VirtualIPs?: {
                     NetworkID?: string;
                     Addr?: string;
@@ -5988,7 +6025,7 @@ export interface components {
             /** @description The status of a service update. */
             UpdateStatus?: {
                 /** @enum {string} */
-                State?: "updating" | "paused" | "completed";
+                State?: 'updating' | 'paused' | 'completed';
                 /** Format: dateTime */
                 StartedAt?: string;
                 /** Format: dateTime */
@@ -6032,7 +6069,7 @@ export interface components {
              *     does not need to be sent with an update request.
              */
             JobStatus?: {
-                JobIteration?: components["schemas"]["ObjectVersion"];
+                JobIteration?: components['schemas']['ObjectVersion'];
                 /**
                  * Format: dateTime
                  * @description The last time, as observed by the server, that this job was
@@ -6105,7 +6142,7 @@ export interface components {
              *     ]
              */
             Args?: string[];
-            State?: components["schemas"]["ContainerState"];
+            State?: components['schemas']['ContainerState'];
             /**
              * @description The ID (digest) of the image that this container was created from.
              * @example sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782
@@ -6175,7 +6212,7 @@ export interface components {
              * @example linux
              */
             Platform?: string;
-            ImageManifestDescriptor?: components["schemas"]["OCIDescriptor"];
+            ImageManifestDescriptor?: components['schemas']['OCIDescriptor'];
             /**
              * @description SELinux mount label set for the container.
              * @example
@@ -6199,8 +6236,8 @@ export interface components {
              *     ]
              */
             ExecIDs?: string[] | null;
-            HostConfig?: components["schemas"]["HostConfig"];
-            GraphDriver?: components["schemas"]["DriverData"];
+            HostConfig?: components['schemas']['HostConfig'];
+            GraphDriver?: components['schemas']['DriverData'];
             /**
              * Format: int64
              * @description The size of files that have been created or changed by this container.
@@ -6221,9 +6258,9 @@ export interface components {
              */
             SizeRootFs?: number | null;
             /** @description List of mounts used by the container. */
-            Mounts?: components["schemas"]["MountPoint"][];
-            Config?: components["schemas"]["ContainerConfig"];
-            NetworkSettings?: components["schemas"]["NetworkSettings"];
+            Mounts?: components['schemas']['MountPoint'][];
+            Config?: components['schemas']['ContainerConfig'];
+            NetworkSettings?: components['schemas']['NetworkSettings'];
         };
         ContainerSummary: {
             /**
@@ -6262,7 +6299,7 @@ export interface components {
              * @example sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782
              */
             ImageID?: string;
-            ImageManifestDescriptor?: components["schemas"]["OCIDescriptor"];
+            ImageManifestDescriptor?: components['schemas']['OCIDescriptor'];
             /**
              * @description Command to run when starting the container
              * @example /bin/bash
@@ -6276,7 +6313,7 @@ export interface components {
              */
             Created?: number;
             /** @description Port-mappings for the container. */
-            Ports?: components["schemas"]["Port"][];
+            Ports?: components['schemas']['Port'][];
             /**
              * Format: int64
              * @description The size of files that have been created or changed by this container.
@@ -6312,7 +6349,14 @@ export interface components {
              * @example running
              * @enum {string}
              */
-            State?: "created" | "running" | "paused" | "restarting" | "exited" | "removing" | "dead";
+            State?:
+                | 'created'
+                | 'running'
+                | 'paused'
+                | 'restarting'
+                | 'exited'
+                | 'removing'
+                | 'dead';
             /**
              * @description Additional human-readable status of this container (e.g. `Exit 0`)
              * @example Up 4 days
@@ -6353,11 +6397,11 @@ export interface components {
                  *     attached to.
                  */
                 Networks?: {
-                    [key: string]: components["schemas"]["EndpointSettings"];
+                    [key: string]: components['schemas']['EndpointSettings'];
                 };
             };
             /** @description List of mounts used by the container. */
-            Mounts?: components["schemas"]["MountPoint"][];
+            Mounts?: components['schemas']['MountPoint'][];
         };
         /** @description Driver represents a driver (network, logging, secrets). */
         Driver: {
@@ -6402,13 +6446,13 @@ export interface components {
              * @example
              */
             Data?: string;
-            Driver?: components["schemas"]["Driver"];
-            Templating?: components["schemas"]["Driver"];
+            Driver?: components['schemas']['Driver'];
+            Templating?: components['schemas']['Driver'];
         };
         Secret: {
             /** @example blt1owaxmitz71s9v5zh81zun */
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /**
              * Format: dateTime
              * @example 2017-07-20T13:55:28.678958722Z
@@ -6419,7 +6463,7 @@ export interface components {
              * @example 2017-07-20T13:55:28.678958722Z
              */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["SecretSpec"];
+            Spec?: components['schemas']['SecretSpec'];
         };
         ConfigSpec: {
             /** @description User-defined name of the config. */
@@ -6434,16 +6478,16 @@ export interface components {
              *     The maximum allowed size is 1000KB, as defined in [MaxConfigSize](https://pkg.go.dev/github.com/moby/swarmkit/v2@v2.0.0-20250103191802-8c1959736554/manager/controlapi#MaxConfigSize).
              */
             Data?: string;
-            Templating?: components["schemas"]["Driver"];
+            Templating?: components['schemas']['Driver'];
         };
         Config: {
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /** Format: dateTime */
             CreatedAt?: string;
             /** Format: dateTime */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["ConfigSpec"];
+            Spec?: components['schemas']['ConfigSpec'];
         };
         /**
          * @description ContainerState stores container's running state. It's part of ContainerJSONBase
@@ -6456,7 +6500,14 @@ export interface components {
              * @example running
              * @enum {string}
              */
-            Status?: "created" | "running" | "paused" | "restarting" | "removing" | "exited" | "dead";
+            Status?:
+                | 'created'
+                | 'running'
+                | 'paused'
+                | 'restarting'
+                | 'removing'
+                | 'exited'
+                | 'dead';
             /**
              * @description Whether this container is running.
              *
@@ -6510,7 +6561,7 @@ export interface components {
              * @example 2020-01-06T09:07:59.461876391Z
              */
             FinishedAt?: string;
-            Health?: components["schemas"]["Health"];
+            Health?: components['schemas']['Health'];
         } | null;
         /**
          * ContainerCreateResponse
@@ -6576,8 +6627,8 @@ export interface components {
              * @example 2025-01-16T13:55:21.160452595Z
              */
             preread?: string;
-            pids_stats?: components["schemas"]["ContainerPidsStats"];
-            blkio_stats?: components["schemas"]["ContainerBlkioStats"];
+            pids_stats?: components['schemas']['ContainerPidsStats'];
+            blkio_stats?: components['schemas']['ContainerBlkioStats'];
             /**
              * Format: uint32
              * @description The number of processors on the system.
@@ -6586,10 +6637,10 @@ export interface components {
              * @example 16
              */
             num_procs?: number;
-            storage_stats?: components["schemas"]["ContainerStorageStats"];
-            cpu_stats?: components["schemas"]["ContainerCPUStats"];
-            precpu_stats?: components["schemas"]["ContainerCPUStats"];
-            memory_stats?: components["schemas"]["ContainerMemoryStats"];
+            storage_stats?: components['schemas']['ContainerStorageStats'];
+            cpu_stats?: components['schemas']['ContainerCPUStats'];
+            precpu_stats?: components['schemas']['ContainerCPUStats'];
+            memory_stats?: components['schemas']['ContainerMemoryStats'];
             /**
              * @description Network statistics for the container per interface.
              *
@@ -6624,42 +6675,56 @@ export interface components {
          *     }
          */
         ContainerBlkioStats: {
-            io_service_bytes_recursive?: components["schemas"]["ContainerBlkioStatEntry"][];
+            io_service_bytes_recursive?: components['schemas']['ContainerBlkioStatEntry'][];
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_serviced_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_serviced_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_queue_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_queue_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_service_time_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_service_time_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_wait_time_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_wait_time_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_merged_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_merged_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            io_time_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            io_time_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
             /**
              * @description This field is only available when using Linux containers with
              *     cgroups v1. It is omitted or `null` when using cgroups v2.
              */
-            sectors_recursive?: components["schemas"]["ContainerBlkioStatEntry"][] | null;
+            sectors_recursive?:
+                | components['schemas']['ContainerBlkioStatEntry'][]
+                | null;
         } | null;
         /**
          * @description Blkio stats entry.
@@ -6687,7 +6752,7 @@ export interface components {
         } | null;
         /** @description CPU related info of the container */
         ContainerCPUStats: {
-            cpu_usage?: components["schemas"]["ContainerCPUUsage"];
+            cpu_usage?: components['schemas']['ContainerCPUUsage'];
             /**
              * Format: uint64
              * @description System Usage.
@@ -6704,7 +6769,7 @@ export interface components {
              * @example 5
              */
             online_cpus?: number | null;
-            throttling_data?: components["schemas"]["ContainerThrottlingData"];
+            throttling_data?: components['schemas']['ContainerThrottlingData'];
         } | null;
         /** @description All CPU stats aggregated since container inception. */
         ContainerCPUUsage: {
@@ -7044,7 +7109,7 @@ export interface components {
              * @description Exit code of the container
              */
             StatusCode: number;
-            Error?: components["schemas"]["ContainerWaitExitError"];
+            Error?: components['schemas']['ContainerWaitExitError'];
         };
         /** @description container waiting error, if any */
         ContainerWaitExitError: {
@@ -7214,7 +7279,7 @@ export interface components {
              * @example /var/lib/docker
              */
             DockerRootDir?: string;
-            Plugins?: components["schemas"]["PluginsInfo"];
+            Plugins?: components['schemas']['PluginsInfo'];
             /**
              * @description Indicates if the host has memory limit support enabled.
              * @example true
@@ -7306,14 +7371,14 @@ export interface components {
              * @example cgroupfs
              * @enum {string}
              */
-            CgroupDriver: "cgroupfs" | "systemd" | "none";
+            CgroupDriver: 'cgroupfs' | 'systemd' | 'none';
             /**
              * @description The version of the cgroup.
              * @default 1
              * @example 1
              * @enum {string}
              */
-            CgroupVersion: "1" | "2";
+            CgroupVersion: '1' | '2';
             /**
              * @description Number of event listeners subscribed.
              * @example 30
@@ -7384,8 +7449,8 @@ export interface components {
              * @example https://index.docker.io/v1/
              */
             IndexServerAddress: string;
-            RegistryConfig?: components["schemas"]["RegistryServiceConfig"];
-            GenericResources?: components["schemas"]["GenericResources"];
+            RegistryConfig?: components['schemas']['RegistryServiceConfig'];
+            GenericResources?: components['schemas']['GenericResources'];
             /**
              * @description HTTP-proxy configured for the daemon. This value is obtained from the
              *     [`HTTP_PROXY`](https://www.gnu.org/software/wget/manual/html_node/Proxies.html) environment variable.
@@ -7474,7 +7539,7 @@ export interface components {
              *     }
              */
             Runtimes?: {
-                [key: string]: components["schemas"]["Runtime"];
+                [key: string]: components['schemas']['Runtime'];
             };
             /**
              * @description Name of the default OCI runtime that is used when starting containers.
@@ -7484,7 +7549,7 @@ export interface components {
              * @example runc
              */
             DefaultRuntime: string;
-            Swarm?: components["schemas"]["SwarmInfo"];
+            Swarm?: components['schemas']['SwarmInfo'];
             /**
              * @description Indicates if live restore is enabled.
              *
@@ -7505,7 +7570,7 @@ export interface components {
              * @default default
              * @enum {string}
              */
-            Isolation: "default" | "hyperv" | "process" | "";
+            Isolation: 'default' | 'hyperv' | 'process' | '';
             /**
              * @description Name and, optional, path of the `docker-init` binary.
              *
@@ -7514,9 +7579,9 @@ export interface components {
              * @example docker-init
              */
             InitBinary?: string;
-            ContainerdCommit?: components["schemas"]["Commit"];
-            RuncCommit?: components["schemas"]["Commit"];
-            InitCommit?: components["schemas"]["Commit"];
+            ContainerdCommit?: components['schemas']['Commit'];
+            RuncCommit?: components['schemas']['Commit'];
+            InitCommit?: components['schemas']['Commit'];
             /**
              * @description List of security features that are enabled on the daemon, such as
              *     apparmor, seccomp, SELinux, user-namespaces (userns), rootless and
@@ -7561,14 +7626,14 @@ export interface components {
                  */
                 Size?: number;
             }[];
-            FirewallBackend?: components["schemas"]["FirewallInfo"];
+            FirewallBackend?: components['schemas']['FirewallInfo'];
             /**
              * @description List of devices discovered by device drivers.
              *
              *     Each device includes information about its source driver, kind, name,
              *     and additional driver-specific attributes.
              */
-            DiscoveredDevices?: components["schemas"]["DeviceInfo"][];
+            DiscoveredDevices?: components['schemas']['DeviceInfo'][];
             /**
              * @description List of warnings / informational messages about missing features, or
              *     issues related to the daemon configuration.
@@ -7597,7 +7662,7 @@ export interface components {
              *     ]
              */
             CDISpecDirs?: string[];
-            Containerd?: components["schemas"]["ContainerdInfo"];
+            Containerd?: components['schemas']['ContainerdInfo'];
         };
         /**
          * @description Information for connecting to the containerd instance that is used by the daemon.
@@ -7792,7 +7857,7 @@ export interface components {
              *     }
              */
             IndexConfigs?: {
-                [key: string]: components["schemas"]["IndexInfo"];
+                [key: string]: components['schemas']['IndexInfo'];
             };
             /**
              * @description List of registry URLs that act as a mirror for the official
@@ -7917,7 +7982,7 @@ export interface components {
              * @example 10.0.0.46
              */
             NodeAddr: string;
-            LocalNodeState?: components["schemas"]["LocalNodeState"];
+            LocalNodeState?: components['schemas']['LocalNodeState'];
             /**
              * @default false
              * @example true
@@ -7942,7 +8007,7 @@ export interface components {
              *       }
              *     ]
              */
-            RemoteManagers?: components["schemas"]["PeerNode"][] | null;
+            RemoteManagers?: components['schemas']['PeerNode'][] | null;
             /**
              * @description Total number of nodes in the swarm.
              * @example 4
@@ -7953,7 +8018,7 @@ export interface components {
              * @example 3
              */
             Managers?: number | null;
-            Cluster?: components["schemas"]["ClusterInfo"];
+            Cluster?: components['schemas']['ClusterInfo'];
         };
         /**
          * @description Current local status of this node.
@@ -7961,7 +8026,13 @@ export interface components {
          * @example active
          * @enum {string}
          */
-        LocalNodeState: "" | "inactive" | "pending" | "active" | "error" | "locked";
+        LocalNodeState:
+            | ''
+            | 'inactive'
+            | 'pending'
+            | 'active'
+            | 'error'
+            | 'locked';
         /** @description Represents a peer-node in the swarm */
         PeerNode: {
             /** @description Unique identifier of for this node in the swarm. */
@@ -8012,19 +8083,30 @@ export interface components {
              * @example container
              * @enum {string}
              */
-            Type?: "builder" | "config" | "container" | "daemon" | "image" | "network" | "node" | "plugin" | "secret" | "service" | "volume";
+            Type?:
+                | 'builder'
+                | 'config'
+                | 'container'
+                | 'daemon'
+                | 'image'
+                | 'network'
+                | 'node'
+                | 'plugin'
+                | 'secret'
+                | 'service'
+                | 'volume';
             /**
              * @description The type of event
              * @example create
              */
             Action?: string;
-            Actor?: components["schemas"]["EventActor"];
+            Actor?: components['schemas']['EventActor'];
             /**
              * @description Scope of the event. Engine events are `local` scope. Cluster (Swarm)
              *     events are `swarm` scope.
              * @enum {string}
              */
-            scope?: "local" | "swarm";
+            scope?: 'local' | 'swarm';
             /**
              * Format: int64
              * @description Timestamp of event
@@ -8083,7 +8165,7 @@ export interface components {
              *     present, Data can be used directly to avoid fetching the targeted content.
              */
             data?: string | null;
-            platform?: components["schemas"]["OCIPlatform"];
+            platform?: components['schemas']['OCIPlatform'];
             /** @description ArtifactType is the IANA media type of this artifact. */
             artifactType?: string | null;
         };
@@ -8107,7 +8189,7 @@ export interface components {
              *     Windows `10.0.19041.1165`.
              * @example 10.0.19041.1165
              */
-            "os.version"?: string;
+            'os.version'?: string;
             /**
              * @description Optional field specifying an array of strings, each listing a required
              *     OS feature (for example on Windows `win32k`).
@@ -8115,7 +8197,7 @@ export interface components {
              *       "win32k"
              *     ]
              */
-            "os.features"?: string[];
+            'os.features'?: string[];
             /**
              * @description Optional field specifying a variant of the CPU, for example `v7` to
              *     specify ARMv7 when architecture is `arm`.
@@ -8129,9 +8211,9 @@ export interface components {
          *     image metadata.
          */
         DistributionInspect: {
-            Descriptor: components["schemas"]["OCIDescriptor"];
+            Descriptor: components['schemas']['OCIDescriptor'];
             /** @description An array containing all platforms supported by the image. */
-            Platforms: components["schemas"]["OCIPlatform"][];
+            Platforms: components['schemas']['OCIPlatform'][];
         };
         /**
          * @description Options and information specific to, and only present on, Swarm CSI
@@ -8144,12 +8226,12 @@ export interface components {
              *     be used to refer to the Volume instead of the name.
              */
             ID?: string;
-            Version?: components["schemas"]["ObjectVersion"];
+            Version?: components['schemas']['ObjectVersion'];
             /** Format: dateTime */
             CreatedAt?: string;
             /** Format: dateTime */
             UpdatedAt?: string;
-            Spec?: components["schemas"]["ClusterVolumeSpec"];
+            Spec?: components['schemas']['ClusterVolumeSpec'];
             /** @description Information about the global status of the volume. */
             Info?: {
                 /**
@@ -8174,7 +8256,7 @@ export interface components {
                  */
                 VolumeID?: string;
                 /** @description The topology this volume is actually accessible from. */
-                AccessibleTopology?: components["schemas"]["Topology"][];
+                AccessibleTopology?: components['schemas']['Topology'][];
             };
             /**
              * @description The status of the volume as it pertains to its publishing and use on
@@ -8191,7 +8273,11 @@ export interface components {
                  *     * `pending-controller-unpublish` The volume is successfully unpublished from the node, but has not yet been successfully unpublished on the controller.
                  * @enum {string}
                  */
-                State?: "pending-publish" | "published" | "pending-node-unpublish" | "pending-controller-unpublish";
+                State?:
+                    | 'pending-publish'
+                    | 'published'
+                    | 'pending-node-unpublish'
+                    | 'pending-controller-unpublish';
                 /**
                  * @description A map of strings to strings returned by the CSI controller
                  *     plugin when a volume is published.
@@ -8221,7 +8307,7 @@ export interface components {
                  * @default single
                  * @enum {string}
                  */
-                Scope: "single" | "multi";
+                Scope: 'single' | 'multi';
                 /**
                  * @description The number and way that different tasks can use this volume
                  *     at one time.
@@ -8232,7 +8318,7 @@ export interface components {
                  * @default none
                  * @enum {string}
                  */
-                Sharing: "none" | "readonly" | "onewriter" | "all";
+                Sharing: 'none' | 'readonly' | 'onewriter' | 'all';
                 /**
                  * @description Options for using this volume as a Mount-type volume.
                  *
@@ -8285,12 +8371,12 @@ export interface components {
                      * @description A list of required topologies, at least one of which the
                      *     volume must be accessible from.
                      */
-                    Requisite?: components["schemas"]["Topology"][];
+                    Requisite?: components['schemas']['Topology'][];
                     /**
                      * @description A list of topologies that the volume should attempt to be
                      *     provisioned in.
                      */
-                    Preferred?: components["schemas"]["Topology"][];
+                    Preferred?: components['schemas']['Topology'][];
                 };
                 /**
                  * @description The desired capacity that the volume should be created with. If
@@ -8318,7 +8404,7 @@ export interface components {
                  * @default active
                  * @enum {string}
                  */
-                Availability: "active" | "pause" | "drain";
+                Availability: 'active' | 'pause' | 'drain';
             };
         };
         /**
@@ -8337,7 +8423,7 @@ export interface components {
              * @example sha256:95869fbcf224d947ace8d61d0e931d49e31bb7fc67fffbbe9c3198c33aa8e93f
              */
             ID: string;
-            Descriptor: components["schemas"]["OCIDescriptor"];
+            Descriptor: components['schemas']['OCIDescriptor'];
             /**
              * @description Indicates whether all the child content (image config, layers) is fully available locally.
              * @example true
@@ -8377,13 +8463,13 @@ export interface components {
              * @example image
              * @enum {string}
              */
-            Kind: "image" | "attestation" | "unknown";
+            Kind: 'image' | 'attestation' | 'unknown';
             /**
              * @description The image data for the image manifest.
              *     This field is only populated when Kind is "image".
              */
             ImageData?: {
-                Platform: components["schemas"]["OCIPlatform"];
+                Platform: components['schemas']['OCIPlatform'];
                 /**
                  * @description The IDs of the containers that are using this image.
                  * @example [
@@ -8477,7 +8563,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerSummary"][];
+                    'application/json': components['schemas']['ContainerSummary'][];
                 };
             };
             /** @description bad parameter */
@@ -8486,7 +8572,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8495,7 +8581,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8535,13 +8621,13 @@ export interface operations {
         /** @description Container to create */
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ContainerConfig"] & {
-                    HostConfig?: components["schemas"]["HostConfig"];
-                    NetworkingConfig?: components["schemas"]["NetworkingConfig"];
+                'application/json': components['schemas']['ContainerConfig'] & {
+                    HostConfig?: components['schemas']['HostConfig'];
+                    NetworkingConfig?: components['schemas']['NetworkingConfig'];
                 };
-                "application/octet-stream": components["schemas"]["ContainerConfig"] & {
-                    HostConfig?: components["schemas"]["HostConfig"];
-                    NetworkingConfig?: components["schemas"]["NetworkingConfig"];
+                'application/octet-stream': components['schemas']['ContainerConfig'] & {
+                    HostConfig?: components['schemas']['HostConfig'];
+                    NetworkingConfig?: components['schemas']['NetworkingConfig'];
                 };
             };
         };
@@ -8552,7 +8638,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerCreateResponse"];
+                    'application/json': components['schemas']['ContainerCreateResponse'];
                 };
             };
             /** @description bad parameter */
@@ -8561,7 +8647,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such image */
@@ -8575,7 +8661,7 @@ export interface operations {
                      *       "message": "No such image: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description conflict */
@@ -8584,7 +8670,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8593,7 +8679,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8619,7 +8705,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerInspectResponse"];
+                    'application/json': components['schemas']['ContainerInspectResponse'];
                 };
             };
             /** @description no such container */
@@ -8633,7 +8719,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8642,7 +8728,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8668,8 +8754,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerTopResponse"];
-                    "text/plain": components["schemas"]["ContainerTopResponse"];
+                    'application/json': components['schemas']['ContainerTopResponse'];
+                    'text/plain': components['schemas']['ContainerTopResponse'];
                 };
             };
             /** @description no such container */
@@ -8683,8 +8769,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8693,8 +8779,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8740,8 +8826,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": string;
-                    "application/vnd.docker.multiplexed-stream": string;
+                    'application/vnd.docker.raw-stream': string;
+                    'application/vnd.docker.multiplexed-stream': string;
                 };
             };
             /** @description no such container */
@@ -8750,14 +8836,14 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -8766,8 +8852,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8806,7 +8892,7 @@ export interface operations {
                      *       }
                      *     ]
                      */
-                    "application/json": components["schemas"]["FilesystemChange"][];
+                    'application/json': components['schemas']['FilesystemChange'][];
                 };
             };
             /** @description no such container */
@@ -8820,7 +8906,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8829,7 +8915,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8859,13 +8945,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/octet-stream": components["schemas"]["ErrorResponse"];
+                    'application/octet-stream': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -8874,7 +8960,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/octet-stream": components["schemas"]["ErrorResponse"];
+                    'application/octet-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8891,7 +8977,7 @@ export interface operations {
                  * @description Only get a single stat instead of waiting for 2 cycles. Must be used
                  *     with `stream=false`.
                  */
-                "one-shot"?: boolean;
+                'one-shot'?: boolean;
             };
             header?: never;
             path: {
@@ -8908,7 +8994,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerStatsResponse"];
+                    'application/json': components['schemas']['ContainerStatsResponse'];
                 };
             };
             /** @description no such container */
@@ -8922,7 +9008,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -8931,7 +9017,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -8966,13 +9052,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'text/plain': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description cannot resize container */
@@ -8981,7 +9067,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9030,8 +9116,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9040,8 +9126,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9088,8 +9174,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9098,8 +9184,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9139,8 +9225,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9149,8 +9235,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9188,8 +9274,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description container is not running */
@@ -9203,8 +9289,8 @@ export interface operations {
                      *       "message": "Container d37cde0fe4ad63c3a7252023b2f9800282894247d145cb5933ddf6e52cc03a28 is not running"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9213,8 +9299,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9231,8 +9317,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["Resources"] & {
-                    RestartPolicy?: components["schemas"]["RestartPolicy"];
+                'application/json': components['schemas']['Resources'] & {
+                    RestartPolicy?: components['schemas']['RestartPolicy'];
                 };
             };
         };
@@ -9243,7 +9329,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerUpdateResponse"];
+                    'application/json': components['schemas']['ContainerUpdateResponse'];
                 };
             };
             /** @description no such container */
@@ -9257,7 +9343,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9266,7 +9352,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9304,8 +9390,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description name already in use */
@@ -9314,8 +9400,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9324,8 +9410,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9360,8 +9446,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9370,8 +9456,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9406,8 +9492,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9416,8 +9502,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9480,8 +9566,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such container */
@@ -9490,14 +9576,14 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -9506,8 +9592,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9561,8 +9647,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such container */
@@ -9576,8 +9662,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9586,8 +9672,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9600,7 +9686,7 @@ export interface operations {
                  *
                  *     Defaults to `not-running` if omitted or empty.
                  */
-                condition?: "not-running" | "next-exit" | "removed";
+                condition?: 'not-running' | 'next-exit' | 'removed';
             };
             header?: never;
             path: {
@@ -9617,7 +9703,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContainerWaitResponse"];
+                    'application/json': components['schemas']['ContainerWaitResponse'];
                 };
             };
             /** @description bad parameter */
@@ -9626,7 +9712,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such container */
@@ -9640,7 +9726,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9649,7 +9735,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9686,8 +9772,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such container */
@@ -9701,8 +9787,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description conflict */
@@ -9716,8 +9802,8 @@ export interface operations {
                      *       "message": "You cannot remove a running container: c2ada9df5af8. Stop the\ncontainer before attempting removal or force remove\n"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -9726,8 +9812,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9760,7 +9846,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": components["schemas"]["ErrorResponse"];
+                    'application/x-tar': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Container or path does not exist */
@@ -9769,13 +9855,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": components["schemas"]["ErrorResponse"];
+                    'application/x-tar': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -9784,7 +9870,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": components["schemas"]["ErrorResponse"];
+                    'application/x-tar': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9820,8 +9906,8 @@ export interface operations {
          */
         requestBody: {
             content: {
-                "application/x-tar": string;
-                "application/octet-stream": string;
+                'application/x-tar': string;
+                'application/octet-stream': string;
             };
         };
         responses: {
@@ -9843,8 +9929,8 @@ export interface operations {
                      *       "message": "not a directory"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Permission denied, the volume or container rootfs is marked as read-only. */
@@ -9853,8 +9939,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description No such container or path does not exist inside the container */
@@ -9868,8 +9954,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -9878,8 +9964,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9906,7 +9992,7 @@ export interface operations {
                      * @description A base64 - encoded JSON object with some filesystem header
                      *     information about the path
                      */
-                    "X-Docker-Container-Path-Stat"?: string;
+                    'X-Docker-Container-Path-Stat'?: string;
                     [name: string]: unknown;
                 };
                 content?: never;
@@ -9917,8 +10003,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Container or path does not exist */
@@ -9932,8 +10018,8 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -9942,8 +10028,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -9972,7 +10058,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** @description Container IDs that were deleted */
                         ContainersDeleted?: string[];
                         /**
@@ -9989,7 +10075,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10014,7 +10100,7 @@ export interface operations {
                  */
                 filters?: string;
                 /** @description Compute and show shared size as a `SharedSize` field on each image. */
-                "shared-size"?: boolean;
+                'shared-size'?: boolean;
                 /** @description Show digest information as a `RepoDigests` field on each image. */
                 digests?: boolean;
                 /** @description Include `Manifests` in the image summary. */
@@ -10032,7 +10118,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImageSummary"][];
+                    'application/json': components['schemas']['ImageSummary'][];
                 };
             };
             /** @description server error */
@@ -10041,7 +10127,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10114,10 +10200,10 @@ export interface operations {
                  *     - `1` is the first generation classic (deprecated) builder in the Docker daemon (default)
                  *     - `2` is [BuildKit](https://github.com/moby/buildkit)
                  */
-                version?: "1" | "2";
+                version?: '1' | '2';
             };
             header?: {
-                "Content-type"?: "application/x-tar";
+                'Content-type'?: 'application/x-tar';
                 /**
                  * @description This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
                  *
@@ -10138,7 +10224,7 @@ export interface operations {
                  *
                  *     Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the Docker Hub registry must be specified with both a `https://` prefix and a `/v1/` suffix even though Docker will prefer to use the v2 registry API.
                  */
-                "X-Registry-Config"?: string;
+                'X-Registry-Config'?: string;
             };
             path?: never;
             cookie?: never;
@@ -10146,7 +10232,7 @@ export interface operations {
         /** @description A tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz. */
         requestBody?: {
             content: {
-                "application/octet-stream": string;
+                'application/octet-stream': string;
             };
         };
         responses: {
@@ -10163,7 +10249,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -10172,7 +10258,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10186,13 +10272,13 @@ export interface operations {
                  *     > **Deprecated**: This parameter is deprecated and has been renamed to "reserved-space".
                  *     > It is kept for backward compatibility and will be removed in API v1.49.
                  */
-                "keep-storage"?: number;
+                'keep-storage'?: number;
                 /** @description Amount of disk space in bytes to keep for cache */
-                "reserved-space"?: number;
+                'reserved-space'?: number;
                 /** @description Maximum amount of disk space allowed to keep for cache */
-                "max-used-space"?: number;
+                'max-used-space'?: number;
                 /** @description Target amount of free disk space after pruning */
-                "min-free-space"?: number;
+                'min-free-space'?: number;
                 /** @description Remove all types of build cache */
                 all?: boolean;
                 /**
@@ -10224,7 +10310,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         CachesDeleted?: string[];
                         /**
                          * Format: int64
@@ -10240,7 +10326,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10300,7 +10386,7 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth"?: string;
+                'X-Registry-Auth'?: string;
             };
             path?: never;
             cookie?: never;
@@ -10308,8 +10394,8 @@ export interface operations {
         /** @description Image content if the value `-` has been specified in fromSrc query parameter */
         requestBody?: {
             content: {
-                "text/plain": string;
-                "application/octet-stream": string;
+                'text/plain': string;
+                'application/octet-stream': string;
             };
         };
         responses: {
@@ -10326,7 +10412,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -10335,7 +10421,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10361,7 +10447,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImageInspect"];
+                    'application/json': components['schemas']['ImageInspect'];
                 };
             };
             /** @description No such image */
@@ -10375,7 +10461,7 @@ export interface operations {
                      *       "message": "No such image: someimage (tag: latest)"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10384,7 +10470,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10455,7 +10541,7 @@ export interface operations {
                      *       }
                      *     ]
                      */
-                    "application/json": {
+                    'application/json': {
                         Id: string;
                         /** Format: int64 */
                         Created: number;
@@ -10473,7 +10559,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10482,7 +10568,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10516,7 +10602,7 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth": string;
+                'X-Registry-Auth': string;
             };
             path: {
                 /**
@@ -10548,8 +10634,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10558,8 +10644,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10594,8 +10680,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description No such image */
@@ -10604,8 +10690,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Conflict */
@@ -10614,8 +10700,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10624,8 +10710,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10672,7 +10758,7 @@ export interface operations {
                      *       }
                      *     ]
                      */
-                    "application/json": components["schemas"]["ImageDeleteResponseItem"][];
+                    'application/json': components['schemas']['ImageDeleteResponseItem'][];
                 };
             };
             /** @description No such image */
@@ -10681,7 +10767,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Conflict */
@@ -10690,7 +10776,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10699,7 +10785,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10756,7 +10842,7 @@ export interface operations {
                      *       }
                      *     ]
                      */
-                    "application/json": {
+                    'application/json': {
                         description?: string;
                         is_official?: boolean;
                         /**
@@ -10779,7 +10865,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10810,9 +10896,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** @description Images that were deleted */
-                        ImagesDeleted?: components["schemas"]["ImageDeleteResponseItem"][];
+                        ImagesDeleted?: components['schemas']['ImageDeleteResponseItem'][];
                         /**
                          * Format: int64
                          * @description Disk space reclaimed in bytes
@@ -10827,7 +10913,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10842,7 +10928,7 @@ export interface operations {
         /** @description Authentication to check */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["AuthConfig"];
+                'application/json': components['schemas']['AuthConfig'];
             };
         };
         responses: {
@@ -10858,7 +10944,7 @@ export interface operations {
                      *       "IdentityToken": "9cbaf023786cd7..."
                      *     }
                      */
-                    "application/json": {
+                    'application/json': {
                         /** @description The status of the authentication */
                         Status: string;
                         /** @description An opaque token used to authenticate a user after a successful login */
@@ -10879,7 +10965,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -10888,7 +10974,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10908,7 +10994,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SystemInfo"];
+                    'application/json': components['schemas']['SystemInfo'];
                 };
             };
             /** @description Server error */
@@ -10917,7 +11003,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10937,7 +11023,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SystemVersion"];
+                    'application/json': components['schemas']['SystemVersion'];
                 };
             };
             /** @description server error */
@@ -10946,7 +11032,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -10967,12 +11053,18 @@ export interface operations {
                      * @description Contains information about Swarm status of the daemon,
                      *     and if the daemon is acting as a manager or worker node.
                      */
-                    Swarm?: "inactive" | "pending" | "error" | "locked" | "active/worker" | "active/manager";
+                    Swarm?:
+                        | 'inactive'
+                        | 'pending'
+                        | 'error'
+                        | 'locked'
+                        | 'active/worker'
+                        | 'active/manager';
                     /** @description Max API Version the server supports */
-                    "Api-Version"?: string;
+                    'Api-Version'?: string;
                     /** @description If the server is running with experimental mode enabled */
-                    "Docker-Experimental"?: boolean;
-                    "Cache-Control"?: string;
+                    'Docker-Experimental'?: boolean;
+                    'Cache-Control'?: string;
                     Pragma?: string;
                     /**
                      * @description Default version of docker image builder
@@ -10985,22 +11077,22 @@ export interface operations {
                      *     This value is a recommendation as advertised by the daemon, and
                      *     it is up to the client to choose which builder to use.
                      */
-                    "Builder-Version"?: string;
+                    'Builder-Version'?: string;
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    'text/plain': string;
                 };
             };
             /** @description server error */
             500: {
                 headers: {
-                    "Cache-Control"?: string;
+                    'Cache-Control'?: string;
                     Pragma?: string;
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11021,19 +11113,25 @@ export interface operations {
                      * @description Contains information about Swarm status of the daemon,
                      *     and if the daemon is acting as a manager or worker node.
                      */
-                    Swarm?: "inactive" | "pending" | "error" | "locked" | "active/worker" | "active/manager";
+                    Swarm?:
+                        | 'inactive'
+                        | 'pending'
+                        | 'error'
+                        | 'locked'
+                        | 'active/worker'
+                        | 'active/manager';
                     /** @description Max API Version the server supports */
-                    "Api-Version"?: string;
+                    'Api-Version'?: string;
                     /** @description If the server is running with experimental mode enabled */
-                    "Docker-Experimental"?: boolean;
-                    "Cache-Control"?: string;
+                    'Docker-Experimental'?: boolean;
+                    'Cache-Control'?: string;
                     Pragma?: string;
                     /** @description Default version of docker image builder */
-                    "Builder-Version"?: string;
+                    'Builder-Version'?: string;
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    'text/plain': string;
                 };
             };
             /** @description server error */
@@ -11042,7 +11140,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11072,7 +11170,7 @@ export interface operations {
         /** @description The container configuration */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["ContainerConfig"];
+                'application/json': components['schemas']['ContainerConfig'];
             };
         };
         responses: {
@@ -11082,7 +11180,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IDResponse"];
+                    'application/json': components['schemas']['IDResponse'];
                 };
             };
             /** @description no such container */
@@ -11096,7 +11194,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -11105,7 +11203,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11149,7 +11247,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventMessage"];
+                    'application/json': components['schemas']['EventMessage'];
                 };
             };
             /** @description bad parameter */
@@ -11158,7 +11256,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -11167,7 +11265,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11176,7 +11274,7 @@ export interface operations {
         parameters: {
             query?: {
                 /** @description Object types, for which to compute and return data. */
-                type?: ("container" | "image" | "volume" | "build-cache")[];
+                type?: ('container' | 'image' | 'volume' | 'build-cache')[];
             };
             header?: never;
             path?: never;
@@ -11190,21 +11288,21 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** Format: int64 */
                         LayersSize?: number;
-                        Images?: components["schemas"]["ImageSummary"][];
-                        Containers?: components["schemas"]["ContainerSummary"][];
-                        Volumes?: components["schemas"]["Volume"][];
-                        BuildCache?: components["schemas"]["BuildCache"][];
+                        Images?: components['schemas']['ImageSummary'][];
+                        Containers?: components['schemas']['ContainerSummary'][];
+                        Volumes?: components['schemas']['Volume'][];
+                        BuildCache?: components['schemas']['BuildCache'][];
                     };
-                    "text/plain": {
+                    'text/plain': {
                         /** Format: int64 */
                         LayersSize?: number;
-                        Images?: components["schemas"]["ImageSummary"][];
-                        Containers?: components["schemas"]["ContainerSummary"][];
-                        Volumes?: components["schemas"]["Volume"][];
-                        BuildCache?: components["schemas"]["BuildCache"][];
+                        Images?: components['schemas']['ImageSummary'][];
+                        Containers?: components['schemas']['ContainerSummary'][];
+                        Volumes?: components['schemas']['Volume'][];
+                        BuildCache?: components['schemas']['BuildCache'][];
                     };
                 };
             };
@@ -11214,8 +11312,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11248,7 +11346,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": string;
+                    'application/x-tar': string;
                 };
             };
             /** @description server error */
@@ -11257,7 +11355,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": components["schemas"]["ErrorResponse"];
+                    'application/x-tar': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11289,7 +11387,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": string;
+                    'application/x-tar': string;
                 };
             };
             /** @description server error */
@@ -11298,7 +11396,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/x-tar": components["schemas"]["ErrorResponse"];
+                    'application/x-tar': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11325,7 +11423,7 @@ export interface operations {
         /** @description Tar archive containing images */
         requestBody?: {
             content: {
-                "application/x-tar": string;
+                'application/x-tar': string;
             };
         };
         responses: {
@@ -11342,7 +11440,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11360,7 +11458,7 @@ export interface operations {
         /** @description Exec configuration */
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /** @description Attach to `stdin` of the exec command. */
                     AttachStdin?: boolean;
                     /** @description Attach to `stdout` of the exec command. */
@@ -11410,7 +11508,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IDResponse"];
+                    'application/json': components['schemas']['IDResponse'];
                 };
             };
             /** @description no such container */
@@ -11424,7 +11522,7 @@ export interface operations {
                      *       "message": "No such container: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description container is paused */
@@ -11433,7 +11531,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -11442,7 +11540,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11459,7 +11557,7 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": {
+                'application/json': {
                     /**
                      * @description Detach from the command.
                      * @example false
@@ -11495,8 +11593,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Container is stopped or paused */
@@ -11505,8 +11603,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11541,8 +11639,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description No such exec instance */
@@ -11551,8 +11649,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -11561,8 +11659,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11609,13 +11707,13 @@ export interface operations {
                      *       "Pid": 42000
                      *     }
                      */
-                    "application/json": {
+                    'application/json': {
                         CanRemove?: boolean;
                         DetachKeys?: string;
                         ID?: string;
                         Running?: boolean;
                         ExitCode?: number;
-                        ProcessConfig?: components["schemas"]["ProcessConfig"];
+                        ProcessConfig?: components['schemas']['ProcessConfig'];
                         OpenStdin?: boolean;
                         OpenStderr?: boolean;
                         OpenStdout?: boolean;
@@ -11631,7 +11729,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -11640,7 +11738,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11675,7 +11773,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["VolumeListResponse"];
+                    'application/json': components['schemas']['VolumeListResponse'];
                 };
             };
             /** @description Server error */
@@ -11684,7 +11782,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11699,7 +11797,7 @@ export interface operations {
         /** @description Volume configuration */
         requestBody: {
             content: {
-                "application/json": components["schemas"]["VolumeCreateOptions"];
+                'application/json': components['schemas']['VolumeCreateOptions'];
             };
         };
         responses: {
@@ -11709,7 +11807,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Volume"];
+                    'application/json': components['schemas']['Volume'];
                 };
             };
             /** @description Server error */
@@ -11718,7 +11816,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11741,7 +11839,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Volume"];
+                    'application/json': components['schemas']['Volume'];
                 };
             };
             /** @description No such volume */
@@ -11750,7 +11848,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -11759,7 +11857,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11787,8 +11885,8 @@ export interface operations {
          */
         requestBody?: {
             content: {
-                "application/json": {
-                    Spec?: components["schemas"]["ClusterVolumeSpec"];
+                'application/json': {
+                    Spec?: components['schemas']['ClusterVolumeSpec'];
                 };
             };
         };
@@ -11806,7 +11904,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such volume */
@@ -11815,7 +11913,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -11824,7 +11922,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -11833,7 +11931,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11866,8 +11964,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Volume is in use and cannot be removed */
@@ -11876,8 +11974,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -11886,8 +11984,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -11916,7 +12014,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** @description Volumes that were deleted */
                         VolumesDeleted?: string[];
                         /**
@@ -11933,7 +12031,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12040,7 +12138,7 @@ export interface operations {
                      *       }
                      *     ]
                      */
-                    "application/json": components["schemas"]["Network"][];
+                    'application/json': components['schemas']['Network'][];
                 };
             };
             /** @description Server error */
@@ -12049,7 +12147,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12077,7 +12175,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Network"];
+                    'application/json': components['schemas']['Network'];
                 };
             };
             /** @description Network not found */
@@ -12086,7 +12184,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12095,7 +12193,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12125,8 +12223,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such network */
@@ -12135,8 +12233,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12145,8 +12243,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12161,7 +12259,7 @@ export interface operations {
         /** @description Network configuration */
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /**
                      * @description The network's name.
                      * @example my_network
@@ -12201,8 +12299,8 @@ export interface operations {
                      * @example false
                      */
                     ConfigOnly?: boolean;
-                    ConfigFrom?: components["schemas"]["ConfigReference"];
-                    IPAM?: components["schemas"]["IPAM"];
+                    ConfigFrom?: components['schemas']['ConfigReference'];
+                    IPAM?: components['schemas']['IPAM'];
                     /**
                      * @description Enable IPv4 on the network.
                      * @example true
@@ -12247,7 +12345,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["NetworkCreateResponse"];
+                    'application/json': components['schemas']['NetworkCreateResponse'];
                 };
             };
             /** @description bad parameter */
@@ -12256,7 +12354,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /**
@@ -12268,7 +12366,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description plugin not found */
@@ -12277,7 +12375,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12286,7 +12384,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12303,10 +12401,10 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /** @description The ID or name of the container to connect to the network. */
                     Container?: string;
-                    EndpointConfig?: components["schemas"]["EndpointSettings"];
+                    EndpointConfig?: components['schemas']['EndpointSettings'];
                 };
             };
         };
@@ -12324,8 +12422,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Operation forbidden */
@@ -12334,8 +12432,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Network or container not found */
@@ -12344,8 +12442,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12354,8 +12452,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12372,7 +12470,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /** @description The ID or name of the container to disconnect from the network. */
                     Container?: string;
                     /** @description Force the container to disconnect from the network. */
@@ -12394,8 +12492,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Network or container not found */
@@ -12404,8 +12502,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12414,8 +12512,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12444,7 +12542,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** @description Networks that were deleted */
                         NetworksDeleted?: string[];
                     };
@@ -12456,7 +12554,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12487,7 +12585,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Plugin"][];
+                    'application/json': components['schemas']['Plugin'][];
                 };
             };
             /** @description Server error */
@@ -12496,7 +12594,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12522,8 +12620,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PluginPrivilege"][];
-                    "text/plain": components["schemas"]["PluginPrivilege"][];
+                    'application/json': components['schemas']['PluginPrivilege'][];
+                    'text/plain': components['schemas']['PluginPrivilege'][];
                 };
             };
             /** @description server error */
@@ -12532,8 +12630,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12562,15 +12660,15 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth"?: string;
+                'X-Registry-Auth'?: string;
             };
             path?: never;
             cookie?: never;
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PluginPrivilege"][];
-                "text/plain": components["schemas"]["PluginPrivilege"][];
+                'application/json': components['schemas']['PluginPrivilege'][];
+                'text/plain': components['schemas']['PluginPrivilege'][];
             };
         };
         responses: {
@@ -12587,7 +12685,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12613,8 +12711,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Plugin"];
-                    "text/plain": components["schemas"]["Plugin"];
+                    'application/json': components['schemas']['Plugin'];
+                    'text/plain': components['schemas']['Plugin'];
                 };
             };
             /** @description plugin is not installed */
@@ -12623,8 +12721,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12633,8 +12731,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12666,8 +12764,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Plugin"];
-                    "text/plain": components["schemas"]["Plugin"];
+                    'application/json': components['schemas']['Plugin'];
+                    'text/plain': components['schemas']['Plugin'];
                 };
             };
             /** @description plugin is not installed */
@@ -12676,8 +12774,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12686,8 +12784,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12723,8 +12821,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12733,8 +12831,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12770,8 +12868,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12780,8 +12878,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12804,7 +12902,7 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth"?: string;
+                'X-Registry-Auth'?: string;
             };
             path: {
                 /**
@@ -12817,8 +12915,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PluginPrivilege"][];
-                "text/plain": components["schemas"]["PluginPrivilege"][];
+                'application/json': components['schemas']['PluginPrivilege'][];
+                'text/plain': components['schemas']['PluginPrivilege'][];
             };
         };
         responses: {
@@ -12835,8 +12933,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12845,8 +12943,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12867,7 +12965,7 @@ export interface operations {
         /** @description Path to tar containing plugin rootfs and manifest */
         requestBody?: {
             content: {
-                "application/x-tar": string;
+                'application/x-tar': string;
             };
         };
         responses: {
@@ -12884,8 +12982,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12918,8 +13016,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -12928,8 +13026,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -12949,7 +13047,7 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": string[];
+                'application/json': string[];
             };
         };
         responses: {
@@ -12966,8 +13064,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -12976,8 +13074,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13010,8 +13108,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Node"][];
-                    "text/plain": components["schemas"]["Node"][];
+                    'application/json': components['schemas']['Node'][];
+                    'text/plain': components['schemas']['Node'][];
                 };
             };
             /** @description server error */
@@ -13020,8 +13118,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13030,8 +13128,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13054,8 +13152,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Node"];
-                    "text/plain": components["schemas"]["Node"];
+                    'application/json': components['schemas']['Node'];
+                    'text/plain': components['schemas']['Node'];
                 };
             };
             /** @description no such node */
@@ -13064,8 +13162,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13074,8 +13172,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13084,8 +13182,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13118,8 +13216,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13128,8 +13226,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13138,8 +13236,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13162,8 +13260,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["NodeSpec"];
-                "text/plain": components["schemas"]["NodeSpec"];
+                'application/json': components['schemas']['NodeSpec'];
+                'text/plain': components['schemas']['NodeSpec'];
             };
         };
         responses: {
@@ -13180,8 +13278,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such node */
@@ -13190,8 +13288,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13200,8 +13298,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13210,8 +13308,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13231,8 +13329,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Swarm"];
-                    "text/plain": components["schemas"]["Swarm"];
+                    'application/json': components['schemas']['Swarm'];
+                    'text/plain': components['schemas']['Swarm'];
                 };
             };
             /** @description no such swarm */
@@ -13241,8 +13339,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13251,8 +13349,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13261,8 +13359,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13276,7 +13374,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /**
                      * @description Listen address used for inter-manager communication, as well
                      *     as determining the networking interface used for the VXLAN
@@ -13328,9 +13426,9 @@ export interface operations {
                      *     from the default subnet pool.
                      */
                     SubnetSize?: number;
-                    Spec?: components["schemas"]["SwarmSpec"];
+                    Spec?: components['schemas']['SwarmSpec'];
                 };
-                "text/plain": {
+                'text/plain': {
                     /**
                      * @description Listen address used for inter-manager communication, as well
                      *     as determining the networking interface used for the VXLAN
@@ -13382,7 +13480,7 @@ export interface operations {
                      *     from the default subnet pool.
                      */
                     SubnetSize?: number;
-                    Spec?: components["schemas"]["SwarmSpec"];
+                    Spec?: components['schemas']['SwarmSpec'];
                 };
             };
         };
@@ -13393,8 +13491,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": string;
-                    "text/plain": string;
+                    'application/json': string;
+                    'text/plain': string;
                 };
             };
             /** @description bad parameter */
@@ -13403,8 +13501,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13413,8 +13511,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is already part of a swarm */
@@ -13423,8 +13521,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13438,7 +13536,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /**
                      * @description Listen address used for inter-manager communication if the node
                      *     gets promoted to manager, as well as determining the networking
@@ -13472,7 +13570,7 @@ export interface operations {
                     /** @description Secret token for joining this swarm. */
                     JoinToken?: string;
                 };
-                "text/plain": {
+                'text/plain': {
                     /**
                      * @description Listen address used for inter-manager communication if the node
                      *     gets promoted to manager, as well as determining the networking
@@ -13522,8 +13620,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13532,8 +13630,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is already part of a swarm */
@@ -13542,8 +13640,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13576,8 +13674,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13586,8 +13684,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13613,8 +13711,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SwarmSpec"];
-                "text/plain": components["schemas"]["SwarmSpec"];
+                'application/json': components['schemas']['SwarmSpec'];
+                'text/plain': components['schemas']['SwarmSpec'];
             };
         };
         responses: {
@@ -13631,8 +13729,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13641,8 +13739,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13651,8 +13749,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13672,11 +13770,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
+                    'application/json': {
                         /** @description The swarm's unlock key. */
                         UnlockKey?: string;
                     };
-                    "text/plain": {
+                    'text/plain': {
                         /** @description The swarm's unlock key. */
                         UnlockKey?: string;
                     };
@@ -13688,8 +13786,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13698,8 +13796,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13713,7 +13811,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
+                'application/json': {
                     /** @description The swarm's unlock key. */
                     UnlockKey?: string;
                 };
@@ -13733,7 +13831,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13742,7 +13840,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13777,8 +13875,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Service"][];
-                    "text/plain": components["schemas"]["Service"][];
+                    'application/json': components['schemas']['Service'][];
+                    'text/plain': components['schemas']['Service'][];
                 };
             };
             /** @description server error */
@@ -13787,8 +13885,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13797,8 +13895,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13814,14 +13912,14 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth"?: string;
+                'X-Registry-Auth'?: string;
             };
             path?: never;
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ServiceSpec"] & Record<string, never>;
+                'application/json': components['schemas']['ServiceSpec'];
             };
         };
         responses: {
@@ -13831,7 +13929,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ServiceCreateResponse"];
+                    'application/json': components['schemas']['ServiceCreateResponse'];
                 };
             };
             /** @description bad parameter */
@@ -13840,7 +13938,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description network is not eligible for services */
@@ -13849,7 +13947,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description name conflicts with an existing service */
@@ -13858,7 +13956,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13867,7 +13965,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13876,7 +13974,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13902,8 +14000,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Service"];
-                    "text/plain": components["schemas"]["Service"];
+                    'application/json': components['schemas']['Service'];
+                    'text/plain': components['schemas']['Service'];
                 };
             };
             /** @description no such service */
@@ -13912,8 +14010,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13922,8 +14020,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13932,8 +14030,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -13963,8 +14061,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -13973,8 +14071,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -13983,8 +14081,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14004,7 +14102,7 @@ export interface operations {
                  * @description If the `X-Registry-Auth` header is not specified, this parameter
                  *     indicates where to find registry authorization credentials.
                  */
-                registryAuthFrom?: "spec" | "previous-spec";
+                registryAuthFrom?: 'spec' | 'previous-spec';
                 /**
                  * @description Set to this parameter to `previous` to cause a server-side rollback
                  *     to the previous service spec. The supplied spec will be ignored in
@@ -14020,7 +14118,7 @@ export interface operations {
                  *     Refer to the [authentication section](#section/Authentication) for
                  *     details.
                  */
-                "X-Registry-Auth"?: string;
+                'X-Registry-Auth'?: string;
             };
             path: {
                 /** @description ID or name of service. */
@@ -14030,7 +14128,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ServiceSpec"] & Record<string, never>;
+                'application/json': components['schemas']['ServiceSpec'];
             };
         };
         responses: {
@@ -14040,7 +14138,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ServiceUpdateResponse"];
+                    'application/json': components['schemas']['ServiceUpdateResponse'];
                 };
             };
             /** @description bad parameter */
@@ -14049,7 +14147,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such service */
@@ -14058,7 +14156,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14067,7 +14165,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14076,7 +14174,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14117,8 +14215,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": string;
-                    "application/vnd.docker.multiplexed-stream": string;
+                    'application/vnd.docker.raw-stream': string;
+                    'application/vnd.docker.multiplexed-stream': string;
                 };
             };
             /** @description no such service */
@@ -14127,14 +14225,14 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such service: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -14143,8 +14241,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14153,8 +14251,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14189,7 +14287,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"][];
+                    'application/json': components['schemas']['Task'][];
                 };
             };
             /** @description server error */
@@ -14198,7 +14296,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14207,7 +14305,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14230,7 +14328,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"];
+                    'application/json': components['schemas']['Task'];
                 };
             };
             /** @description no such task */
@@ -14239,7 +14337,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14248,7 +14346,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14257,7 +14355,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14298,8 +14396,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": string;
-                    "application/vnd.docker.multiplexed-stream": string;
+                    'application/vnd.docker.raw-stream': string;
+                    'application/vnd.docker.multiplexed-stream': string;
                 };
             };
             /** @description no such task */
@@ -14308,14 +14406,14 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                     /**
                      * @example {
                      *       "message": "No such task: c2ada9df5af8"
                      *     }
                      */
-                    "application/json": unknown;
+                    'application/json': unknown;
                 };
             };
             /** @description server error */
@@ -14324,8 +14422,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14334,8 +14432,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
-                    "application/vnd.docker.multiplexed-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
+                    'application/vnd.docker.multiplexed-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14368,7 +14466,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Secret"][];
+                    'application/json': components['schemas']['Secret'][];
                 };
             };
             /** @description server error */
@@ -14377,7 +14475,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14386,7 +14484,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14400,7 +14498,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["SecretSpec"] & Record<string, never>;
+                'application/json': components['schemas']['SecretSpec'] &
+                    Record<string, never>;
             };
         };
         responses: {
@@ -14410,7 +14509,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IDResponse"];
+                    'application/json': components['schemas']['IDResponse'];
                 };
             };
             /** @description name conflicts with an existing object */
@@ -14419,7 +14518,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14428,7 +14527,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14437,7 +14536,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14483,7 +14582,7 @@ export interface operations {
                      *       }
                      *     }
                      */
-                    "application/json": components["schemas"]["Secret"];
+                    'application/json': components['schemas']['Secret'];
                 };
             };
             /** @description secret not found */
@@ -14492,7 +14591,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14501,7 +14600,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14510,7 +14609,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14540,7 +14639,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14549,7 +14648,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14558,7 +14657,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14586,8 +14685,8 @@ export interface operations {
          */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["SecretSpec"];
-                "text/plain": components["schemas"]["SecretSpec"];
+                'application/json': components['schemas']['SecretSpec'];
+                'text/plain': components['schemas']['SecretSpec'];
             };
         };
         responses: {
@@ -14604,8 +14703,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such secret */
@@ -14614,8 +14713,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14624,8 +14723,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14634,8 +14733,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14668,7 +14767,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Config"][];
+                    'application/json': components['schemas']['Config'][];
                 };
             };
             /** @description server error */
@@ -14677,7 +14776,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14686,7 +14785,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14700,7 +14799,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["ConfigSpec"] & Record<string, never>;
+                'application/json': components['schemas']['ConfigSpec'] &
+                    Record<string, never>;
             };
         };
         responses: {
@@ -14710,7 +14810,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IDResponse"];
+                    'application/json': components['schemas']['IDResponse'];
                 };
             };
             /** @description name conflicts with an existing object */
@@ -14719,7 +14819,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14728,7 +14828,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14737,7 +14837,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14773,7 +14873,7 @@ export interface operations {
                      *       }
                      *     }
                      */
-                    "application/json": components["schemas"]["Config"];
+                    'application/json': components['schemas']['Config'];
                 };
             };
             /** @description config not found */
@@ -14782,7 +14882,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14791,7 +14891,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14800,7 +14900,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14830,7 +14930,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14839,7 +14939,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14848,7 +14948,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14876,8 +14976,8 @@ export interface operations {
          */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["ConfigSpec"];
-                "text/plain": components["schemas"]["ConfigSpec"];
+                'application/json': components['schemas']['ConfigSpec'];
+                'text/plain': components['schemas']['ConfigSpec'];
             };
         };
         responses: {
@@ -14894,8 +14994,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description no such config */
@@ -14904,8 +15004,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -14914,8 +15014,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description node is not part of a swarm */
@@ -14924,8 +15024,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                    "text/plain": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
+                    'text/plain': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14948,7 +15048,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DistributionInspect"];
+                    'application/json': components['schemas']['DistributionInspect'];
                 };
             };
             /** @description Failed authentication or no image found */
@@ -14962,7 +15062,7 @@ export interface operations {
                      *       "message": "No such image: someimage (tag: latest)"
                      *     }
                      */
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description Server error */
@@ -14971,7 +15071,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
+                    'application/json': components['schemas']['ErrorResponse'];
                 };
             };
         };
@@ -14998,7 +15098,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
                 };
             };
             /** @description server error */
@@ -15007,7 +15107,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/vnd.docker.raw-stream": components["schemas"]["ErrorResponse"];
+                    'application/vnd.docker.raw-stream': components['schemas']['ErrorResponse'];
                 };
             };
         };
