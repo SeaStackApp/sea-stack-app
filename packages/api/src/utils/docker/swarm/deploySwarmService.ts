@@ -9,6 +9,7 @@ import {
     TRAEFIK_CERT_RESOLVER,
 } from '../../../configs/config';
 import { components } from '../schema';
+import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -17,7 +18,14 @@ export const deploySwarmService = async (
     logger: DeploymentLogger
 ) => {
     try {
-        const docker = new Docker(connection);
+        const docker = new Docker(
+            connection,
+            service.swarmService.registryId
+                ? await getBase64AuthForRegistry(
+                      service.swarmService.registryId
+                  )
+                : undefined
+        );
         let traefikNetworkName = '';
 
         logger.info('Configuring networks');
