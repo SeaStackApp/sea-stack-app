@@ -11,7 +11,7 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
-import { XIcon } from 'lucide-react';
+import { XIcon, CopyIcon, CheckIcon } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from '@/lib/dateUtils';
@@ -30,6 +30,20 @@ export default function InvitationLine({
 }) {
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [isCanceling, setIsCanceling] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
+
+    const invitationLink = `${window.location.origin}/dashboard/accept-invitation?id=${invitation.id}`;
+
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(invitationLink);
+            setIsCopied(true);
+            toast.success('Invitation link copied to clipboard');
+            setTimeout(() => setIsCopied(false), 2000);
+        } catch {
+            toast.error('Failed to copy link');
+        }
+    };
 
     const handleCancelInvitation = async () => {
         setIsCanceling(true);
@@ -66,7 +80,20 @@ export default function InvitationLine({
                     <Button
                         variant='ghost'
                         size='icon'
+                        onClick={handleCopyLink}
+                        title='Copy invitation link'
+                    >
+                        {isCopied ? (
+                            <CheckIcon className='h-4 w-4 text-green-600' />
+                        ) : (
+                            <CopyIcon className='h-4 w-4' />
+                        )}
+                    </Button>
+                    <Button
+                        variant='ghost'
+                        size='icon'
                         onClick={() => setShowCancelModal(true)}
+                        title='Cancel invitation'
                     >
                         <XIcon className='h-4 w-4' />
                     </Button>
