@@ -1,9 +1,16 @@
 import { TabsContent } from '@/components/ui/tabs';
-import { Card, CardAction, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import DomainsOverview from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domains-overview';
 import { RedirectsOverview } from '@/app/dashboard/services/[serviceId]/components/tabs/overview/redirects-overview';
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
 import { Badge } from '@/components/ui/badge';
+import ServiceOverviewFormSwarm from '@/app/dashboard/services/[serviceId]/components/tabs/overview/service-overview-form-swarm';
 
 export default function OverviewTab({
     service,
@@ -19,6 +26,14 @@ export default function OverviewTab({
                         <Badge variant='secondary'>{service.server.name}</Badge>
                     </CardAction>
                 </CardHeader>
+                <CardContent className='col-span-2'>
+                    {service.swarmService && (
+                        <ServiceOverviewFormSwarm
+                            serviceId={service.id}
+                            swarmService={service.swarmService}
+                        />
+                    )}
+                </CardContent>
             </Card>
 
             <DomainsOverview service={service} />

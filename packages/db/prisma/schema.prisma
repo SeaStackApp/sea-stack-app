@@ -214,10 +214,12 @@ model Service {
 }
 
 model SwarmService {
-    id       String  @id
-    service  Service @relation(fields: [id], references: [id], onDelete: Cascade)
-    image    String
-    replicas Int?
+    id         String    @id
+    service    Service   @relation(fields: [id], references: [id], onDelete: Cascade)
+    image      String
+    replicas   Int?
+    registry   Registry? @relation(fields: [registryId], references: [id])
+    registryId String?
 }
 
 model Domain {
@@ -264,6 +266,7 @@ model Registry {
     password      String
     organizations Organization[]
     servers       Server[]
+    swarmServices SwarmService[]
 }
 
 model Network {
