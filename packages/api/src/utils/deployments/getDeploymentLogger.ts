@@ -5,8 +5,22 @@ export const getLogsDirectory = (deploymentId: string) =>
     LOGS_DIRECTORY + '/' + deploymentId + '.log';
 
 export const getDeploymentLogger = (deploymentId: string) => {
+    const base = { level: LOG_LEVEL } as const;
+
+    // In production, avoid pino transports (which rely on thread-stream/real-require).
+    // Write directly to a file destination instead.
+    if (process.env.NODE_ENV === 'production') {
+        const dest = pino.destination({
+            dest: getLogsDirectory(deploymentId),
+            mkdir: true,
+            sync: false,
+        });
+        return pino(base, dest);
+    }
+
+    // In development keep pretty console output and file logging via transports.
     return pino({
-        level: LOG_LEVEL,
+        ...base,
         transport: {
             targets: [
                 {

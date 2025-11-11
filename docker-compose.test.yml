@@ -12,6 +12,8 @@ services:
         image: ghcr.io/seastackapp/seastack:latest
         depends_on:
             - postgres
+        volumes:
+            - .seastack:/etc/seastack
         ports:
             - "3000:3000"
         environment:
