@@ -28,12 +28,14 @@ import {
 } from '@/components/ui/dialog';
 import NewOrganizationForm from '@/components/team-switcher/new-organization-form';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function TeamSwitcher() {
     const { data: organizations } = authClient.useListOrganizations();
     const { isMobile } = useSidebar();
     const { data: activeOrganization } = authClient.useActiveOrganization();
     const [showNewOrgModal, setShowNewOrgModal] = React.useState(false);
+    const queryClient = useQueryClient();
 
     if (organizations?.length === 0)
         return (
@@ -56,8 +58,6 @@ export function TeamSwitcher() {
             .split(' ')
             .map((part) => part[0]?.toUpperCase() ?? '')
             .join('') ?? '';
-
-    console.log(showNewOrgModal);
 
     return (
         <>
@@ -98,11 +98,16 @@ export function TeamSwitcher() {
                             {organizations?.map((organization, index) => (
                                 <DropdownMenuItem
                                     key={organization.name}
-                                    onClick={() =>
-                                        authClient.organization.setActive({
-                                            organizationId: organization.id,
-                                        })
-                                    }
+                                    onClick={async () => {
+                                        await authClient.organization.setActive(
+                                            {
+                                                organizationId: organization.id,
+                                            }
+                                        );
+                                        await queryClient.invalidateQueries({
+                                            queryKey: [],
+                                        });
+                                    }}
                                     className='gap-2 p-2'
                                 >
                                     <div className='flex size-6 items-center justify-center rounded-md border'></div>
