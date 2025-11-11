@@ -27,9 +27,9 @@ fi
 
 run_as_nextjs() {
   if command -v runuser >/dev/null 2>&1; then
-    runuser -u nextjs -- sh -lc "prisma migrate deploy ${PRISMA_SCHEMA_PATH:+--schema \"$PRISMA_SCHEMA_PATH\"} && exec $*"
+    runuser -u nextjs -- sh -lc "prisma migrate deploy ${PRISMA_SCHEMA_PATH:+--schema \"$PRISMA_SCHEMA_PATH\"} && exec \"$@\""
   elif command -v su >/dev/null 2>&1; then
-    su -s /bin/sh -c "prisma migrate deploy ${PRISMA_SCHEMA_PATH:+--schema \"$PRISMA_SCHEMA_PATH\"} && exec $*" nextjs
+    su -s /bin/sh -c "prisma migrate deploy ${PRISMA_SCHEMA_PATH:+--schema \"$PRISMA_SCHEMA_PATH\"} && exec \"$@\"" nextjs
   else
     echo "No runuser/su available to drop privileges to nextjs" >&2
     exit 1
