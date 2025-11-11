@@ -53,7 +53,7 @@ export default class Docker {
     }
 
     /**
-     * Inpect a network on docker
+     * Inspect a network on docker
      * @param networkName The name of the network to inspect
      * @returns The inspected network
      */
@@ -78,7 +78,7 @@ export default class Docker {
         )) as paths['/services']['get']['responses']['200']['content']['application/json'];
     }
 
-    async serviceExits(serviceName: string) {
+    async serviceExists(serviceName: string) {
         return (
             (await this.listServices()).find(
                 (x) => x.Spec?.Name === serviceName

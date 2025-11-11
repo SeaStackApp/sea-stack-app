@@ -28,7 +28,7 @@ export const deploySwarmService = async (
             if (network.attachToReverseProxy) {
                 treafikNetworkName = network.name;
                 const { Id } = await docker.inspectNetwork(network.name);
-                if (!(await docker.serviceExits(TRAEFIK_SERVICE_NAME))) {
+                if (!(await docker.serviceExists(TRAEFIK_SERVICE_NAME))) {
                     logger.warn(
                         'The reverse proxy is not deployed yet, the service will not be attached to it'
                     );
@@ -71,7 +71,7 @@ export const deploySwarmService = async (
 
         logger.info('Deploying service');
         let spec: components['schemas']['ServiceSpec'];
-        const isUpdate = await docker.serviceExits(service.id);
+        const isUpdate = await docker.serviceExists(service.id);
         let version = 0;
 
         logger.debug('Service exists : ' + isUpdate);
