@@ -1,12 +1,14 @@
 'use client';
 import DashboardPage from '@/components/dashboard-page';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-    Field,
-    FieldGroup,
-    FieldLabel,
-} from '@/components/ui/field';
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { authClient } from '@/lib/auth-client';
@@ -29,24 +31,26 @@ import {
 export default function AccountPage() {
     const router = useRouter();
     const { data: session } = authClient.useSession();
-    
+
     // User profile state
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
-    
+
     // Password change state
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isChangingPassword, setIsChangingPassword] = useState(false);
-    
+
     // Passkeys state
-    const [passkeys, setPasskeys] = useState<{
-        id: string;
-        name: string | null;
-        createdAt: Date | null;
-    }[]>([]);
+    const [passkeys, setPasskeys] = useState<
+        {
+            id: string;
+            name: string | null;
+            createdAt: Date | null;
+        }[]
+    >([]);
     const [isLoadingPasskeys, setIsLoadingPasskeys] = useState(true);
     const [isAddingPasskey, setIsAddingPasskey] = useState(false);
     const [passkeyName, setPasskeyName] = useState('');
@@ -67,13 +71,15 @@ export default function AccountPage() {
     const loadPasskeys = async () => {
         setIsLoadingPasskeys(true);
         try {
-            const response = await authClient.$fetch('/passkey/list-passkeys');
+            const response = await authClient.passkey.listUserPasskeys();
             if (response.data) {
-                setPasskeys(response.data as {
-                    id: string;
-                    name: string | null;
-                    createdAt: Date | null;
-                }[]);
+                setPasskeys(
+                    response.data as {
+                        id: string;
+                        name: string | null;
+                        createdAt: Date | null;
+                    }[]
+                );
             }
         } catch (error) {
             console.error('Failed to load passkeys:', error);
@@ -85,18 +91,23 @@ export default function AccountPage() {
     const handleUpdateProfile = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsUpdatingProfile(true);
-        
+
         try {
-            await authClient.updateUser({
-                name,
-            }, {
-                onSuccess: () => {
-                    toast.success('Profile updated successfully');
+            await authClient.updateUser(
+                {
+                    name,
                 },
-                onError: (ctx) => {
-                    toast.error(ctx.error.message || 'Failed to update profile');
-                },
-            });
+                {
+                    onSuccess: () => {
+                        toast.success('Profile updated successfully');
+                    },
+                    onError: (ctx) => {
+                        toast.error(
+                            ctx.error.message || 'Failed to update profile'
+                        );
+                    },
+                }
+            );
         } finally {
             setIsUpdatingProfile(false);
         }
@@ -104,35 +115,40 @@ export default function AccountPage() {
 
     const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (newPassword !== confirmPassword) {
             toast.error('New passwords do not match');
             return;
         }
-        
+
         if (newPassword.length < 8) {
             toast.error('Password must be at least 8 characters long');
             return;
         }
-        
+
         setIsChangingPassword(true);
-        
+
         try {
-            await authClient.changePassword({
-                currentPassword,
-                newPassword,
-                revokeOtherSessions: false,
-            }, {
-                onSuccess: () => {
-                    toast.success('Password changed successfully');
-                    setCurrentPassword('');
-                    setNewPassword('');
-                    setConfirmPassword('');
+            await authClient.changePassword(
+                {
+                    currentPassword,
+                    newPassword,
+                    revokeOtherSessions: false,
                 },
-                onError: (ctx) => {
-                    toast.error(ctx.error.message || 'Failed to change password');
-                },
-            });
+                {
+                    onSuccess: () => {
+                        toast.success('Password changed successfully');
+                        setCurrentPassword('');
+                        setNewPassword('');
+                        setConfirmPassword('');
+                    },
+                    onError: (ctx) => {
+                        toast.error(
+                            ctx.error.message || 'Failed to change password'
+                        );
+                    },
+                }
+            );
         } finally {
             setIsChangingPassword(false);
         }
@@ -140,20 +156,25 @@ export default function AccountPage() {
 
     const handleAddPasskey = async () => {
         setIsAddingPasskey(true);
-        
+
         try {
-            await authClient.passkey.addPasskey({
-                name: passkeyName || undefined,
-            }, {
-                onSuccess: () => {
-                    toast.success('Passkey added successfully');
-                    setPasskeyName('');
-                    void loadPasskeys();
+            await authClient.passkey.addPasskey(
+                {
+                    name: passkeyName || undefined,
                 },
-                onError: (ctx) => {
-                    toast.error(ctx.error.message ?? 'Failed to add passkey');
-                },
-            });
+                {
+                    onSuccess: () => {
+                        toast.success('Passkey added successfully');
+                        setPasskeyName('');
+                        void loadPasskeys();
+                    },
+                    onError: (ctx) => {
+                        toast.error(
+                            ctx.error.message ?? 'Failed to add passkey'
+                        );
+                    },
+                }
+            );
         } finally {
             setIsAddingPasskey(false);
         }
@@ -161,9 +182,8 @@ export default function AccountPage() {
 
     const handleDeletePasskey = async (passkeyId: string) => {
         try {
-            await authClient.$fetch('/passkey/delete-passkey', {
-                method: 'POST',
-                body: { passkeyId },
+            await authClient.passkey.deletePasskey({
+                id: passkeyId,
             });
             toast.success('Passkey deleted successfully');
             void loadPasskeys();
@@ -213,12 +233,16 @@ export default function AccountPage() {
                                         id='name'
                                         type='text'
                                         value={name}
-                                        onChange={(e) => setName(e.target.value)}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
                                         required
                                     />
                                 </Field>
                                 <Field>
-                                    <FieldLabel htmlFor='email'>Email</FieldLabel>
+                                    <FieldLabel htmlFor='email'>
+                                        Email
+                                    </FieldLabel>
                                     <Input
                                         id='email'
                                         type='email'
@@ -230,11 +254,13 @@ export default function AccountPage() {
                                         Email cannot be changed at this time
                                     </p>
                                 </Field>
-                                <Button 
-                                    type='submit' 
+                                <Button
+                                    type='submit'
                                     disabled={isUpdatingProfile}
                                 >
-                                    {isUpdatingProfile ? 'Updating...' : 'Update Profile'}
+                                    {isUpdatingProfile
+                                        ? 'Updating...'
+                                        : 'Update Profile'}
                                 </Button>
                             </FieldGroup>
                         </form>
@@ -260,7 +286,9 @@ export default function AccountPage() {
                                         id='current-password'
                                         type='password'
                                         value={currentPassword}
-                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setCurrentPassword(e.target.value)
+                                        }
                                         required
                                     />
                                 </Field>
@@ -272,7 +300,9 @@ export default function AccountPage() {
                                         id='new-password'
                                         type='password'
                                         value={newPassword}
-                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setNewPassword(e.target.value)
+                                        }
                                         required
                                     />
                                 </Field>
@@ -284,15 +314,19 @@ export default function AccountPage() {
                                         id='confirm-password'
                                         type='password'
                                         value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setConfirmPassword(e.target.value)
+                                        }
                                         required
                                     />
                                 </Field>
-                                <Button 
-                                    type='submit' 
+                                <Button
+                                    type='submit'
                                     disabled={isChangingPassword}
                                 >
-                                    {isChangingPassword ? 'Changing...' : 'Change Password'}
+                                    {isChangingPassword
+                                        ? 'Changing...'
+                                        : 'Change Password'}
                                 </Button>
                             </FieldGroup>
                         </form>
@@ -310,9 +344,13 @@ export default function AccountPage() {
                     <CardContent>
                         <div className='space-y-4'>
                             {isLoadingPasskeys ? (
-                                <p className='text-sm text-muted-foreground'>Loading passkeys...</p>
+                                <p className='text-sm text-muted-foreground'>
+                                    Loading passkeys...
+                                </p>
                             ) : passkeys.length === 0 ? (
-                                <p className='text-sm text-muted-foreground'>No passkeys added yet</p>
+                                <p className='text-sm text-muted-foreground'>
+                                    No passkeys added yet
+                                </p>
                             ) : (
                                 <div className='space-y-2'>
                                     {passkeys.map((passkey) => (
@@ -324,32 +362,50 @@ export default function AccountPage() {
                                                 <Key className='h-5 w-5 text-muted-foreground' />
                                                 <div>
                                                     <p className='font-medium'>
-                                                        {passkey.name ?? 'Unnamed Passkey'}
+                                                        {passkey.name ??
+                                                            'Unnamed Passkey'}
                                                     </p>
                                                     {passkey.createdAt && (
                                                         <p className='text-sm text-muted-foreground'>
-                                                            Added {new Date(passkey.createdAt).toLocaleDateString()}
+                                                            Added{' '}
+                                                            {new Date(
+                                                                passkey.createdAt
+                                                            ).toLocaleDateString()}
                                                         </p>
                                                     )}
                                                 </div>
                                             </div>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant='ghost' size='sm'>
+                                                    <Button
+                                                        variant='ghost'
+                                                        size='sm'
+                                                    >
                                                         <Trash2 className='h-4 w-4' />
                                                     </Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
-                                                        <AlertDialogTitle>Delete Passkey</AlertDialogTitle>
+                                                        <AlertDialogTitle>
+                                                            Delete Passkey
+                                                        </AlertDialogTitle>
                                                         <AlertDialogDescription>
-                                                            Are you sure you want to delete this passkey? This action cannot be undone.
+                                                            Are you sure you
+                                                            want to delete this
+                                                            passkey? This action
+                                                            cannot be undone.
                                                         </AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogCancel>
+                                                            Cancel
+                                                        </AlertDialogCancel>
                                                         <AlertDialogAction
-                                                            onClick={() => handleDeletePasskey(passkey.id)}
+                                                            onClick={() =>
+                                                                handleDeletePasskey(
+                                                                    passkey.id
+                                                                )
+                                                            }
                                                         >
                                                             Delete
                                                         </AlertDialogAction>
@@ -360,9 +416,9 @@ export default function AccountPage() {
                                     ))}
                                 </div>
                             )}
-                            
+
                             <Separator />
-                            
+
                             <div className='space-y-3'>
                                 <Field>
                                     <FieldLabel htmlFor='passkey-name'>
@@ -373,7 +429,9 @@ export default function AccountPage() {
                                         type='text'
                                         placeholder='e.g., My MacBook, iPhone'
                                         value={passkeyName}
-                                        onChange={(e) => setPasskeyName(e.target.value)}
+                                        onChange={(e) =>
+                                            setPasskeyName(e.target.value)
+                                        }
                                     />
                                 </Field>
                                 <Button
@@ -382,7 +440,9 @@ export default function AccountPage() {
                                     variant='outline'
                                 >
                                     <Plus className='h-4 w-4 mr-2' />
-                                    {isAddingPasskey ? 'Adding...' : 'Add Passkey'}
+                                    {isAddingPasskey
+                                        ? 'Adding...'
+                                        : 'Add Passkey'}
                                 </Button>
                             </div>
                         </div>
@@ -392,9 +452,12 @@ export default function AccountPage() {
                 {/* Danger Zone */}
                 <Card className='border-destructive'>
                     <CardHeader>
-                        <CardTitle className='text-destructive'>Danger Zone</CardTitle>
+                        <CardTitle className='text-destructive'>
+                            Danger Zone
+                        </CardTitle>
                         <CardDescription>
-                            Irreversible actions that will permanently affect your account
+                            Irreversible actions that will permanently affect
+                            your account
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -407,14 +470,20 @@ export default function AccountPage() {
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Delete Account</AlertDialogTitle>
+                                    <AlertDialogTitle>
+                                        Delete Account
+                                    </AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        Are you sure you want to delete your account? This action cannot be undone.
-                                        All your data will be permanently deleted.
+                                        Are you sure you want to delete your
+                                        account? This action cannot be undone.
+                                        All your data will be permanently
+                                        deleted.
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel>
+                                        Cancel
+                                    </AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={handleDeleteAccount}
                                         className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
