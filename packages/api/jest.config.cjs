@@ -17,9 +17,11 @@ module.exports = {
     coverageReporters: ['text', 'lcov', 'html'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
+        '^@repo/db$': '<rootDir>/src/__tests__/utils/jest-db-shim.ts',
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
-    transformIgnorePatterns: ['/node_modules/(?!copy-anything|is-what)/'],
+    // Transform ESM/TS from selected node_modules packages (workspace libs)
+    transformIgnorePatterns: ['/node_modules/(?!copy-anything|is-what|@repo/db)/'],
     transform: {
         '^.+\\.[tj]sx?$': [
             'ts-jest',
