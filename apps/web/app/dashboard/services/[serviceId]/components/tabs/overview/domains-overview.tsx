@@ -14,7 +14,12 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from '@/components/ui/empty';
-import { GlobeIcon, ShieldCheckIcon, ShieldOffIcon } from 'lucide-react';
+import {
+    ExternalLink,
+    GlobeIcon,
+    ShieldCheckIcon,
+    ShieldOffIcon,
+} from 'lucide-react';
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
 import AddDomainButton from '@/app/dashboard/services/[serviceId]/components/tabs/overview/add-domain-button';
 import {
@@ -27,6 +32,9 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import DomainSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domain-settings-dropdown';
+import { CopyToClipboardButton } from '@/components/copy-to-clibpboard-button';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function DomainsOverview({
     service,
@@ -84,7 +92,25 @@ export default function DomainsOverview({
                             <TableBody>
                                 {service.domains.map((domain) => (
                                     <TableRow key={domain.id}>
-                                        <TableCell>{domain.domain}</TableCell>
+                                        <TableCell>
+                                            <CopyToClipboardButton
+                                                copyText={domain.domain}
+                                                variant='ghost'
+                                                className='px-0'
+                                            >
+                                                {domain.domain}
+                                            </CopyToClipboardButton>
+                                            <Link
+                                                href={
+                                                    domain.https
+                                                        ? `https://${domain.domain}`
+                                                        : `http://${domain.domain}`
+                                                }
+                                                target='_blank'
+                                            >
+                                                <ExternalLink className='ml-2 inline-block size-4' />
+                                            </Link>
+                                        </TableCell>
                                         <TableCell>
                                             {domain.internalPort}
                                         </TableCell>
