@@ -6,6 +6,7 @@ import {
     FolderOpenIcon,
     KeyIcon,
     ServerIcon,
+    UsersIcon,
 } from 'lucide-react';
 
 import { NavUser } from '@/components/nav-user';
@@ -42,6 +43,11 @@ const data = [
                 name: 'Servers',
                 url: '/dashboard/servers',
                 icon: ServerIcon,
+            },
+            {
+                name: 'Members',
+                url: '/dashboard/settings/members',
+                icon: UsersIcon,
             },
             {
                 name: 'SSH Keys',

@@ -31,7 +31,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useQueryClient } from '@tanstack/react-query';
 
 export function TeamSwitcher() {
-    const { data: organizations } = authClient.useListOrganizations();
+    const { data: organizations, refetch } = authClient.useListOrganizations();
     const { isMobile } = useSidebar();
     const { data: activeOrganization } = authClient.useActiveOrganization();
     const [showNewOrgModal, setShowNewOrgModal] = React.useState(false);
@@ -142,7 +142,10 @@ export function TeamSwitcher() {
                             projects.
                         </DialogDescription>
                         <NewOrganizationForm
-                            onCreate={() => setShowNewOrgModal(false)}
+                            onCreate={() => {
+                                setShowNewOrgModal(false);
+                                refetch();
+                            }}
                         />
                     </DialogHeader>
                 </DialogContent>
