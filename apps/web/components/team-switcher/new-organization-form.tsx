@@ -71,20 +71,22 @@ export default function NewOrganizationForm({
     ) {
         setIsSubmitting(true);
         try {
-            const { error } =
+            const { error, data } =
                 await authClient.organization.acceptInvitation({
                     invitationId: values.invitationId,
                 });
 
             if (error) {
-                toast.error(
-                    error.message ?? 'Failed to accept invitation'
-                );
+                toast.error(error.message ?? 'Failed to accept invitation');
                 return;
             }
 
+            await authClient.organization.setActive({
+                organizationId: data.invitation.organizationId,
+            });
+
             toast.success('Successfully joined organization!');
-            onCreate?.();
+            window.location.reload();
         } finally {
             setIsSubmitting(false);
         }

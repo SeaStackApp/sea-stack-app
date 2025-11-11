@@ -24,7 +24,9 @@ export default function MembersPage() {
     if (isPending || !activeOrganization) return <PaddedSpinner />;
 
     const members = activeOrganization.members || [];
-    const invitations = activeOrganization.invitations || [];
+    const invitations = (activeOrganization.invitations || []).filter(
+        (i) => i.status === 'pending'
+    );
 
     return (
         <DashboardPage className='space-y-6'>
