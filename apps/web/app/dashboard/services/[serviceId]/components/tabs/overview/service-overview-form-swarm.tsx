@@ -49,7 +49,6 @@ export default function ServiceOverviewFormSwarm({
     async function onSubmit(
         values: z.infer<typeof updateSwarmServiceOverviewSchema>
     ) {
-        console.log(values);
         try {
             const { id } =
                 await trpc.services.updateSwarmServiceOverview.mutate(values);
