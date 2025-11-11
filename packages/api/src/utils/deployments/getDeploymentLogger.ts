@@ -5,7 +5,6 @@ export const getLogsDirectory = (deploymentId: string) =>
     LOGS_DIRECTORY + '/' + deploymentId + '.log';
 
 export const getDeploymentLogger = (deploymentId: string) => {
-    console.log(LOG_LEVEL);
     return pino({
         level: LOG_LEVEL,
         transport: {
