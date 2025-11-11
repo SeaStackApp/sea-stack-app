@@ -4,6 +4,7 @@ import { listServices } from './listServices';
 import { getService } from './getService';
 import { createDomain } from './createDomain';
 import { deleteService } from './deleteService';
+import { deployService } from './deployService';
 
 export const servicesRouter = router({
     createSwarmService,
@@ -11,4 +12,5 @@ export const servicesRouter = router({
     getService,
     createDomain,
     deleteService,
+    deployService,
 });

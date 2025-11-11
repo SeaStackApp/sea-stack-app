@@ -1,8 +1,8 @@
 /** @type {import('jest').Config} */
 module.exports = {
-    preset: 'ts-jest/presets/default-esm',
+    preset: 'ts-jest/presets/js-with-ts-esm',
     testEnvironment: 'node',
-    extensionsToTreatAsEsm: ['.ts'],
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     roots: ['<rootDir>/src'],
     testMatch: ['**/__tests__/**/*.test.ts', '**/?(*.)+(spec|test).ts'],
     testPathIgnorePatterns: ['<rootDir>/src/__tests__/utils/'],
@@ -19,12 +19,14 @@ module.exports = {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
+    transformIgnorePatterns: ['/node_modules/(?!copy-anything|is-what)/'],
     transform: {
-        '^.+\\.tsx?$': [
+        '^.+\\.[tj]sx?$': [
             'ts-jest',
             {
                 useESM: true,
                 tsconfig: {
+                    allowJs: true,
                     incremental: false,
                     composite: false,
                 },

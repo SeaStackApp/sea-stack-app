@@ -1,4 +1,4 @@
-import { TREAFIK_DYNAMIC_PATH } from '../utils/remote-server/config';
+import { TREAFIK_DYNAMIC_PATH, TRAEFIK_CERT_RESOLVER, TRAEFIK_ACME_EMAIL } from './config';
 
 export const getTraefikConfig = () => {
     return `global:
@@ -22,13 +22,13 @@ entryPoints:
       advertisedPort: 443
     http:
       tls:
-        certResolver: letsencrypt
+        certResolver: ${TRAEFIK_CERT_RESOLVER}
 api:
   insecure: true
 certificatesResolvers:
-  letsencrypt:
+  ${TRAEFIK_CERT_RESOLVER}:
     acme:
-      email: test@email.com
+      email: ${TRAEFIK_ACME_EMAIL}
       storage: ${TREAFIK_DYNAMIC_PATH}/acme.json
       httpChallenge:
         entryPoint: web`;

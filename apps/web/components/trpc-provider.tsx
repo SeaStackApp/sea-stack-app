@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import { TRPCProvider } from '@/lib/trpc';
 import { AppRouter } from '@repo/api';
+import superjson from 'superjson';
 
 function makeQueryClient() {
     return new QueryClient({
@@ -43,9 +44,11 @@ export function TCPQueryClientProvider({
                     condition: (op) => op.type === 'subscription',
                     true: httpSubscriptionLink({
                         url: '/api/trpc',
+                        transformer: superjson,
                     }),
                     false: httpBatchLink({
                         url: '/api/trpc',
+                        transformer: superjson,
                     }),
                 }),
             ],

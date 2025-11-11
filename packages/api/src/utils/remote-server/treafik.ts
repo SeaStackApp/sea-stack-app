@@ -7,7 +7,7 @@ import {
     TRAEFIK_SERVICE_NAME,
     TRAEFIK_VERSION,
     TREAFIK_DYNAMIC_PATH,
-} from './config';
+} from '../../configs/config';
 
 export const setupTraefik = async (client: Client) => {
     // Check if traefik network exists
@@ -44,6 +44,8 @@ export const setupTraefik = async (client: Client) => {
         // Create traefik directory
         await remoteExec(client, `mkdir -p ${TRAEFIK_DIRECTORY}`);
         await remoteExec(client, `mkdir -p ${TREAFIK_DYNAMIC_PATH}`);
+        await remoteExec(client, `touch ${TREAFIK_DYNAMIC_PATH}/acme.json`);
+        await remoteExec(client, `chmod 600 ${TREAFIK_DYNAMIC_PATH}/acme.json`);
         const traefikConfigPath = `${TRAEFIK_DIRECTORY}/traefik.yml`;
 
         // Write traefik config to file if it doesn't exist yet'

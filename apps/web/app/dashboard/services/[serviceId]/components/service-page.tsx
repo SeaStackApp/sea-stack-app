@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import ServiceSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/service-settings-dropdown';
 import TodoTab from '@/app/dashboard/services/[serviceId]/components/tabs/Todo';
 import AdvancedTab from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/advanced-tab';
+import DeploymentsTab from '@/app/dashboard/services/[serviceId]/components/tabs/deployments/deployments-tab';
 
 export default function ServicePage({
     serviceId,
@@ -57,7 +58,7 @@ export default function ServicePage({
             <Separator className='mt-5' />
 
             <Tabs
-                defaultValue={sp.get('tab') ?? 'overview'}
+                value={sp.get('tab') ?? 'overview'}
                 onValueChange={(e) => {
                     router.push('?tab=' + e);
                 }}
@@ -71,8 +72,9 @@ export default function ServicePage({
                     <TabsTrigger value='advanced'>Advanced</TabsTrigger>
                 </TabsList>
                 <OverviewTab service={service} />
+                <DeploymentsTab service={service} />
                 <AdvancedTab service={service} />
-                {['logs', 'terminal', 'deployments', 'backups'].map((x) => (
+                {['logs', 'terminal', 'backups'].map((x) => (
                     <TodoTab value={x} key={x} />
                 ))}
             </Tabs>
