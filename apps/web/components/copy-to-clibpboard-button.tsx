@@ -14,8 +14,12 @@ export const CopyToClipboardButton = (
             {...rest}
             onClick={async (e) => {
                 if (props.onClick) props.onClick(e);
-                await navigator.clipboard.writeText(copyText);
-                toast.success('Copied to clipboard');
+                try {
+                    await navigator.clipboard.writeText(copyText);
+                    toast.success('Copied to clipboard');
+                } catch (error) {
+                    toast.error('Failed to copy to clipboard');
+                }
             }}
         />
     );
