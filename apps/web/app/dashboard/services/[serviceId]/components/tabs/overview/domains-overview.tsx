@@ -33,7 +33,6 @@ import {
 } from '@/components/ui/table';
 import DomainSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domain-settings-dropdown';
 import { CopyToClipboardButton } from '@/components/copy-to-clibpboard-button';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function DomainsOverview({
