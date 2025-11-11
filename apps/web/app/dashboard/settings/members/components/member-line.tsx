@@ -47,7 +47,7 @@ export default function MemberLine({ member }: { readonly member: Member }) {
         try {
             const { error } =
                 await authClient.organization.updateMemberRole({
-                    memberIdOrUserId: member.id,
+                    memberId: member.id,
                     role: newRole,
                 });
 
@@ -67,7 +67,7 @@ export default function MemberLine({ member }: { readonly member: Member }) {
         setIsDeleting(true);
         try {
             const { error } = await authClient.organization.removeMember({
-                memberIdOrUserId: member.id,
+                memberIdOrEmail: member.id,
             });
 
             if (error) {
