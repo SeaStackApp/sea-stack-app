@@ -18,7 +18,7 @@ export const deploySwarmService = async (
 ) => {
     try {
         const docker = new Docker(connection);
-        let treafikNetworkName = '';
+        let traefikNetworkName = '';
 
         logger.info('Configuring networks');
         // Create networks
@@ -26,7 +26,7 @@ export const deploySwarmService = async (
             await createNetwork(prisma, docker, network.id, logger);
 
             if (network.attachToReverseProxy) {
-                treafikNetworkName = network.name;
+                traefikNetworkName = network.name;
                 const { Id } = await docker.inspectNetwork(network.name);
                 if (!(await docker.serviceExists(TRAEFIK_SERVICE_NAME))) {
                     logger.warn(
@@ -105,8 +105,8 @@ export const deploySwarmService = async (
 
         // Enable Traefik and set the docker network (when available)
         labels['traefik.enable'] = 'true';
-        if (treafikNetworkName) {
-            labels['traefik.docker.network'] = treafikNetworkName;
+        if (traefikNetworkName) {
+            labels['traefik.docker.network'] = traefikNetworkName;
         }
 
         // Generate routers/services per domain
