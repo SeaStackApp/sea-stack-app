@@ -45,18 +45,18 @@ export default function MemberLine({ member }: { readonly member: Member }) {
     const handleRoleChange = async (newRole: string) => {
         setIsUpdating(true);
         try {
-            const { data, error } =
+            const { error } =
                 await authClient.organization.updateMemberRole({
                     memberIdOrUserId: member.id,
                     role: newRole,
                 });
 
             if (error) {
-                toast.error(error.message || 'Failed to update member role');
+                toast.error(error.message ?? 'Failed to update member role');
             } else {
                 toast.success('Member role updated successfully');
             }
-        } catch (error) {
+        } catch {
             toast.error('Failed to update member role');
         } finally {
             setIsUpdating(false);
@@ -66,17 +66,17 @@ export default function MemberLine({ member }: { readonly member: Member }) {
     const handleRemoveMember = async () => {
         setIsDeleting(true);
         try {
-            const { data, error } = await authClient.organization.removeMember({
+            const { error } = await authClient.organization.removeMember({
                 memberIdOrUserId: member.id,
             });
 
             if (error) {
-                toast.error(error.message || 'Failed to remove member');
+                toast.error(error.message ?? 'Failed to remove member');
             } else {
                 toast.success('Member removed successfully');
                 setShowDeleteModal(false);
             }
-        } catch (error) {
+        } catch {
             toast.error('Failed to remove member');
         } finally {
             setIsDeleting(false);

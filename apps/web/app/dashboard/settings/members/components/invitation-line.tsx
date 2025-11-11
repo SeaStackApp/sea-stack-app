@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { XIcon } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'sonner';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from '@/lib/dateUtils';
 
 type Invitation = {
     id: string;
@@ -34,27 +34,25 @@ export default function InvitationLine({
     const handleCancelInvitation = async () => {
         setIsCanceling(true);
         try {
-            const { data, error } =
+            const { error } =
                 await authClient.organization.cancelInvitation({
                     invitationId: invitation.id,
                 });
 
             if (error) {
-                toast.error(error.message || 'Failed to cancel invitation');
+                toast.error(error.message ?? 'Failed to cancel invitation');
             } else {
                 toast.success('Invitation canceled successfully');
                 setShowCancelModal(false);
             }
-        } catch (error) {
+        } catch {
             toast.error('Failed to cancel invitation');
         } finally {
             setIsCanceling(false);
         }
     };
 
-    const expiresIn = formatDistanceToNow(new Date(invitation.expiresAt), {
-        addSuffix: true,
-    });
+    const expiresIn = formatDistanceToNow(new Date(invitation.expiresAt));
 
     return (
         <>

@@ -44,20 +44,19 @@ export default function InviteMemberForm({
     async function onSubmit(values: z.infer<typeof inviteMemberSchema>) {
         setIsSubmitting(true);
         try {
-            const { data, error } = await authClient.organization.inviteMember({
+            const { error } = await authClient.organization.inviteMember({
                 email: values.email,
                 role: values.role,
             });
 
             if (error) {
-                toast.error(error.message || 'Failed to send invitation');
+                toast.error(error.message ?? 'Failed to send invitation');
             } else {
                 toast.success(`Invitation sent to ${values.email}`);
                 form.reset();
                 onSuccess?.();
             }
-        } catch (error) {
-            console.error(error);
+        } catch {
             toast.error('Unable to send invitation');
         } finally {
             setIsSubmitting(false);
