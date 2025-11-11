@@ -60,6 +60,17 @@ RUN useradd -m nextjs
 # Install Prisma CLI globally for runtime migrations (use npm for predictable global bin path)
 RUN npm i -g prisma@6.18.0
 
+# Ensure application can write to /etc/seastack without running as root
+# - create the directory at build time
+# - restrict permissions to owner/group
+# - change ownership to the runtime user `nextjs`
+RUN mkdir -p /etc/seastack \
+    && chown -R nextjs:nextjs /etc/seastack \
+    && chmod 0750 /etc/seastack
+
+# Optionally mark as a volume for persistence when desired
+VOLUME ["/etc/seastack"]
+
 # Copy the standalone server and required assets from the build stage
 # Next.js standalone places a full minimal Node.js server and node_modules into .next/standalone
 COPY --from=build /app/apps/web/.next/standalone ./
@@ -78,7 +89,15 @@ EXPOSE 3000
 
 # Switch to the app directory inside standalone output and run the server
 WORKDIR /app/apps/web
-USER nextjs
 
-# Run database migrations before starting the app
-CMD ["sh", "-c", "prisma migrate deploy --schema $PRISMA_SCHEMA_PATH && node server.js"]
+# Copy and use an entrypoint that prepares /etc/seastack recursively and then
+# runs migrations before starting the app as the non-root user.
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Run the entrypoint as root so it can chown/chmod bind mounts, then drop to nextjs inside the script
+USER root
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Default command; the entrypoint will run migrations and exec this as user `nextjs`
+CMD ["node", "server.js"]
