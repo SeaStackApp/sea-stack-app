@@ -71,7 +71,7 @@ export default function NewOrganizationForm({
     ) {
         setIsSubmitting(true);
         try {
-            const { data, error } =
+            const { error } =
                 await authClient.organization.acceptInvitation({
                     invitationId: values.invitationId,
                 });

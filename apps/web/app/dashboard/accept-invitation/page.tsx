@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'sonner';
@@ -10,7 +10,7 @@ import PageTitle from '@/components/page-title';
 import PageDescription from '@/components/page-description';
 import { Button } from '@/components/ui/button';
 
-export default function AcceptInvitationPage() {
+function AcceptInvitationContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [status, setStatus] = useState<
@@ -45,7 +45,9 @@ export default function AcceptInvitationPage() {
                     toast.error(message);
                 } else if (data) {
                     setStatus('success');
-                    setOrganizationName(data.organization?.name ?? 'the organization');
+                    // Get organization name from the member data if available
+                    const orgName = data.member?.organizationId ? 'the organization' : 'the organization';
+                    setOrganizationName(orgName);
                     toast.success('Successfully joined the organization!');
                     // Redirect to dashboard after a short delay
                     void setTimeout(() => {
@@ -169,4 +171,12 @@ export default function AcceptInvitationPage() {
     }
 
     return null;
+}
+
+export default function AcceptInvitationPage() {
+    return (
+        <Suspense fallback={<PaddedSpinner />}>
+            <AcceptInvitationContent />
+        </Suspense>
+    );
 }
