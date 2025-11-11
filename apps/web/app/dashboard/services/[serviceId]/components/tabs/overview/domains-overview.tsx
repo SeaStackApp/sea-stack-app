@@ -32,8 +32,8 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import DomainSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/overview/domain-settings-dropdown';
-import { CopyToClipboardButton } from '@/components/copy-to-clibpboard-button';
 import Link from 'next/link';
+import { CopyToClipboardButton } from '@/components/copy-to-clipboard-button';
 
 export default function DomainsOverview({
     service,
