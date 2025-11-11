@@ -2,6 +2,7 @@ import { protectedProcedure } from '../../trpc';
 import { updateSwarmServiceOverviewSchema } from '@repo/schemas';
 import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
 import { TRPCError } from '@trpc/server';
+import { checkRegistryExistsInOrganization } from '../../utils/checks/checkRegistryExistsInOrganization';
 
 export const updateSwarmServiceOverview = protectedProcedure
     .input(updateSwarmServiceOverviewSchema)
@@ -11,6 +12,14 @@ export const updateSwarmServiceOverview = protectedProcedure
             input.serviceId,
             organizationId
         );
+
+        if (input.registryId)
+            await checkRegistryExistsInOrganization(
+                prisma,
+                input.registryId,
+                organizationId
+            );
+
         if (
             !(await prisma.swarmService.findUnique({
                 where: {
