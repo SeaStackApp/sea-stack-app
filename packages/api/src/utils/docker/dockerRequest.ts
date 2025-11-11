@@ -45,7 +45,11 @@ export const dockerRequest = (
 
             if (opts.body) req.write(opts.body);
 
-            req.on('error', (err) => console.error('Request error:', err));
+            req.on('error', (err) => {
+                console.error('Request error:', err);
+                reject(err);
+                stream.end();
+            });
             req.end();
         });
     });
