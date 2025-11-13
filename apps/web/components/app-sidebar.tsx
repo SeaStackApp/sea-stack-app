@@ -5,6 +5,7 @@ import {
     ContainerIcon,
     FolderOpenIcon,
     KeyIcon,
+    NetworkIcon,
     ServerIcon,
     UsersIcon,
 } from 'lucide-react';
@@ -43,6 +44,11 @@ const data = [
                 name: 'Servers',
                 url: '/dashboard/servers',
                 icon: ServerIcon,
+            },
+            {
+                name: 'Networks',
+                url: '/dashboard/networks',
+                icon: NetworkIcon,
             },
             {
                 name: 'Members',
