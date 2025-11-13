@@ -16,3 +16,11 @@ export const updateSwarmServiceOverviewSchema = serviceIdSchema.extend({
     image: z.string().optional(),
     registryId: z.string().nullable().optional(),
 });
+
+export const addNetworkToServiceSchema = serviceIdSchema.extend({
+    networkId: z.string(),
+});
+
+export const removeNetworkFromServiceSchema = serviceIdSchema.extend({
+    networkId: z.string(),
+});

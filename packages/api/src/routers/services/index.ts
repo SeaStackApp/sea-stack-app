@@ -6,6 +6,8 @@ import { createDomain } from './createDomain';
 import { deleteService } from './deleteService';
 import { deployService } from './deployService';
 import { updateSwarmServiceOverview } from './updateSwarmServiceOverview';
+import { addNetworkToService } from './addNetworkToService';
+import { removeNetworkFromService } from './removeNetworkFromService';
 
 export const servicesRouter = router({
     createSwarmService,
@@ -15,4 +17,6 @@ export const servicesRouter = router({
     deleteService,
     deployService,
     updateSwarmServiceOverview,
+    addNetworkToService,
+    removeNetworkFromService,
 });
