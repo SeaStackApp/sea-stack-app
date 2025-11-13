@@ -1,7 +1,15 @@
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import {
     Empty,
+    EmptyContent,
     EmptyDescription,
     EmptyHeader,
     EmptyMedia,
@@ -11,11 +19,14 @@ import { NetworkIcon } from 'lucide-react';
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import AddNetworkToServiceButton from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/add-network-to-service-button';
+import NetworkSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/network-settings-dropdown';
 
 export default function NetworksOverview({
     service,
@@ -40,6 +51,9 @@ export default function NetworksOverview({
                                 from other services or the internet.
                             </EmptyDescription>
                         </EmptyHeader>
+                        <EmptyContent>
+                            <AddNetworkToServiceButton service={service} />
+                        </EmptyContent>
                     </Empty>
                 </CardContent>
             </Card>
@@ -48,6 +62,13 @@ export default function NetworksOverview({
         <Card>
             <CardHeader>
                 <CardTitle>Networks</CardTitle>
+                <CardDescription>
+                    Networks allow your service to communicate with other
+                    services.
+                </CardDescription>
+                <CardAction>
+                    <AddNetworkToServiceButton service={service} />
+                </CardAction>
             </CardHeader>
             <CardContent className='col-span-2'>
                 <Table>
@@ -56,8 +77,8 @@ export default function NetworksOverview({
                             <TableHead>Network</TableHead>
                             <TableHead>Driver</TableHead>
                             <TableHead>Attachable</TableHead>
-                            <TableHead>Internal</TableHead>
                             <TableHead>Connected to proxy</TableHead>
+                            <TableHead></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -68,15 +89,24 @@ export default function NetworksOverview({
                                 <TableCell>
                                     {network.attachable ? 'Yes' : 'No'}
                                 </TableCell>
-                                <TableCell>{'-'}</TableCell>
                                 <TableCell>
                                     {network.attachToReverseProxy
                                         ? 'Yes'
                                         : 'No'}
                                 </TableCell>
+                                <TableCell className='text-right'>
+                                    <NetworkSettingsDropdown
+                                        network={network}
+                                        serviceId={service.id}
+                                    />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
+                    <TableCaption>
+                        {service.networks.length} network(s) attached to this
+                        service.
+                    </TableCaption>
                 </Table>
             </CardContent>
         </Card>
