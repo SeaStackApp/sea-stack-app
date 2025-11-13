@@ -28,6 +28,8 @@ export const createDomain = protectedProcedure
             await prisma.network.create({
                 data: {
                     name: publicNetworkName,
+                    description:
+                        'Link between the service and the traefik reverse proxy',
                     attachToReverseProxy: true,
                     driver: 'overlay',
                     attachable: true,

@@ -211,6 +211,7 @@ model Service {
     domains                 Domain[]
     networks                Network[]
     deployments             Deployment[]
+    volumes                 Volume[]
 }
 
 model SwarmService {
@@ -299,4 +300,6 @@ model Volume {
     name      String
     mountPath String
     readOnly  Boolean @default(false)
+    service   Service @relation(fields: [serviceId], references: [id])
+    serviceId String
 }
