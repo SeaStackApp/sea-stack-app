@@ -246,6 +246,7 @@ model Server {
 
     organizations Organization[]
     registries    Registry[]
+    networks      Network[]
 }
 
 model SSHKey {
@@ -283,6 +284,8 @@ model Network {
 
     attachToReverseProxy Boolean   @default(false)
     services             Service[]
+    server               Server    @relation(fields: [serverId], references: [id])
+    serverId             String
 }
 
 model Deployment {

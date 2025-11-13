@@ -25,7 +25,8 @@ export default function AddNetworkToServiceButton({
                 <DialogHeader>
                     <DialogTitle>Add network to service</DialogTitle>
                     <DialogDescription>
-                        Select an existing network to add to this service.
+                        Select an existing network (on the same server) to add
+                        to this service.
                     </DialogDescription>
                 </DialogHeader>
                 <AddNetworkToServiceForm

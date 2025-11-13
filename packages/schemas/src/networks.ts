@@ -13,4 +13,5 @@ export const createNetworkSchema = z.object({
     attachToReverseProxy: z.boolean().default(false),
     labels: z.record(z.string()).optional(),
     options: z.record(z.string()).optional(),
+    serverId: z.string(),
 });

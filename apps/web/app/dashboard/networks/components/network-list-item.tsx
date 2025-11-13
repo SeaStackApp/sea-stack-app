@@ -2,6 +2,7 @@ import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
 import { TableCell, TableRow } from '@/components/ui/table';
 import NetworkActions from '@/app/dashboard/networks/components/network-actions';
+import { CopyToClipboardButton } from '@/components/copy-to-clipboard-button';
 
 export default function NetworkListItem({
     network,
@@ -13,14 +14,21 @@ export default function NetworkListItem({
     return (
         <TableRow>
             <TableCell>{network.id}</TableCell>
+            <TableCell>
+                <CopyToClipboardButton
+                    copyText={network.server.hostname}
+                    variant='outline'
+                    className='rounded-4xl'
+                >
+                    {network.server.name}
+                </CopyToClipboardButton>
+            </TableCell>
             <TableCell>{network.name}</TableCell>
             <TableCell>{network.driver}</TableCell>
             <TableCell>{network.subnet ?? '-'}</TableCell>
             <TableCell>{network.gateway ?? '-'}</TableCell>
             <TableCell>{network.attachable ? 'Yes' : 'No'}</TableCell>
-            <TableCell>
-                {network.attachToReverseProxy ? 'Yes' : 'No'}
-            </TableCell>
+            <TableCell>{network.attachToReverseProxy ? 'Yes' : 'No'}</TableCell>
             <TableCell className='text-right'>
                 <NetworkActions networkId={network.id} />
             </TableCell>

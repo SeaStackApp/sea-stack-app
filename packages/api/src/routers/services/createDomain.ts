@@ -24,6 +24,19 @@ export const createDomain = protectedProcedure
             },
         });
 
+        const { id: serverId } = await prisma.server.findFirstOrThrow({
+            where: {
+                services: {
+                    some: {
+                        id: serviceId,
+                    },
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+
         if (!network)
             await prisma.network.create({
                 data: {
@@ -38,6 +51,7 @@ export const createDomain = protectedProcedure
                             id: serviceId,
                         },
                     },
+                    serverId,
                 },
             });
 

@@ -39,7 +39,11 @@ export default function AddNetworkToServiceForm({
 }>) {
     const client = useQueryClient();
     const trpc = useTRPC();
-    const networksQuery = useQuery(trpc.networks.list.queryOptions());
+    const networksQuery = useQuery(
+        trpc.networks.list.queryOptions({
+            serverId: service.serverId,
+        })
+    );
     const form = useForm({
         resolver: zodResolver(addNetworkToServiceSchema),
         defaultValues: {
@@ -107,15 +111,17 @@ export default function AddNetworkToServiceForm({
                                             <SelectLabel>
                                                 Available Networks
                                             </SelectLabel>
-                                            {availableNetworks.map((network) => (
-                                                <SelectItem
-                                                    value={network.id}
-                                                    key={network.id}
-                                                >
-                                                    {network.name} (
-                                                    {network.driver})
-                                                </SelectItem>
-                                            ))}
+                                            {availableNetworks.map(
+                                                (network) => (
+                                                    <SelectItem
+                                                        value={network.id}
+                                                        key={network.id}
+                                                    >
+                                                        {network.name} (
+                                                        {network.driver})
+                                                    </SelectItem>
+                                                )
+                                            )}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
