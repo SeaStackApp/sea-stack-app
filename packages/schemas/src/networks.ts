@@ -6,7 +6,7 @@ export const networkIdSchema = z.object({
 
 export const createNetworkSchema = z.object({
     name: z.string().min(1, 'Network name is required'),
-    driver: z.string().default('overlay'),
+    driver: z.enum(['overlay', 'bridge', 'host', 'none']).default('overlay'),
     subnet: z.string().optional(),
     gateway: z.string().optional(),
     attachable: z.boolean().default(false),
