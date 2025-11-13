@@ -42,8 +42,8 @@ export default function NetworkForm({
         defaultValues: {
             name: '',
             driver: 'overlay',
-            subnet: '',
-            gateway: '',
+            subnet: undefined,
+            gateway: undefined,
             attachable: false,
             attachToReverseProxy: false,
         },
@@ -52,13 +52,7 @@ export default function NetworkForm({
 
     async function onSubmit(values: z.infer<typeof createNetworkSchema>) {
         try {
-            // Remove empty strings for optional fields
-            const data = {
-                ...values,
-                subnet: values.subnet ?? undefined,
-                gateway: values.gateway ?? undefined,
-            };
-            const { id } = await trpcClient.networks.create.mutate(data);
+            const { id } = await trpcClient.networks.create.mutate(values);
             toast.success(`Successfully created network ${id}`);
             await client.invalidateQueries({
                 queryKey: trpc.networks.list.queryKey(),
@@ -83,10 +77,7 @@ export default function NetworkForm({
                         <FormItem>
                             <FormLabel>Network Name</FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder='my-network'
-                                    {...field}
-                                />
+                                <Input placeholder='my-network' {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -137,13 +128,19 @@ export default function NetworkForm({
                 <FormField
                     control={form.control}
                     name='subnet'
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                         <FormItem>
                             <FormLabel>Subnet (Optional)</FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder='10.0.0.0/24'
-                                    {...field}
+                                    value={value}
+                                    onChange={(e) => {
+                                        const newValue = e.target.value.trim();
+                                        if (newValue.length !== 0)
+                                            onChange(newValue);
+                                        else onChange(undefined);
+                                    }}
                                 />
                             </FormControl>
                             <FormDescription>
@@ -157,13 +154,19 @@ export default function NetworkForm({
                 <FormField
                     control={form.control}
                     name='gateway'
-                    render={({ field }) => (
+                    render={({ field: { value, onChange } }) => (
                         <FormItem>
                             <FormLabel>Gateway (Optional)</FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder='10.0.0.1'
-                                    {...field}
+                                    value={value}
+                                    onChange={(e) => {
+                                        const newValue = e.target.value.trim();
+                                        if (newValue.length !== 0)
+                                            onChange(newValue);
+                                        else onChange(undefined);
+                                    }}
                                 />
                             </FormControl>
                             <FormDescription>
