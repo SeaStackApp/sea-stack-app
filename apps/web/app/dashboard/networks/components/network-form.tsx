@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useTRPC, useTRPCClient } from '@/lib/trpc';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
     Form,
     FormControl,
@@ -29,6 +29,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import PaddedSpinner from '@/components/padded-spinner';
 
 export default function NetworkForm({
     onCreate,
@@ -49,6 +50,7 @@ export default function NetworkForm({
         },
     });
     const trpcClient = useTRPCClient();
+    const { data: servers } = useQuery(trpc.servers.list.queryOptions());
 
     async function onSubmit(values: z.infer<typeof createNetworkSchema>) {
         try {
@@ -63,6 +65,8 @@ export default function NetworkForm({
             toast.error('Unable to create network');
         }
     }
+
+    if (!servers) return <PaddedSpinner />;
 
     return (
         <Form {...form}>
@@ -172,6 +176,40 @@ export default function NetworkForm({
                             <FormDescription>
                                 Gateway IP address for the network
                             </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name='serverId'
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Server</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={field.value}
+                                    onValueChange={field.onChange}
+                                >
+                                    <SelectTrigger className='w-full'>
+                                        <SelectValue placeholder='Select a server' />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Servers</SelectLabel>
+                                            {servers.map((key) => (
+                                                <SelectItem
+                                                    value={key.id}
+                                                    key={key.id}
+                                                >
+                                                    {key.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}

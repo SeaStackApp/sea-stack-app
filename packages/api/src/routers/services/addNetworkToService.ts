@@ -1,6 +1,7 @@
 import { protectedProcedure } from '../../trpc';
 import { addNetworkToServiceSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
+import { checkNetworkExistsInOrganization } from '../../utils/checks/checkNetworkExistsInOrganization';
 
 export const addNetworkToService = protectedProcedure
     .input(addNetworkToServiceSchema)
@@ -28,19 +29,11 @@ export const addNetworkToService = protectedProcedure
             });
         }
 
-        // Verify network exists
-        const network = await prisma.network.findUnique({
-            where: {
-                id: input.networkId,
-            },
-        });
-
-        if (!network) {
-            throw new TRPCError({
-                code: 'NOT_FOUND',
-                message: 'Network not found',
-            });
-        }
+        await checkNetworkExistsInOrganization(
+            prisma,
+            input.networkId,
+            organizationId
+        );
 
         // Add network to service
         return prisma.service.update({

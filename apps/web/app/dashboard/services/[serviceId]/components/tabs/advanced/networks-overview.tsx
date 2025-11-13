@@ -25,6 +25,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { CopyToClipboardButton } from '@/components/copy-to-clipboard-button';
 import AddNetworkToServiceButton from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/add-network-to-service-button';
 import NetworkSettingsDropdown from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/network-settings-dropdown';
 
@@ -84,7 +85,20 @@ export default function NetworksOverview({
                     <TableBody>
                         {service.networks.map((network) => (
                             <TableRow key={network.id}>
-                                <TableCell>{network.name}</TableCell>
+                                <TableCell>
+                                    <CopyToClipboardButton
+                                        copyText={network.name}
+                                        variant='ghost'
+                                        className='px-0'
+                                    >
+                                        {network.name}
+                                    </CopyToClipboardButton>
+                                    {network.description && (
+                                        <p className='text-xs text-muted-foreground'>
+                                            {network.description}
+                                        </p>
+                                    )}
+                                </TableCell>
                                 <TableCell>{network.driver}</TableCell>
                                 <TableCell>
                                     {network.attachable ? 'Yes' : 'No'}

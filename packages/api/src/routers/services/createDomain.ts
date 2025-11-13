@@ -24,10 +24,25 @@ export const createDomain = protectedProcedure
             },
         });
 
+        const { id: serverId } = await prisma.server.findFirstOrThrow({
+            where: {
+                services: {
+                    some: {
+                        id: serviceId,
+                    },
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+
         if (!network)
             await prisma.network.create({
                 data: {
                     name: publicNetworkName,
+                    description:
+                        'Link between the service and the traefik reverse proxy',
                     attachToReverseProxy: true,
                     driver: 'overlay',
                     attachable: true,
@@ -36,6 +51,7 @@ export const createDomain = protectedProcedure
                             id: serviceId,
                         },
                     },
+                    serverId,
                 },
             });
 
