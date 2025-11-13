@@ -292,3 +292,10 @@ model Deployment {
     service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
     serviceId String
 }
+
+model Volume {
+    id        String  @id @default(cuid(2))
+    name      String
+    mountPath String
+    readOnly  Boolean @default(false)
+}
