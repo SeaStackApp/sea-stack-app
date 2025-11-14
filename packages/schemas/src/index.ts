@@ -6,3 +6,4 @@ export * from './services';
 export * from './domains';
 export * from './deployments';
 export * from './networks';
+export * from './volumes';

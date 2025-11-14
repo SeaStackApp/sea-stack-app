@@ -40,6 +40,7 @@ export const getServiceData = (
                     options: true,
                 },
             },
+            volumes: true,
             deployments: {
                 take: 10,
                 orderBy: {
