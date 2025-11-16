@@ -14,7 +14,7 @@ import PaddedSpinner from '@/components/padded-spinner';
 
 export default function NetworksList() {
     const trpc = useTRPC();
-    const listNetworksQuery = useQuery(trpc.networks.list.queryOptions());
+    const listNetworksQuery = useQuery(trpc.networks.list.queryOptions({}));
 
     if (!listNetworksQuery.data) return <PaddedSpinner />;
 
@@ -23,6 +23,7 @@ export default function NetworksList() {
             <TableHeader>
                 <TableRow>
                     <TableHead className='w-[100px]'>Id</TableHead>
+                    <TableHead>Server</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Driver</TableHead>
                     <TableHead>Subnet</TableHead>

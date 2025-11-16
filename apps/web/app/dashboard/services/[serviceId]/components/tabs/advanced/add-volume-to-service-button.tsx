@@ -10,26 +10,25 @@ import {
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Service } from '@/app/dashboard/services/[serviceId]/Service';
-import AddNetworkToServiceForm from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/add-network-to-service-form';
+import AddVolumeToServiceForm from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/add-volume-to-service-form';
 
-export default function AddNetworkToServiceButton({
+export default function AddVolumeToServiceButton({
     service,
 }: Readonly<{ service: Service }>) {
     const [open, setOpen] = React.useState(false);
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild={true}>
-                <Button>Add Network</Button>
+                <Button>Add Volume</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Add network to service</DialogTitle>
+                    <DialogTitle>Add volume to service</DialogTitle>
                     <DialogDescription>
-                        Select an existing network (on the same server) to add
-                        to this service.
+                        Create a new volume to persist data for this service.
                     </DialogDescription>
                 </DialogHeader>
-                <AddNetworkToServiceForm
+                <AddVolumeToServiceForm
                     service={service}
                     onAdd={() => setOpen(false)}
                 />

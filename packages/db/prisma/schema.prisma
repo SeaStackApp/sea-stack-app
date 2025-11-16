@@ -211,6 +211,7 @@ model Service {
     domains                 Domain[]
     networks                Network[]
     deployments             Deployment[]
+    volumes                 Volume[]
 }
 
 model SwarmService {
@@ -245,6 +246,7 @@ model Server {
 
     organizations Organization[]
     registries    Registry[]
+    networks      Network[]
 }
 
 model SSHKey {
@@ -270,17 +272,20 @@ model Registry {
 }
 
 model Network {
-    id         String  @id @default(cuid(2))
-    name       String
-    driver     String  @default("overlay")
-    subnet     String?
-    gateway    String?
-    attachable Boolean @default(false)
-    labels     Json?
-    options    Json?
+    id          String  @id @default(cuid(2))
+    name        String
+    description String?
+    driver      String  @default("overlay")
+    subnet      String?
+    gateway     String?
+    attachable  Boolean @default(false)
+    labels      Json?
+    options     Json?
 
     attachToReverseProxy Boolean   @default(false)
     services             Service[]
+    server               Server    @relation(fields: [serverId], references: [id])
+    serverId             String
 }
 
 model Deployment {
@@ -290,5 +295,14 @@ model Deployment {
     updatedAt DateTime @updatedAt
 
     service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+    serviceId String
+}
+
+model Volume {
+    id        String  @id @default(cuid(2))
+    name      String
+    mountPath String
+    readOnly  Boolean @default(false)
+    service   Service @relation(fields: [serviceId], references: [id])
     serviceId String
 }
