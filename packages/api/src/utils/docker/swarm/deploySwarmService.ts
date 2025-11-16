@@ -10,6 +10,8 @@ import {
 } from '../../../configs/config';
 import { components } from '../schema';
 import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
+import { decrypt } from '../../crypto';
+import { parseEnvVarsForDocker } from '../../envVars/parseEnvVarsForDocker';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -102,6 +104,35 @@ export const deploySwarmService = async (
         spec.TaskTemplate!.Networks = service.networks.map((network) => ({
             Target: network.name,
         }));
+
+        // Parse and add environment variables
+        let envVars: string[] = [];
+        if (service.environmentVariables) {
+            try {
+                logger.info('Decrypting environment variables');
+                const decryptedEnvVars = decrypt(service.environmentVariables);
+                logger.info('Parsing environment variables');
+                envVars = parseEnvVarsForDocker(decryptedEnvVars);
+                logger.debug(`Parsed ${envVars.length} environment variables`);
+            } catch (e) {
+                logger.error('Failed to decrypt or parse environment variables');
+                if (e instanceof Error) {
+                    logger.error(e.message);
+                }
+                // Try to use unencrypted format as fallback for legacy data
+                try {
+                    envVars = parseEnvVarsForDocker(service.environmentVariables);
+                    logger.info(`Using ${envVars.length} unencrypted environment variables as fallback`);
+                } catch (fallbackError) {
+                    logger.error('Failed to parse environment variables even as unencrypted');
+                }
+            }
+        }
+        
+        if (envVars.length > 0) {
+            spec.TaskTemplate!.ContainerSpec!.Env = envVars;
+            logger.info(`Set ${envVars.length} environment variables for service`);
+        }
 
         // Build Traefik labels from service domains
         const labels: Record<string, string> = { ...(spec.Labels ?? {}) };

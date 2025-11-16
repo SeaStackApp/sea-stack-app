@@ -8,6 +8,8 @@ import { deployService } from './deployService';
 import { updateSwarmServiceOverview } from './updateSwarmServiceOverview';
 import { addNetworkToService } from './addNetworkToService';
 import { removeNetworkFromService } from './removeNetworkFromService';
+import { getServiceEnvironmentVariables } from './getServiceEnvironmentVariables';
+import { updateServiceEnvironmentVariables } from './updateServiceEnvironmentVariables';
 
 export const servicesRouter = router({
     createSwarmService,
@@ -19,4 +21,6 @@ export const servicesRouter = router({
     updateSwarmServiceOverview,
     addNetworkToService,
     removeNetworkFromService,
+    getServiceEnvironmentVariables,
+    updateServiceEnvironmentVariables,
 });
