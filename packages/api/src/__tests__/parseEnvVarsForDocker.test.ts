@@ -85,4 +85,58 @@ EMPTY_VAR=`;
         ];
         expect(parseEnvVarsForDocker(input)).toEqual(expected);
     });
+
+    test('should interpolate variables using $VAR syntax', () => {
+        const input = 'BASE_URL=https://example.com\nFULL_URL=$BASE_URL/api';
+        const expected = ['BASE_URL=https://example.com', 'FULL_URL=https://example.com/api'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should interpolate variables using ${VAR} syntax', () => {
+        const input = 'HOST=localhost\nPORT=3000\nSERVER_URL=${HOST}:${PORT}';
+        const expected = ['HOST=localhost', 'PORT=3000', 'SERVER_URL=localhost:3000'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should handle default values with ${VAR:-default} syntax', () => {
+        const input = 'DEFINED=value\nUSE_DEFINED=${DEFINED:-default}\nUSE_DEFAULT=${UNDEFINED:-default}';
+        const expected = ['DEFINED=value', 'USE_DEFINED=value', 'USE_DEFAULT=default'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should handle default values with ${VAR-default} syntax', () => {
+        const input = 'DEFINED=value\nEMPTY=\nUSE_DEFINED=${DEFINED-default}\nUSE_EMPTY=${EMPTY-default}\nUSE_DEFAULT=${UNDEFINED-default}';
+        const expected = ['DEFINED=value', 'EMPTY=', 'USE_DEFINED=value', 'USE_EMPTY=', 'USE_DEFAULT=default'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should not interpolate variables in single-quoted strings', () => {
+        const input = "BASE_URL=https://example.com\nQUOTED='$BASE_URL/api'";
+        const expected = ['BASE_URL=https://example.com', 'QUOTED=$BASE_URL/api'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should interpolate variables in double-quoted strings', () => {
+        const input = 'BASE_URL=https://example.com\nQUOTED="$BASE_URL/api"';
+        const expected = ['BASE_URL=https://example.com', 'QUOTED=https://example.com/api'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should handle multiple variable references in one value', () => {
+        const input = 'FIRST=Hello\nSECOND=World\nCOMBINED=$FIRST $SECOND!';
+        const expected = ['FIRST=Hello', 'SECOND=World', 'COMBINED=Hello World!'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should handle undefined variables as empty strings', () => {
+        const input = 'DEFINED=value\nUSE_UNDEFINED=$UNDEFINED\nCOMBINED=$DEFINED-$UNDEFINED-end';
+        const expected = ['DEFINED=value', 'USE_UNDEFINED=', 'COMBINED=value--end'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
+    test('should handle complex interpolation with defaults', () => {
+        const input = 'HOST=localhost\nPROTOCOL=${PROTOCOL:-http}\nURL=${PROTOCOL}://${HOST}:${PORT:-3000}';
+        const expected = ['HOST=localhost', 'PROTOCOL=http', 'URL=http://localhost:3000'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
 });
