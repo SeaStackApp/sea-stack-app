@@ -16,7 +16,6 @@
         "test:coverage": "ENCRYPTION_SECRET=abc jest --coverage"
     },
     "dependencies": {
-        "@dotenvx/dotenvx": "^1.51.1",
         "@repo/auth": "workspace:*",
         "@repo/db": "workspace:*",
         "@repo/schemas": "workspace:*",

@@ -36,9 +36,10 @@ export const getServiceEnvironmentVariables = protectedProcedure
             try {
                 environmentVariables = decrypt(service.environmentVariables);
             } catch (e) {
-                console.error('Failed to decrypt environment variables', e);
-                // If decryption fails, it might be unencrypted (legacy), so return as is
-                environmentVariables = service.environmentVariables;
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Failed to decrypt environment variables. This may indicate corrupted data or a changed encryption key. Please re-enter them securely.',
+                });
             }
         }
 

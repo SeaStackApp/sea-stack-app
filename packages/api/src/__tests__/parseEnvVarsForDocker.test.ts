@@ -55,6 +55,12 @@ describe('parseEnvVarsForDocker', () => {
         expect(parseEnvVarsForDocker(input)).toEqual(expected);
     });
 
+    test('should handle escaped double quotes in double-quoted values', () => {
+        const input = 'MESSAGE="He said \\"hello\\""';
+        const expected = ['MESSAGE=He said "hello"'];
+        expect(parseEnvVarsForDocker(input)).toEqual(expected);
+    });
+
     test('should handle complex real-world example', () => {
         const input = `# Application settings
 NODE_ENV=production

@@ -119,13 +119,7 @@ export const deploySwarmService = async (
                 if (e instanceof Error) {
                     logger.error(e.message);
                 }
-                // Try to use unencrypted format as fallback for legacy data
-                try {
-                    envVars = parseEnvVarsForDocker(service.environmentVariables);
-                    logger.info(`Using ${envVars.length} unencrypted environment variables as fallback`);
-                } catch (fallbackError) {
-                    logger.error('Failed to parse environment variables even as unencrypted');
-                }
+                logger.warn('Environment variables will not be set for this deployment. This may indicate corrupted data, a changed encryption key, or a security issue. Please re-enter environment variables securely in the service settings.');
             }
         }
         
