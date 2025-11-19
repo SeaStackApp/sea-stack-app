@@ -12,6 +12,7 @@ import ServiceSettingsDropdown from '@/app/dashboard/services/[serviceId]/compon
 import TodoTab from '@/app/dashboard/services/[serviceId]/components/tabs/Todo';
 import AdvancedTab from '@/app/dashboard/services/[serviceId]/components/tabs/advanced/advanced-tab';
 import DeploymentsTab from '@/app/dashboard/services/[serviceId]/components/tabs/deployments/deployments-tab';
+import { EnvTab } from '@/app/dashboard/services/[serviceId]/components/tabs/environment/env-tab';
 
 export default function ServicePage({
     serviceId,
@@ -65,6 +66,7 @@ export default function ServicePage({
             >
                 <TabsList className='w-full'>
                     <TabsTrigger value='overview'>Overview</TabsTrigger>
+                    <TabsTrigger value='env'>Environment</TabsTrigger>
                     <TabsTrigger value='logs'>Logs</TabsTrigger>
                     <TabsTrigger value='terminal'>Terminal</TabsTrigger>
                     <TabsTrigger value='deployments'>Deployments</TabsTrigger>
@@ -72,6 +74,7 @@ export default function ServicePage({
                     <TabsTrigger value='advanced'>Advanced</TabsTrigger>
                 </TabsList>
                 <OverviewTab service={service} />
+                <EnvTab service={service} />
                 <DeploymentsTab service={service} />
                 <AdvancedTab service={service} />
                 {['logs', 'terminal', 'backups'].map((x) => (
