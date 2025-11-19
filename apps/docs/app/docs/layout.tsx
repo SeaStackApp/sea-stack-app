@@ -1,5 +1,6 @@
 import { Header } from '@/components/header'
 import { Sidebar } from '@/components/sidebar'
+import { EditThisPage } from '@/components/edit-this-page'
 
 export default function DocsLayout({
     children,
@@ -18,6 +19,7 @@ export default function DocsLayout({
                         <article className="prose">
                             {children}
                         </article>
+                        <EditThisPage />
                     </div>
                 </main>
             </div>
