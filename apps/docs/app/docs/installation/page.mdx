@@ -1,0 +1,212 @@
+import { Callout } from '@/components/callout'
+
+# Installation
+
+This guide provides detailed installation instructions for SeaStack in different environments.
+
+## Development Installation
+
+For local development, follow the [Quick Start](/docs/quick-start) guide which covers setting up SeaStack on your local machine.
+
+## Production Installation
+
+<Callout type="warning" title="Production Ready Status">
+SeaStack is currently in active development. While it can be used in production, please be aware that breaking changes may occur between versions. Always review the changelog before upgrading.
+</Callout>
+
+### Using Docker
+
+The recommended way to deploy SeaStack in production is using Docker:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/seastackapp/seastack:latest
+
+# Run the container
+docker run -d \
+  --name seastack \
+  -p 3000:3000 \
+  -e DATABASE_URL="your_database_url" \
+  -e BETTER_AUTH_SECRET="your_auth_secret" \
+  -e BETTER_AUTH_URL="https://your-domain.com" \
+  -e ENCRYPTION_SECRET="your_encryption_secret" \
+  ghcr.io/seastackapp/seastack:latest
+```
+
+### Using Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: seastack
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - seastack
+
+  seastack:
+    image: ghcr.io/seastackapp/seastack:latest
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@postgres:5432/seastack"
+      BETTER_AUTH_SECRET: "change_me_to_a_secure_secret"
+      BETTER_AUTH_URL: "https://your-domain.com"
+      ENCRYPTION_SECRET: "change_me_to_a_secure_secret"
+    depends_on:
+      - postgres
+    networks:
+      - seastack
+
+volumes:
+  postgres_data:
+
+networks:
+  seastack:
+```
+
+Then run:
+
+```bash
+docker compose up -d
+```
+
+### Environment Variables
+
+Required environment variables for production:
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `BETTER_AUTH_SECRET`: Secret for session encryption (min 32 characters)
+- `BETTER_AUTH_URL`: Public URL where SeaStack is accessible
+- `ENCRYPTION_SECRET`: Secret for encrypting SSH keys (min 32 characters)
+
+<Callout type="danger" title="Security Critical">
+Never use default or weak secrets in production. Generate strong, random secrets using a tool like `openssl rand -base64 32`.
+</Callout>
+
+## Building from Source
+
+To build SeaStack from source:
+
+```bash
+# Clone the repository
+git clone https://github.com/SeaStackApp/sea-stack-app.git
+cd sea-stack-app
+
+# Install dependencies
+pnpm install
+
+# Build all packages
+pnpm build
+
+# The built application will be in apps/web/.next
+```
+
+### Building the Docker Image
+
+To build your own Docker image:
+
+```bash
+# Build the image
+pnpm build-image
+
+# Push to your registry
+docker tag ghcr.io/seastackapp/seastack:latest your-registry/seastack:latest
+docker push your-registry/seastack:latest
+```
+
+## Database Setup
+
+### Initial Migration
+
+After deploying, you need to set up the database schema:
+
+```bash
+# If using Docker
+docker exec -it seastack pnpm --filter @repo/db migrate:deploy
+
+# If running from source
+pnpm --filter @repo/db migrate:deploy
+```
+
+### Backing Up Data
+
+Regular backups are recommended:
+
+```bash
+# Backup PostgreSQL database
+docker exec postgres pg_dump -U postgres seastack > backup.sql
+
+# Restore from backup
+cat backup.sql | docker exec -i postgres psql -U postgres seastack
+```
+
+## Reverse Proxy Configuration
+
+### Nginx
+
+Example Nginx configuration:
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### Traefik
+
+Example Traefik labels:
+
+```yaml
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.seastack.rule=Host(`your-domain.com`)"
+  - "traefik.http.routers.seastack.entrypoints=websecure"
+  - "traefik.http.routers.seastack.tls.certresolver=letsencrypt"
+  - "traefik.http.services.seastack.loadbalancer.server.port=3000"
+```
+
+## System Requirements
+
+### Minimum Requirements
+
+- **CPU**: 1 core
+- **RAM**: 512 MB
+- **Storage**: 1 GB
+- **OS**: Linux (Ubuntu 20.04+, Debian 11+, or similar)
+
+### Recommended for Production
+
+- **CPU**: 2+ cores
+- **RAM**: 2 GB
+- **Storage**: 10 GB (depending on usage)
+- **Database**: Dedicated PostgreSQL instance
+
+## Next Steps
+
+After installation:
+
+1. Access SeaStack at your configured URL
+2. Create your admin account
+3. Configure your first server in [Server Management](/docs/servers)
+4. Explore the [Architecture](/docs/architecture) to understand how it works

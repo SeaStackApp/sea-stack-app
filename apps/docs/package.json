@@ -11,9 +11,25 @@
         "check-types": "next typegen && tsc --noEmit"
     },
     "dependencies": {
+        "@mdx-js/loader": "^3.1.0",
+        "@mdx-js/react": "^3.1.0",
+        "@next/mdx": "^16.0.3",
+        "@tailwindcss/postcss": "^4.1.17",
+        "@types/mdx": "^2.0.13",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "lucide-react": "^0.548.0",
         "next": "^16.0.3",
+        "next-mdx-remote": "^5.0.0",
+        "next-themes": "^0.4.6",
+        "postcss": "^8.5.6",
         "react": "^19.2.0",
-        "react-dom": "^19.2.0"
+        "react-dom": "^19.2.0",
+        "rehype-highlight": "^7.0.1",
+        "rehype-slug": "^6.0.0",
+        "remark-gfm": "^4.0.0",
+        "tailwind-merge": "^3.4.0",
+        "tailwindcss": "^4.1.17"
     },
     "devDependencies": {
         "@repo/eslint-config": "workspace:*",
