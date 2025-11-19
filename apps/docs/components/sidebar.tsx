@@ -39,11 +39,8 @@ function NavGroup({ item }: Readonly<{ item: NavItem }>) {
 
 export function Sidebar() {
     return (
-        <aside className="fixed top-0 left-0 z-30 h-screen w-64 border-r border-border bg-card overflow-y-auto">
+        <aside className="fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] w-64 border-r border-border bg-card overflow-y-auto">
             <div className="px-6 py-8">
-                <Link href="/" className="flex items-center mb-8">
-                    <span className="text-2xl font-bold">SeaStack</span>
-                </Link>
                 <nav>
                     {navigation.map((item) => (
                         <NavGroup key={item.href} item={item} />
