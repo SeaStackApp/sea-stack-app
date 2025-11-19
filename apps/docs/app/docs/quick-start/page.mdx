@@ -6,7 +6,7 @@ This guide provides detailed installation instructions for SeaStack in different
 
 ## Development Installation
 
-For local development, follow the [Quick Start](/docs/quick-start) guide which covers setting up SeaStack on your local machine.
+For local development, follow the [Local Development](/docs/local-development) guide which covers setting up SeaStack on your local machine.
 
 ## Production Installation
 
@@ -129,60 +129,9 @@ docker push your-registry/seastack:latest
 After deploying, you need to set up the database schema:
 
 ```bash
-# If using Docker
-docker exec -it seastack pnpm --filter @repo/db migrate:deploy
-
 # If running from source
 pnpm --filter @repo/db migrate:deploy
 ```
+If you use the SeaStack docker image, the migrations are automatically applied when the container starts.
 
-### Backing Up Data
-
-Regular backups are recommended:
-
-```bash
-# Backup PostgreSQL database
-docker exec postgres pg_dump -U postgres seastack > backup.sql
-
-# Restore from backup
-cat backup.sql | docker exec -i postgres psql -U postgres seastack
-```
-
-## Reverse Proxy Configuration
-
-### Nginx
-
-Example Nginx configuration:
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-### Traefik
-
-Example Traefik labels:
-
-```yaml
-labels:
-  - "traefik.enable=true"
-  - "traefik.http.routers.seastack.rule=Host(`your-domain.com`)"
-  - "traefik.http.routers.seastack.entrypoints=websecure"
-  - "traefik.http.routers.seastack.tls.certresolver=letsencrypt"
-  - "traefik.http.services.seastack.loadbalancer.server.port=3000"
-```
 
