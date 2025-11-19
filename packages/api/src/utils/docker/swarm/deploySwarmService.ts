@@ -10,6 +10,7 @@ import {
 } from '../../../configs/config';
 import { components } from '../schema';
 import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
+import { createEnvFromString } from '../common/createEnv';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -102,6 +103,25 @@ export const deploySwarmService = async (
         spec.TaskTemplate!.Networks = service.networks.map((network) => ({
             Target: network.name,
         }));
+
+        const { Env } = createEnvFromString(service.environmentVariables);
+        logger.info(`Added ${Env.length} env variables to the service`);
+        spec.TaskTemplate!.ContainerSpec!.Env = Env;
+
+        logger.info('Mounting volumes');
+        spec.TaskTemplate!.ContainerSpec!.Mounts = service.volumes.map(
+            (volume) => ({
+                Type: 'volume',
+                Source: service.id + '_' + volume.name,
+                Target: volume.mountPath,
+                ReadOnly: volume.readOnly,
+            })
+        );
+        for (const volume of service.volumes) {
+            logger.debug(
+                `Volume ${service.id + '_' + volume.name} mounted on ${volume.mountPath} with readOnly ${volume.readOnly}`
+            );
+        }
 
         // Build Traefik labels from service domains
         const labels: Record<string, string> = { ...(spec.Labels ?? {}) };

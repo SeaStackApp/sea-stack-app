@@ -1,6 +1,6 @@
 {
     "name": "web",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "type": "module",
     "private": true,
     "scripts": {
@@ -11,6 +11,7 @@
         "check-types": "next typegen && tsc --noEmit"
     },
     "dependencies": {
+        "@dotenvx/dotenvx": "^1.51.1",
         "@hookform/resolvers": "^5.2.2",
         "@melloware/react-logviewer": "^6.3.4",
         "@prisma/client": "^6.19.0",

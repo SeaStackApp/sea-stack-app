@@ -8,6 +8,7 @@ import { deploySwarmService } from '../../utils/docker/swarm/deploySwarmService'
 import { isSwarmService } from '../../utils/docker/swarm/isSwarmService';
 import createDeployment from '../../utils/deployments/createDeployment';
 import { getDeploymentLogger } from '../../utils/deployments/getDeploymentLogger';
+import { decrypt } from '../../utils/crypto';
 
 export const deployService = protectedProcedure
     .input(serviceIdSchema)
@@ -22,6 +23,21 @@ export const deployService = protectedProcedure
                 throw new TRPCError({
                     code: 'NOT_FOUND',
                 });
+
+            try {
+                if (service.environmentVariables) {
+                    service.environmentVariables = decrypt(
+                        service.environmentVariables
+                    );
+                }
+            } catch (e) {
+                console.error(e);
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message:
+                        'Unable to decrypt environment variables from service',
+                });
+            }
 
             let connection: Client | undefined;
 

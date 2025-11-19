@@ -7,3 +7,4 @@ export * from './domains';
 export * from './deployments';
 export * from './networks';
 export * from './volumes';
+export * from './environment-variables';
