@@ -1,0 +1,140 @@
+import { Callout } from '@/components/callout'
+
+# Quick Start
+
+Get SeaStack up and running on your local machine in just a few minutes.
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js** >= 24.8.0
+- **pnpm** 9.x (the repository uses pnpm as its package manager)
+- **Docker** (for running PostgreSQL locally and later for container management)
+
+<Callout type="note" title="Using the correct Node version">
+SeaStack requires Node.js 24.8.0 or higher. You can use [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node versions.
+</Callout>
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/SeaStackApp/sea-stack-app.git
+cd sea-stack-app
+```
+
+### 2. Install Dependencies
+
+```bash
+pnpm install
+```
+
+This will install all dependencies for the entire monorepo.
+
+### 3. Start PostgreSQL
+
+SeaStack uses PostgreSQL as its database. Start a local instance using Docker Compose:
+
+```bash
+docker compose up -d postgres
+```
+
+This command uses the `docker-compose.yml` file in the repository root and creates a persistent volume named `postgres_data`.
+
+### 4. Configure Environment Variables
+
+You need to create environment files in two locations:
+
+**packages/db/.env**
+
+```bash
+DATABASE_URL="postgresql://postgres:password@localhost:5432/public?schema=public"
+```
+
+**apps/web/.env**
+
+```bash
+# Database
+DATABASE_URL="postgresql://postgres:password@localhost:5432/public?schema=public"
+
+# Auth
+BETTER_AUTH_SECRET=dev_super_secret_change_me
+BETTER_AUTH_URL=http://localhost:3000
+
+# SSH key encryption (used to encrypt private keys before storing)
+ENCRYPTION_SECRET=dev_encryption_secret_change_me
+```
+
+<Callout type="warning" title="Security Warning">
+The secrets shown above are for development only. Use strong, unique secrets in production environments.
+</Callout>
+
+### 5. Set Up the Database
+
+Generate the Prisma client and push the schema to your database:
+
+```bash
+# Generate Prisma client
+pnpm -w --filter @repo/db generate
+
+# Push schema to database
+pnpm -w --filter @repo/db db:push
+```
+
+Alternatively, you can use migrations:
+
+```bash
+pnpm -w --filter @repo/db migrate:dev
+```
+
+### 6. Start the Development Server
+
+```bash
+pnpm dev
+```
+
+This command uses Turborepo to start all development servers. The main web UI will be available at:
+
+**http://localhost:3000**
+
+<Callout type="success" title="You're all set!">
+SeaStack is now running on your local machine. You can create an account and start managing servers.
+</Callout>
+
+## What's Next?
+
+Now that you have SeaStack running, here are some things you can do:
+
+1. **Add a Server**: Register your first remote server
+2. **Configure SSH**: Set up SSH key authentication
+3. **Explore the UI**: Familiarize yourself with the dashboard
+
+Check out the [Server Management](/docs/servers) guide to learn more about managing your infrastructure with SeaStack.
+
+## Troubleshooting
+
+### Database Connection Issues
+
+If you're having trouble connecting to the database, verify that:
+
+- PostgreSQL is running: `docker ps | grep postgres`
+- The connection string in your `.env` files is correct
+- No other service is using port 5432
+
+### Build Errors
+
+If you encounter build errors:
+
+1. Make sure you're using Node.js 24.8.0 or higher
+2. Clear the build cache: `pnpm clean` (if available)
+3. Remove `node_modules` and reinstall: `rm -rf node_modules && pnpm install`
+
+### Port Conflicts
+
+If port 3000 is already in use, you can change the port in `apps/web/package.json`:
+
+```json
+"dev": "next dev --port 3001"
+```

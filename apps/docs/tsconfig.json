@@ -5,11 +5,16 @@
             {
                 "name": "next"
             }
-        ]
+        ],
+        "paths": {
+            "@/*": ["./*"]
+        },
+        "incremental": true
     },
     "include": [
         "**/*.ts",
         "**/*.tsx",
+        "**/*.mdx",
         "next-env.d.ts",
         "next.config.js",
         ".next/types/**/*.ts"

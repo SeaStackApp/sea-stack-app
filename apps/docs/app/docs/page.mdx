@@ -1,0 +1,61 @@
+import { Callout } from '@/components/callout'
+
+# Introduction to SeaStack
+
+SeaStack helps you manage remote servers and deploy containerized applications using Docker Swarm, all routed behind a Traefik proxy. The goal is a simple, open-source control plane where you can register servers, run commands securely, and orchestrate app deployments on a Swarm cluster with sensible defaults.
+
+<Callout type="note" title="Open Source">
+SeaStack is fully open source and contributions are welcome! Check out our [Contributing guide](/docs/development/contributing) to get started.
+</Callout>
+
+## Key Features
+
+SeaStack provides a comprehensive platform for managing your infrastructure:
+
+- **Server Management**: Register and manage remote Linux servers with secure SSH access
+- **Remote Execution**: Execute administrative actions like reboot, terminal access, and system monitoring
+- **Container Orchestration**: Deploy and manage applications using Docker Swarm (planned)
+- **Traefik Integration**: Zero-downtime routing via automatic Traefik proxy configuration (planned)
+- **Modern Web UI**: Built with Next.js, tRPC, Prisma, and PostgreSQL
+
+## Architecture Overview
+
+SeaStack is built as a monorepo using modern web technologies:
+
+- **Frontend**: Next.js with React for a responsive, fast UI
+- **API**: tRPC for type-safe API communication
+- **Database**: Prisma ORM with PostgreSQL
+- **Authentication**: Better Auth for secure user management
+- **Build System**: Turborepo for efficient monorepo management
+
+## Use Cases
+
+SeaStack is ideal for:
+
+- **Small Teams**: Manage your infrastructure without complex tooling
+- **Side Projects**: Deploy and manage hobby projects with ease
+- **Development Environments**: Quickly spin up and manage dev/staging environments
+- **Learning**: Understand modern DevOps practices with a real-world application
+
+## Next Steps
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8 not-prose">
+    <div className="border border-border rounded-lg p-6 hover:border-primary transition-colors">
+        <h3 className="text-xl font-semibold mb-2">Quick Start</h3>
+        <div className="text-muted-foreground mb-4">
+            Get up and running with SeaStack in minutes
+        </div>
+        <a href="/docs/quick-start" className="text-primary hover:underline font-medium">
+            Get started →
+        </a>
+    </div>
+    <div className="border border-border rounded-lg p-6 hover:border-primary transition-colors">
+        <h3 className="text-xl font-semibold mb-2">Architecture</h3>
+        <div className="text-muted-foreground mb-4">
+            Learn about SeaStack's architecture and design
+        </div>
+        <a href="/docs/architecture" className="text-primary hover:underline font-medium">
+            Learn more →
+        </a>
+    </div>
+</div>
