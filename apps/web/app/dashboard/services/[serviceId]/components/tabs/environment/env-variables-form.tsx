@@ -15,7 +15,6 @@ import { CardAction } from '@/components/ui/card';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTRPC } from '@/lib/trpc';
 import { toast } from 'sonner';
-import PaddedSpinner from '@/components/padded-spinner';
 
 export const EnvVariablesForm = ({
     serviceId,
@@ -49,8 +48,6 @@ export const EnvVariablesForm = ({
             environmentVariables: variables,
         },
     });
-
-    if (mutation.isPending) return <PaddedSpinner />;
 
     return (
         <Form {...form}>
