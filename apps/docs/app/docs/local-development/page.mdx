@@ -1,6 +1,6 @@
 import { Callout } from '@/components/callout'
 
-# Quick Start
+# Local Development
 
 Get SeaStack up and running on your local machine in just a few minutes.
 
@@ -102,39 +102,3 @@ This command uses Turborepo to start all development servers. The main web UI wi
 <Callout type="success" title="You're all set!">
 SeaStack is now running on your local machine. You can create an account and start managing servers.
 </Callout>
-
-## What's Next?
-
-Now that you have SeaStack running, here are some things you can do:
-
-1. **Add a Server**: Register your first remote server
-2. **Configure SSH**: Set up SSH key authentication
-3. **Explore the UI**: Familiarize yourself with the dashboard
-
-Check out the [Server Management](/docs/servers) guide to learn more about managing your infrastructure with SeaStack.
-
-## Troubleshooting
-
-### Database Connection Issues
-
-If you're having trouble connecting to the database, verify that:
-
-- PostgreSQL is running: `docker ps | grep postgres`
-- The connection string in your `.env` files is correct
-- No other service is using port 5432
-
-### Build Errors
-
-If you encounter build errors:
-
-1. Make sure you're using Node.js 24.8.0 or higher
-2. Clear the build cache: `pnpm clean` (if available)
-3. Remove `node_modules` and reinstall: `rm -rf node_modules && pnpm install`
-
-### Port Conflicts
-
-If port 3000 is already in use, you can change the port in `apps/web/package.json`:
-
-```json
-"dev": "next dev --port 3001"
-```
