@@ -22,11 +22,30 @@ export default function ContainerSelector({
 }>) {
     const trpc = useTRPC();
     const containersQuery = useQuery(
-        trpc.services.listContainers.queryOptions({
-            serviceId: service.id,
-        })
+        trpc.services.listContainers.queryOptions(
+            {
+                serviceId: service.id,
+            },
+            {
+                refetchOnMount: 'always',
+                staleTime: 0,
+            }
+        )
     );
     const [container, setContainer] = React.useState<string | null>(null);
+
+    React.useEffect(() => {
+        if (
+            containersQuery.data &&
+            containersQuery.data.length > 0 &&
+            !container
+        ) {
+            setContainer(
+                containersQuery.data[0]?.status.ContainerStatus?.ContainerID ??
+                    null
+            );
+        }
+    }, [containersQuery.data, container]);
 
     if (containersQuery.isLoading) return <PaddedSpinner />;
     if (!containersQuery.data)

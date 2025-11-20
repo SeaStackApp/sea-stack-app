@@ -36,14 +36,20 @@ export const listContainers = protectedProcedure
                     serviceName: serviceId,
                 });
 
-                return tasks.map((task) => ({
-                    type: 'swarm',
-                    state: task.DesiredState!,
-                    status: task.Status!,
-                    createdAt: task.CreatedAt!,
-                    serviceId: task.ServiceID!,
-                    displayName: `${serviceId} (${task.Status?.ContainerStatus?.ContainerID})`,
-                }));
+                return tasks
+                    .map((task) => ({
+                        type: 'swarm',
+                        state: task.DesiredState!,
+                        status: task.Status!,
+                        createdAt: task.CreatedAt!,
+                        serviceId: task.ServiceID!,
+                        displayName: `${serviceId} (${task.Status?.ContainerStatus?.ContainerID})`,
+                    }))
+                    .toSorted(
+                        (a, b) =>
+                            new Date(b.createdAt).getTime() -
+                            new Date(a.createdAt).getTime()
+                    );
             } catch (e) {
                 console.error(e);
                 if (e instanceof TRPCError) throw e;

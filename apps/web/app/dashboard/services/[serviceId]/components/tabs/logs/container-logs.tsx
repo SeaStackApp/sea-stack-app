@@ -9,7 +9,12 @@ export default function ContainerLogs(
     }>
 ) {
     const trpc = useTRPC();
-    const query = useQuery(trpc.services.getContainerLogs.queryOptions(props));
+    const query = useQuery(
+        trpc.services.getContainerLogs.queryOptions(props, {
+            refetchOnMount: 'always',
+            staleTime: 0,
+        })
+    );
 
     if (query.data)
         return <pre className='whitespace-pre-wrap'>{query.data.logs}</pre>;
