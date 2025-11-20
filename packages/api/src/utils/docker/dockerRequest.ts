@@ -1,4 +1,4 @@
-import { request, RequestOptions } from 'node:http';
+import { IncomingMessage, request, RequestOptions } from 'node:http';
 import { Client } from 'ssh2';
 
 type Options = {
@@ -64,4 +64,37 @@ export const jsonDockerRequest = async (
     }
 ) => {
     return JSON.parse(await dockerRequest(ssh, path, opts));
+};
+
+export const dockerStreamRequest = (
+    ssh: Client,
+    path: string,
+    opts: { method?: string; headers?: Record<string, string> } = {}
+) => {
+    return new Promise<IncomingMessage>((resolve, reject) => {
+        ssh.exec('docker system dial-stdio', (err, stream) => {
+            if (err) return reject(err);
+
+            const options = {
+                createConnection: () => stream,
+                method: opts.method || 'GET',
+                path,
+                headers: {
+                    Host: 'docker',
+                    ...opts.headers,
+                },
+            } satisfies RequestOptions;
+
+            const req = request(options, (res) => {
+                resolve(res);
+            });
+
+            req.on('error', (err) => {
+                reject(err);
+                stream.end();
+            });
+
+            req.end();
+        });
+    });
 };

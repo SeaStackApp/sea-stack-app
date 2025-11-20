@@ -10,6 +10,7 @@ import { addNetworkToService } from './addNetworkToService';
 import { removeNetworkFromService } from './removeNetworkFromService';
 import { getEnvVariables } from './getEnvVariables';
 import { updateEnvVariables } from './updateEnvVariables';
+import { listContainers } from './listContainers';
 
 export const servicesRouter = router({
     createSwarmService,
@@ -23,4 +24,5 @@ export const servicesRouter = router({
     removeNetworkFromService,
     getEnvVariables,
     updateEnvVariables,
+    listContainers,
 });
