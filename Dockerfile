@@ -59,7 +59,7 @@ FROM base AS runner
 ENV NODE_ENV=production
 
 # Create a non-root user for security (Alpine uses adduser instead of useradd)
-RUN adduser -D -h /home/nextjs nextjs
+RUN adduser -D nextjs
 
 # Install Prisma CLI globally for runtime migrations (use npm for predictable global bin path)
 RUN npm i -g prisma@6.18.0
