@@ -10,7 +10,7 @@ import { remoteExec } from '../../utils/interactiveRemoteCommand';
 export const getContainerLogs = protectedProcedure
     .input(
         serviceIdSchema.extend({
-            containerId: z.string(),
+            containerId: z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/),
         })
     )
     .query(

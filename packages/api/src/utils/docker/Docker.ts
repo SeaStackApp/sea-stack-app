@@ -131,11 +131,4 @@ export default class Docker {
                 )
         )) as paths['/tasks']['get']['responses']['200']['content']['application/json'];
     }
-
-    async containerLogs(containerId: string) {
-        return (await jsonDockerRequest(
-            this.connection,
-            `/containers/${containerId}/logs?stdout=1&stderr=1&follow=1`
-        )) as string;
-    }
 }

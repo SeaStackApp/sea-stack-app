@@ -19,7 +19,7 @@ export const listContainers = protectedProcedure
 
             if (!service) {
                 throw new TRPCError({
-                    code: 'INTERNAL_SERVER_ERROR',
+                    code: 'NOT_FOUND',
                     message:
                         'Unable to find the requested service in the current organization',
                 });
