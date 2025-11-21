@@ -1,6 +1,7 @@
 import { useTRPC } from '@/lib/trpc';
 import { useQuery } from '@tanstack/react-query';
 import PaddedSpinner from '@/components/padded-spinner';
+import LogsViewer from '@/components/logs/logs-viewer';
 
 export default function ContainerLogs(
     props: Readonly<{
@@ -17,7 +18,7 @@ export default function ContainerLogs(
     );
 
     if (query.data)
-        return <pre className='whitespace-pre-wrap'>{query.data.logs}</pre>;
+        return <LogsViewer logs={query.data.logs} className='mt-2 h-[50vh]' />;
 
     return <PaddedSpinner />;
 }
