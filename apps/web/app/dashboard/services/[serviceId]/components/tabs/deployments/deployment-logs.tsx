@@ -24,7 +24,7 @@ export default function DeploymentLogs({
     }, [trpcClient, deploymentId]);
     return (
         <div className='w-full h-[80vh] relative'>
-            <LogsViewer logs={logs} />
+            <LogsViewer logs={logs} className='h-full' />
         </div>
     );
 }

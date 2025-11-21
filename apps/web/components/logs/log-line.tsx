@@ -45,15 +45,15 @@ export default function LogLine({ line }: Readonly<{ line: string }>) {
         if (typeof logJSON.msg === 'string') logMessage = logJSON.msg;
         else logMessage = realLogLine;
         //eslint-disable-next-line
-    } catch (e) {
-        console.error('Failed to parse log line:', e);
-    }
+    } catch (e) {}
 
     const formattedDate = date.toLocaleDateString([], {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
     });
+
+    if (logMessage.trim().length === 0) return null;
 
     return (
         <div className='flex gap-2 hover:bg-muted p-1'>

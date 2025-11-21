@@ -37,6 +37,15 @@ export const listContainers = protectedProcedure
                 });
 
                 return tasks
+                    .filter(
+                        (task) =>
+                            task.DesiredState &&
+                            task.Status &&
+                            task.Status.ContainerStatus &&
+                            task.Status.ContainerStatus.ContainerID &&
+                            task.CreatedAt &&
+                            task.ServiceID
+                    )
                     .map((task) => ({
                         type: 'swarm',
                         state: task.DesiredState!,

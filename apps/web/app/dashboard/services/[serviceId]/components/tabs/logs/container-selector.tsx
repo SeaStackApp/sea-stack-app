@@ -36,6 +36,7 @@ export default function ContainerSelector({
 
     React.useEffect(() => {
         if (
+            !containersQuery.error &&
             containersQuery.data &&
             containersQuery.data.length > 0 &&
             !container
@@ -45,16 +46,16 @@ export default function ContainerSelector({
                     null
             );
         }
-    }, [containersQuery.data, container]);
+    }, [containersQuery.data, containersQuery.error, container]);
 
     if (containersQuery.isLoading) return <PaddedSpinner />;
-    if (!containersQuery.data)
+    if (containersQuery.isError) return <div>Error loading containers</div>;
+    if (!containersQuery.data || containersQuery.data.length === 0)
         return (
             <div className='text-center py-4 text-muted-foreground'>
                 No containers found for this service.
             </div>
         );
-    console.log(containersQuery.data);
 
     return (
         <>
