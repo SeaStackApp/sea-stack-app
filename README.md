@@ -108,6 +108,7 @@ The web UI should be available at http://localhost:3000.
 Pre-built Docker images are automatically published to GitHub Container Registry on version changes:
 
 - **Image**: `ghcr.io/seastackapp/seastack`
+- **Base**: Alpine Linux (node:24-alpine) for minimal size and security
 - **Tags**: `latest` and versioned tags (e.g., `1.0.0`)
 - **Architectures**: Multi-arch support for `linux/amd64` and `linux/arm64`
   - Works on x86_64 servers (Intel/AMD)
