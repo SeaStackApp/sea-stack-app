@@ -117,4 +117,18 @@ export default class Docker {
             }
         );
     }
+
+    async listTasks({ serviceName }: { serviceName?: string } = {}) {
+        return (await jsonDockerRequest(
+            this.connection,
+            '/tasks?filters=' +
+                encodeURIComponent(
+                    JSON.stringify({
+                        ...(serviceName && {
+                            service: [serviceName],
+                        }),
+                    })
+                )
+        )) as paths['/tasks']['get']['responses']['200']['content']['application/json'];
+    }
 }
