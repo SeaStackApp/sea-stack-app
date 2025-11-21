@@ -5,7 +5,9 @@
 # 1) Base image with pnpm
 # -----------------------
 FROM node:24-alpine AS base
-# Install dependencies needed for Node.js native modules and Prisma
+# Install runtime dependencies for Node.js and Prisma
+# - libc6-compat: provides glibc compatibility for Alpine's musl libc (required for some Node.js native modules)
+# - openssl: required by Prisma
 RUN apk add --no-cache libc6-compat openssl
 # Enable corepack (manages pnpm)
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
@@ -17,7 +19,8 @@ WORKDIR /app
 # -----------------------
 FROM base AS deps
 
-# Install build dependencies for native modules
+# Install build dependencies for compiling native modules
+# These are only present in the deps/build stages and NOT in the final runtime image
 RUN apk add --no-cache python3 make g++
 
 # Only copy files needed to compute dependency graph to leverage Docker cache
