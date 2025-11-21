@@ -103,6 +103,24 @@ The web UI should be available at http://localhost:3000.
     - `pnpm -w --filter @repo/db migrate:dev` — create/apply migrations in dev.
     - `pnpm -w --filter @repo/db migrate:deploy` — apply migrations in prod/CI.
 
+## Docker Images
+
+Pre-built Docker images are automatically published to GitHub Container Registry on version changes:
+
+- **Image**: `ghcr.io/seastackapp/seastack`
+- **Tags**: `latest` and versioned tags (e.g., `1.0.0`)
+- **Architectures**: Multi-arch support for `linux/amd64` and `linux/arm64`
+  - Works on x86_64 servers (Intel/AMD)
+  - Works on ARM servers and Mac M1/M2/M3
+
+To run the pre-built image:
+
+```bash
+docker pull ghcr.io/seastackapp/seastack:latest
+```
+
+Images are built automatically via GitHub Actions when the version in `apps/web/package.json` changes.
+
 ## How it works (high level)
 
 - UI: Next.js app in apps/web provides the dashboard and API routes.
