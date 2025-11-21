@@ -4,10 +4,13 @@
 # -----------------------
 # 1) Base image with pnpm
 # -----------------------
-FROM node:24-bookworm-slim AS base
+FROM node:24-alpine AS base
+# Install runtime dependencies for Node.js and Prisma
+# - libc6-compat: provides glibc compatibility for Alpine's musl libc (required for some Node.js native modules)
+# - openssl: required by Prisma
+RUN apk add --no-cache libc6-compat openssl
 # Enable corepack (manages pnpm)
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
-RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 
 # -----------------------
@@ -15,6 +18,10 @@ WORKDIR /app
 #    - install all workspace deps using lockfile
 # -----------------------
 FROM base AS deps
+
+# Install build dependencies for compiling native modules
+# These are only present in the deps/build stages and NOT in the final runtime image
+RUN apk add --no-cache python3 make g++
 
 # Only copy files needed to compute dependency graph to leverage Docker cache
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
@@ -54,8 +61,8 @@ RUN pnpm --filter web build
 FROM base AS runner
 ENV NODE_ENV=production
 
-# Optional: create a non-root user for security
-RUN useradd -m nextjs
+# Create a non-root user for security (Alpine uses adduser instead of useradd)
+RUN adduser -D nextjs
 
 # Install Prisma CLI globally for runtime migrations (use npm for predictable global bin path)
 RUN npm i -g prisma@6.18.0
