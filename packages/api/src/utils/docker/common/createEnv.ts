@@ -6,4 +6,8 @@ export const createEnv = (env: Record<string, string>) => {
 };
 
 export const createEnvFromString = (envString: string) =>
-    createEnv(dotenvx.parse(envString));
+    createEnv(
+        dotenvx.parse(envString, {
+            processEnv: {},
+        })
+    );
