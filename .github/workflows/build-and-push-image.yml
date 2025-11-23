@@ -84,15 +84,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5.6.1
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=latest
-            type=raw,value=${{ needs.check-version-change.outputs.new_version }}
-
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6.10.0
