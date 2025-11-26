@@ -172,13 +172,60 @@ export const deploySwarmService = async (
 
         spec.Labels = labels;
 
+        let warnings: string[] | undefined;
         if (isUpdate) {
-            await docker.updateService(service.id, spec, version);
+            const result = await docker.updateService(
+                service.id,
+                spec,
+                version
+            );
             logger.info('Service updated');
+            warnings = result.Warnings;
         } else {
-            await docker.createService(spec);
+            const result = await docker.createService(spec);
             logger.info('Service deployed');
+            warnings = result.Warnings ?? undefined;
         }
+
+        if (warnings) warnings.forEach(logger.warn);
+
+        let isUp = false;
+        const sleep = (ms: number) =>
+            new Promise((resolve) => setTimeout(resolve, ms));
+
+        logger.info("Waiting for the service's tasks to be up and running");
+
+        while (!isUp) {
+            await sleep(1000);
+            const tasks = (
+                await docker.listTasks({
+                    serviceName: service.id,
+                })
+            ).toSorted(
+                (a, b) =>
+                    new Date(b.CreatedAt!).getTime() -
+                    new Date(a.CreatedAt!).getTime()
+            );
+            if (tasks.length === 0) {
+                logger.error("Could not find the service's tasks");
+                break;
+            }
+
+            const firstTask = tasks[0]!;
+            isUp = firstTask.Status?.State === 'running';
+
+            logger.debug(
+                `Task status : ${firstTask.Status?.State} - ${firstTask.UpdatedAt}`
+            );
+
+            if (firstTask.Status?.Err) {
+                logger.error(firstTask.Status.Err);
+                break;
+            }
+        }
+
+        if (isUp) logger.info('Deployed service is up and running');
+        else logger.error('Deployment failed');
 
         return true;
     } catch (e) {
