@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/table';
 import { ListChecks } from 'lucide-react';
 import ShowDeploymentLogs from '@/app/dashboard/services/[serviceId]/components/tabs/deployments/show-deployment-logs';
+import { Badge } from '@/components/ui/badge';
 
 export default function DeploymentsTab({
     service,
@@ -39,7 +40,8 @@ export default function DeploymentsTab({
                                 </EmptyMedia>
                                 <EmptyTitle>No deployments yet</EmptyTitle>
                                 <EmptyDescription>
-                                    When you deploy this service, your recent deployments will appear here.
+                                    When you deploy this service, your recent
+                                    deployments will appear here.
                                 </EmptyDescription>
                             </EmptyHeader>
                         </Empty>
@@ -47,14 +49,29 @@ export default function DeploymentsTab({
                         <Table>
                             <TableHeader>
                                 <TableRow>
+                                    <TableHead>Status</TableHead>
                                     <TableHead>ID</TableHead>
                                     <TableHead>Created</TableHead>
-                                    <TableHead className='w-0 text-right'>Actions</TableHead>
+                                    <TableHead className='w-0 text-right'>
+                                        Actions
+                                    </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {deployments.map((deployment) => (
                                     <TableRow key={deployment.id}>
+                                        <TableCell>
+                                            <Badge
+                                                variant={
+                                                    deployment.status ===
+                                                    'FAILED'
+                                                        ? 'destructive'
+                                                        : 'outline'
+                                                }
+                                            >
+                                                {deployment.status}
+                                            </Badge>
+                                        </TableCell>
                                         <TableCell className='font-mono text-xs'>
                                             {deployment.id}
                                         </TableCell>
@@ -62,7 +79,9 @@ export default function DeploymentsTab({
                                             {deployment.createdAt.toLocaleString()}
                                         </TableCell>
                                         <TableCell className='text-right'>
-                                            <ShowDeploymentLogs deploymentId={deployment.id} />
+                                            <ShowDeploymentLogs
+                                                deploymentId={deployment.id}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 ))}

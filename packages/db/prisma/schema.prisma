@@ -119,19 +119,21 @@ model Apikey {
 }
 
 model Organization {
-    id          String       @id
-    name        String
-    slug        String
-    logo        String?
-    createdAt   DateTime
-    metadata    String?
-    members     Member[]
-    invitations Invitation[]
-    projects    Project[]
-    servers     Server[]
-    sshKeys     SSHKey[]
-    registries  Registry?    @relation(fields: [registryId], references: [id])
-    registryId  String?
+    id                    String                 @id
+    name                  String
+    slug                  String
+    logo                  String?
+    createdAt             DateTime
+    metadata              String?
+    members               Member[]
+    invitations           Invitation[]
+    projects              Project[]
+    servers               Server[]
+    sshKeys               SSHKey[]
+    registries            Registry?              @relation(fields: [registryId], references: [id])
+    registryId            String?
+    notificationProviders NotificationProvider[]
+    notifications         Notification[]
 
     @@unique([slug])
     @@map("organization")
@@ -288,11 +290,18 @@ model Network {
     serverId             String
 }
 
+enum DeploymentStatus {
+    PENDING
+    SUCCESS
+    FAILED
+}
+
 model Deployment {
     id String @id @default(uuid(7))
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+    status    DeploymentStatus @default(PENDING)
 
     service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
     serviceId String
@@ -305,4 +314,53 @@ model Volume {
     readOnly  Boolean @default(false)
     service   Service @relation(fields: [serviceId], references: [id])
     serviceId String
+}
+
+model NotificationProvider {
+    id                           String                        @id @default(cuid(2))
+    name                         String
+    organizations                Organization[]
+    SMTPNotificationProvider     SMTPNotificationProvider?
+    DiscordNotificationProvider  DiscordNotificationProvider?
+    TelegramNotificationProvider TelegramNotificationProvider?
+    notifications                Notification[]
+}
+
+model SMTPNotificationProvider {
+    id          String               @id
+    provider    NotificationProvider @relation(fields: [id], references: [id])
+    host        String
+    port        Int
+    username    String
+    // Encrypted password
+    password    String
+    fromAddress String
+}
+
+model DiscordNotificationProvider {
+    id       String               @id
+    provider NotificationProvider @relation(fields: [id], references: [id])
+    webhook  String
+}
+
+model TelegramNotificationProvider {
+    id       String               @id
+    provider NotificationProvider @relation(fields: [id], references: [id])
+    token    String
+    chatId   String
+}
+
+model Notification {
+    /**
+     * This notifications structure allows us to send notifications to multiple providers
+     * and could also be extended to support adding notifications and notifications providers on the user account.
+     */
+    id                     Int                  @id @default(autoincrement())
+    type                   String
+    organization           Organization         @relation(fields: [organizationId], references: [id])
+    organizationId         String
+    provider               NotificationProvider @relation(fields: [notificationProviderId], references: [id])
+    notificationProviderId String
+
+    @@unique([type, organizationId, notificationProviderId])
 }

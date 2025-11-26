@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import {
+    BellRingIcon,
     ContainerIcon,
     FolderOpenIcon,
     KeyIcon,
@@ -64,6 +65,12 @@ const data = [
                 name: 'Docker registries',
                 url: '/dashboard/settings/registries',
                 icon: ContainerIcon,
+            },
+
+            {
+                name: 'Notifications',
+                url: '/dashboard/settings/notifications',
+                icon: BellRingIcon,
             },
         ],
     },

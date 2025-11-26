@@ -43,7 +43,7 @@ export default function LogLine({ line }: Readonly<{ line: string }>) {
         }
 
         if (typeof logJSON.msg === 'string') logMessage = logJSON.msg;
-        else logMessage = realLogLine;
+        else logMessage = JSON.stringify(logJSON, null, 2);
         //eslint-disable-next-line
     } catch (e) {}
 

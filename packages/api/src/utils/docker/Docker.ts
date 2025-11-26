@@ -104,7 +104,7 @@ export default class Docker {
         body: operations['ServiceUpdate']['requestBody']['content']['application/json'],
         currentVersion: number
     ) {
-        return await jsonDockerRequest(
+        return (await jsonDockerRequest(
             this.connection,
             `/services/${serviceId}/update?version=${currentVersion}`,
             {
@@ -115,7 +115,7 @@ export default class Docker {
                 },
                 body: JSON.stringify(body),
             }
-        );
+        )) as operations['ServiceUpdate']['responses']['200']['content']['application/json'];
     }
 
     async listTasks({ serviceName }: { serviceName?: string } = {}) {
