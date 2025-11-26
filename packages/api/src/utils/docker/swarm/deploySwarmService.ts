@@ -104,6 +104,8 @@ export const deploySwarmService = async (
             Target: network.name,
         }));
 
+        spec.TaskTemplate!.ForceUpdate = Math.floor(Math.random() * 10000);
+
         const { Env } = createEnvFromString(service.environmentVariables);
         logger.info(`Added ${Env.length} env variables to the service`);
         spec.TaskTemplate!.ContainerSpec!.Env = Env;
