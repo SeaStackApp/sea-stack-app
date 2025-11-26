@@ -114,7 +114,7 @@ export default function NotificationsProviderActions({
                                     );
                                 } catch (error) {
                                     console.error(error);
-                                    toast.error('Failed remove provider');
+                                    toast.error('Failed to remove provider');
                                 }
                             }}
                         >
