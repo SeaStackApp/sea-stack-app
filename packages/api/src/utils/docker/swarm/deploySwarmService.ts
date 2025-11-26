@@ -223,11 +223,7 @@ export const deploySwarmService = async (
                 break;
             }
         }
-
-        if (isUp) logger.info('Deployed service is up and running');
-        else logger.error('Deployment failed');
-
-        return true;
+        return isUp;
     } catch (e) {
         if (e instanceof Error) logger.error(e.message);
         else logger.error('Unknown error');

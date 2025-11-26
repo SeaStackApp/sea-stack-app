@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTRPC } from '@/lib/trpc';
 import { Spinner } from '@/components/ui/spinner';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function DeployButton({
     serviceId,
@@ -11,7 +12,17 @@ export default function DeployButton({
 }>) {
     const trpc = useTRPC();
     const deployMutation = useMutation(
-        trpc.services.deployService.mutationOptions()
+        trpc.services.deployService.mutationOptions({
+            onSuccess: async (isRunning) => {
+                if (isRunning) toast.success('Service deployed');
+                else toast.success('Service deployment failed');
+                await queryClient.invalidateQueries({
+                    queryKey: trpc.services.getService.queryKey({
+                        serviceId,
+                    }),
+                });
+            },
+        })
     );
     const queryClient = useQueryClient();
     const router = useRouter();

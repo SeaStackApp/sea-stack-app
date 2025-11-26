@@ -52,9 +52,10 @@ export const deployService = protectedProcedure
                 logger.info(
                     `[${service.name}] Started deployment on server ${service.server.name}`
                 );
+                let isUp = false;
                 if (isSwarmService(service)) {
                     logger.debug('Service is a swarm application');
-                    return await deploySwarmService(
+                    isUp = await deploySwarmService(
                         connection,
                         prisma,
                         service,
@@ -62,9 +63,19 @@ export const deployService = protectedProcedure
                     );
                 }
 
-                throw new TRPCError({
-                    code: 'INTERNAL_SERVER_ERROR',
+                if (isUp) logger.info('Deployed service is up and running');
+                else logger.error('Deployment failed');
+
+                await prisma.deployment.update({
+                    where: {
+                        id: deployment.id,
+                    },
+                    data: {
+                        status: isUp ? 'SUCCESS' : 'FAILED',
+                    },
                 });
+
+                return isUp;
             } catch (e) {
                 console.error(e);
                 if (e instanceof TRPCError) throw e;
