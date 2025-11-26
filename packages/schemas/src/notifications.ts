@@ -20,7 +20,10 @@ export const notificationTypeSchema = z.enum([
     'SERVICE_DEPLOYMENT_FAILED',
 ]);
 
-export const notificationSchema = z.object({
+export const notificationProviderIdSchema = z.object({
     notificationProviderId: z.string(),
+});
+
+export const notificationSchema = notificationProviderIdSchema.extend({
     type: notificationTypeSchema,
 });

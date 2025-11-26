@@ -20,19 +20,30 @@ import {
 import { Button } from '@/components/ui/button';
 import { MoreVerticalIcon } from 'lucide-react';
 import { useState } from 'react';
-import { useTRPC, useTRPCClient } from '@/lib/trpc';
+import { useTRPC } from '@/lib/trpc';
 import { toast } from 'sonner';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function NetworkActions({
-    networkId,
+export default function NotificationsProviderActions({
+    providerId,
 }: Readonly<{
-    networkId: string;
+    providerId: string;
 }>) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const trpcClient = useTRPCClient();
     const queryClient = useQueryClient();
     const trpc = useTRPC();
+    const testMutation = useMutation(
+        trpc.notifications.testProvider.mutationOptions()
+    );
+    const deleteMutation = useMutation(
+        trpc.notifications.deleteProvider.mutationOptions({
+            onSuccess: async () => {
+                await queryClient.invalidateQueries({
+                    queryKey: trpc.notifications.listProviders.queryKey(),
+                });
+            },
+        })
+    );
 
     return (
         <>
@@ -43,12 +54,33 @@ export default function NetworkActions({
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='w-56' align='start'>
-                    <DropdownMenuLabel>Manage network</DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                        Notifications Provider
+                    </DropdownMenuLabel>
+                    <DropdownMenuItem
+                        onClick={async () => {
+                            try {
+                                await testMutation.mutateAsync({
+                                    notificationProviderId: providerId,
+                                });
+                                toast.success(
+                                    'Successfully tested notifications provider.'
+                                );
+                            } catch (error) {
+                                console.error(error);
+                                toast.error(
+                                    'Failed to test notifications provider.'
+                                );
+                            }
+                        }}
+                    >
+                        Test notifications
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                         variant='destructive'
                         onClick={() => setShowDeleteModal(true)}
                     >
-                        Delete network
+                        Delete provider
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
@@ -64,8 +96,8 @@ export default function NetworkActions({
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             This action cannot be undone. This will permanently
-                            delete the network from SeaStack. Make sure no
-                            services are using this network.
+                            delete this notifications provider and all its
+                            subscriptions.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -73,21 +105,16 @@ export default function NetworkActions({
                         <AlertDialogAction
                             onClick={async () => {
                                 try {
-                                    await trpcClient.networks.delete.mutate({
-                                        networkId,
-                                    });
-                                    await queryClient.invalidateQueries({
-                                        queryKey: trpc.networks.list.queryKey(),
+                                    await deleteMutation.mutateAsync({
+                                        notificationProviderId: providerId,
                                     });
                                     setShowDeleteModal(false);
                                     toast.success(
-                                        'Network deleted successfully.'
+                                        'Provider deleted successfully.'
                                     );
                                 } catch (error) {
                                     console.error(error);
-                                    toast.error(
-                                        'Failed to delete network. It may be in use by services.'
-                                    );
+                                    toast.error('Failed remove provider');
                                 }
                             }}
                         >
