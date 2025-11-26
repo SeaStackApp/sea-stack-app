@@ -27,7 +27,7 @@ export default function AddProvider() {
                             notifications from SeaStack when something happens.
                         </DialogDescription>
                     </DialogHeader>
-                    <AddDiscordProviderForm />
+                    <AddDiscordProviderForm onSuccess={() => setOpen(false)} />
                 </DialogContent>
             </Dialog>
         </div>
