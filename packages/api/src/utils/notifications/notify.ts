@@ -47,16 +47,20 @@ export const notify = async (
     for (const provider of providers) {
         if (provider.DiscordNotificationProvider) {
             const { webhook } = provider.DiscordNotificationProvider;
-            await sendDiscordNotification(webhook, {
-                username: 'SeaStack Test',
-                content: notification.message,
-                embeds: [
-                    {
-                        title,
-                        color,
-                    },
-                ],
-            });
+            try {
+                await sendDiscordNotification(webhook, {
+                    username: 'SeaStack Test',
+                    content: notification.message,
+                    embeds: [
+                        {
+                            title,
+                            color,
+                        },
+                    ],
+                });
+            } catch (e) {
+                console.error(e);
+            }
         }
     }
 };

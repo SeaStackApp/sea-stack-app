@@ -9,7 +9,6 @@ import { isSwarmService } from '../../utils/docker/swarm/isSwarmService';
 import createDeployment from '../../utils/deployments/createDeployment';
 import { getDeploymentLogger } from '../../utils/deployments/getDeploymentLogger';
 import { decrypt } from '../../utils/crypto';
-import { sendDiscordNotification } from '../../utils/notifications/discord';
 import { notify } from '../../utils/notifications/notify';
 
 export const deployService = protectedProcedure
