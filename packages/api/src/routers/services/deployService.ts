@@ -9,6 +9,8 @@ import { isSwarmService } from '../../utils/docker/swarm/isSwarmService';
 import createDeployment from '../../utils/deployments/createDeployment';
 import { getDeploymentLogger } from '../../utils/deployments/getDeploymentLogger';
 import { decrypt } from '../../utils/crypto';
+import { sendDiscordNotification } from '../../utils/notifications/discord';
+import { notify } from '../../utils/notifications/notify';
 
 export const deployService = protectedProcedure
     .input(serviceIdSchema)
@@ -74,6 +76,24 @@ export const deployService = protectedProcedure
                         status: isUp ? 'SUCCESS' : 'FAILED',
                     },
                 });
+
+                try {
+                    await notify(
+                        prisma,
+                        isUp
+                            ? {
+                                  type: 'SERVICE_DEPLOYED',
+                                  serviceId,
+                              }
+                            : {
+                                  type: 'SERVICE_DEPLOYMENT_FAILED',
+                                  serviceId,
+                              },
+                        organizationId
+                    );
+                } catch (e) {
+                    console.error('Notification error', e);
+                }
 
                 return isUp;
             } catch (e) {

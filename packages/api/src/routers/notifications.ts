@@ -4,24 +4,13 @@ import {
     notificationProviderIdSchema,
 } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
+import { sendDiscordNotification } from '../utils/notifications/discord';
+import { getProviders } from '../utils/notifications/getProviders';
 
 export const notificationsRouter = router({
     listProviders: protectedProcedure.query(
         ({ ctx: { prisma, organizationId } }) => {
-            return prisma.notificationProvider.findMany({
-                where: {
-                    organizations: {
-                        some: {
-                            id: organizationId,
-                        },
-                    },
-                },
-                include: {
-                    DiscordNotificationProvider: true,
-                    SMTPNotificationProvider: true,
-                    TelegramNotificationProvider: true,
-                },
-            });
+            return getProviders(prisma, organizationId);
         }
     ),
     createDiscordProvider: protectedProcedure
@@ -74,31 +63,27 @@ export const notificationsRouter = router({
 
                 if (provider.DiscordNotificationProvider) {
                     const { webhook } = provider.DiscordNotificationProvider;
-                    await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            content: 'This is a test from SeaStack',
-                            embeds: [
-                                {
-                                    title: 'Test completed',
-                                    description: 'Hey ! Notification work :-)',
-                                    color: 0x00ff00, // green
-                                    fields: [
-                                        {
-                                            name: 'Service',
-                                            value: 'SeaStack',
-                                            inline: true,
-                                        },
-                                        {
-                                            name: 'Status',
-                                            value: 'success',
-                                            inline: true,
-                                        },
-                                    ],
-                                },
-                            ],
-                        }),
+                    await sendDiscordNotification(webhook, {
+                        username: 'SeaStack Test',
+                        embeds: [
+                            {
+                                title: 'Test completed',
+                                description: 'Hey ! Notifications work :-)',
+                                color: 0x00ff00,
+                                fields: [
+                                    {
+                                        name: 'Service',
+                                        value: 'SeaStack',
+                                        inline: true,
+                                    },
+                                    {
+                                        name: 'Status',
+                                        value: 'success',
+                                        inline: true,
+                                    },
+                                ],
+                            },
+                        ],
                     });
                 }
             }
