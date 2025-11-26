@@ -15,7 +15,7 @@ export default function DeployButton({
         trpc.services.deployService.mutationOptions({
             onSuccess: async (isRunning) => {
                 if (isRunning) toast.success('Service deployed');
-                else toast.success('Service deployment failed');
+                else toast.error('Service deployment failed');
                 await queryClient.invalidateQueries({
                     queryKey: trpc.services.getService.queryKey({
                         serviceId,
