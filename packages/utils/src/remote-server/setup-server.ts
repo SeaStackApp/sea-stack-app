@@ -7,7 +7,7 @@ import { TRPCError } from '@trpc/server';
 import { setupSwarm } from './docker';
 import { remoteExec } from '../interactiveRemoteCommand';
 import { setupTraefik } from './treafik';
-import { MAIN_DIRECTORY } from '../../configs/config';
+import { MAIN_DIRECTORY } from '../configs';
 
 export const createMainDirectory = async (client: Client) => {
     await remoteExec(client, `mkdir -p ${MAIN_DIRECTORY}`);

@@ -1,7 +1,7 @@
 import { protectedProcedure } from '../../trpc';
 import { addNetworkToServiceSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
-import { checkNetworkExistsInOrganization } from '../../utils/checks/checkNetworkExistsInOrganization';
+import { checkNetworkExistsInOrganization } from '@repo/utils';
 
 export const addNetworkToService = protectedProcedure
     .input(addNetworkToServiceSchema)

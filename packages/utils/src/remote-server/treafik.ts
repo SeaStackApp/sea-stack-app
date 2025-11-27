@@ -1,13 +1,13 @@
 import { Client } from 'ssh2';
 import { remoteExec } from '../interactiveRemoteCommand';
-import { getTraefikConfig } from '../../configs/treafik.config';
 import {
+    getTraefikConfig,
     TRAEFIK_DIRECTORY,
     TRAEFIK_NETWORK,
     TRAEFIK_SERVICE_NAME,
     TRAEFIK_VERSION,
     TREAFIK_DYNAMIC_PATH,
-} from '../../configs/config';
+} from '../configs';
 
 export const setupTraefik = async (client: Client) => {
     // Check if traefik network exists

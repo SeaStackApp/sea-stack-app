@@ -3,11 +3,8 @@ import Docker from '../Docker';
 import { PrismaClient } from '@repo/db';
 import { SwarmService } from './SwarmService';
 import { createNetwork } from '../common/createNetwork';
-import { DeploymentLogger } from '../../deployments/getDeploymentLogger';
-import {
-    TRAEFIK_SERVICE_NAME,
-    TRAEFIK_CERT_RESOLVER,
-} from '../../../configs/config';
+import { DeploymentLogger } from '../../deployments';
+import { TRAEFIK_CERT_RESOLVER, TRAEFIK_SERVICE_NAME } from '../../configs';
 import { components } from '../schema';
 import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
 import { createEnvFromString } from '../common/createEnv';

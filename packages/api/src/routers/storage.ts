@@ -3,7 +3,7 @@ import {
     createS3StorageDestinationSchema,
     storageDestinationIdSchema,
 } from '@repo/schemas';
-import { encrypt } from '../utils/crypto';
+import { encrypt } from '@repo/utils';
 
 export const storageRouter = router({
     listLocations: protectedProcedure.query(

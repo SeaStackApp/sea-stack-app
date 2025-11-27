@@ -29,7 +29,6 @@ export const checkVolumeExistsInOrganization = async (
     )
         throw new TRPCError({
             code: 'NOT_FOUND',
-            message:
-                'Could not find the requested volume in this organization',
+            message: 'Could not find the requested volume in this organization',
         });
 };

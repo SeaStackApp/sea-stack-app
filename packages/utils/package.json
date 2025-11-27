@@ -1,26 +1,19 @@
 {
-    "name": "@repo/api",
+    "name": "@repo/utils",
     "version": "0.1.0",
     "private": true,
     "type": "module",
     "main": "src/index.ts",
     "types": "src/index.ts",
-    "files": [
-        "dist"
-    ],
     "scripts": {
         "build": "tsc -p tsconfig.json",
-        "check-types": "tsc -p tsconfig.json --noEmit",
-        "test": "ENCRYPTION_SECRET=abc jest",
-        "test:watch": "ENCRYPTION_SECRET=abc jest --watch",
-        "test:coverage": "ENCRYPTION_SECRET=abc jest --coverage"
+        "check-types": "tsc -p tsconfig.json --noEmit"
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.51.1",
         "@repo/auth": "workspace:*",
         "@repo/db": "workspace:*",
         "@repo/schemas": "workspace:*",
-        "@repo/utils": "workspace:*",
         "@trpc/react-query": "^11.7.1",
         "@trpc/server": "^11.7.1",
         "@types/ssh2": "^1.15.5",

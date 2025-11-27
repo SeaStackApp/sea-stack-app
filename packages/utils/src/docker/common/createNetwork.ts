@@ -1,7 +1,7 @@
 import { PrismaClient } from '@repo/db';
 import Docker from '../Docker';
 import { TRPCError } from '@trpc/server';
-import { DeploymentLogger } from '../../deployments/getDeploymentLogger';
+import { DeploymentLogger } from '../../deployments';
 
 /**
  * Creates a network in docker

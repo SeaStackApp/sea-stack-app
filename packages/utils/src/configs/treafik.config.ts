@@ -1,4 +1,8 @@
-import { TREAFIK_DYNAMIC_PATH, TRAEFIK_CERT_RESOLVER, TRAEFIK_ACME_EMAIL } from './config';
+import {
+    TRAEFIK_ACME_EMAIL,
+    TRAEFIK_CERT_RESOLVER,
+    TREAFIK_DYNAMIC_PATH,
+} from './config';
 
 export const getTraefikConfig = () => {
     return `global:

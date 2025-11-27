@@ -1,5 +1,5 @@
 import pino from 'pino';
-import { LOG_LEVEL, LOGS_DIRECTORY } from '../../configs/config';
+import { LOG_LEVEL, LOGS_DIRECTORY } from '../configs';
 
 export const getLogsDirectory = (deploymentId: string) =>
     LOGS_DIRECTORY + '/' + deploymentId + '.log';

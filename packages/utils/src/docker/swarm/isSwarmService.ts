@@ -1,4 +1,4 @@
-import { Service } from '../../services/getServiceData';
+import { Service } from '../../services';
 import { SwarmService } from './SwarmService';
 
 /**

@@ -283,6 +283,9 @@ importers:
       '@repo/schemas':
         specifier: workspace:*
         version: link:../schemas
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@trpc/react-query':
         specifier: ^11.7.1
         version: 11.7.1(@tanstack/react-query@5.90.10(react@19.2.0))(@trpc/client@11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.7.1(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
@@ -433,6 +436,79 @@ importers:
         version: 5.9.3
 
   packages/typescript-config: {}
+
+  packages/utils:
+    dependencies:
+      '@dotenvx/dotenvx':
+        specifier: ^1.51.1
+        version: 1.51.1
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../db
+      '@repo/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+      '@trpc/react-query':
+        specifier: ^11.7.1
+        version: 11.7.1(@tanstack/react-query@5.90.10(react@19.2.0))(@trpc/client@11.7.1(@trpc/server@11.7.1(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.7.1(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+      '@trpc/server':
+        specifier: ^11.7.1
+        version: 11.7.1(typescript@5.9.3)
+      '@types/ssh2':
+        specifier: ^1.15.5
+        version: 1.15.5
+      bullmq:
+        specifier: ^5.63.2
+        version: 5.63.2
+      ioredis:
+        specifier: ^5.8.2
+        version: 5.8.2
+      pino:
+        specifier: ^10.1.0
+        version: 10.1.0
+      pino-pretty:
+        specifier: ^13.1.2
+        version: 13.1.2
+      ssh2:
+        specifier: ^1.17.0
+        version: 1.17.0
+      superjson:
+        specifier: ^2.2.5
+        version: 2.2.5
+      yaml:
+        specifier: ^2.8.1
+        version: 2.8.1
+      zod:
+        specifier: ^3.25.76
+        version: 3.25.76
+    devDependencies:
+      '@jest/globals':
+        specifier: ^30.2.0
+        version: 30.2.0
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@testing-library/jest-dom':
+        specifier: ^6.9.1
+        version: 6.9.1
+      '@types/jest':
+        specifier: ^30.0.0
+        version: 30.0.0
+      '@types/node':
+        specifier: ^22.19.1
+        version: 22.19.1
+      jest:
+        specifier: ^30.2.0
+        version: 30.2.0(@types/node@22.19.1)
+      ts-jest:
+        specifier: ^29.4.5
+        version: 29.4.5(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(jest-util@30.2.0)(jest@30.2.0(@types/node@22.19.1))(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
 packages:
 
