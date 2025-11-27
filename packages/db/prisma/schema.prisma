@@ -134,6 +134,7 @@ model Organization {
     registryId            String?
     notificationProviders NotificationProvider[]
     notifications         Notification[]
+    storageDestinations   StorageDestination[]
 
     @@unique([slug])
     @@map("organization")
@@ -363,4 +364,55 @@ model Notification {
     notificationProviderId String
 
     @@unique([type, organizationId, notificationProviderId])
+}
+
+model StorageDestination {
+    id                    String                 @id @default(cuid(2))
+    name                  String
+    S3Storage             S3Storage?
+    organizations         Organization[]
+    volumeBackupSchedules VolumeBackupSchedule[]
+}
+
+model S3Storage {
+    id          String             @id
+    destination StorageDestination @relation(fields: [id], references: [id])
+    bucket      String
+    endpoint    String
+    region      String?
+
+    // Encrypted credentials
+    accessKeyId     String
+    secretAccessKey String
+
+    usePathStyle Boolean @default(false)
+}
+
+model VolumeBackupSchedule {
+    id String @id @default(cuid(2))
+
+    destination          StorageDestination @relation(fields: [storageDestinationId], references: [id])
+    storageDestinationId String
+    cron                 String
+    retention            String
+    isActive             Boolean
+    runs                 BackupRun[]
+}
+
+enum BackupRunStatus {
+    FAILED
+    SUCCESS
+    RUNNING
+}
+
+model BackupRun {
+    id        String          @id @default(uuid(7))
+    status    BackupRunStatus @default(RUNNING)
+    createdAt DateTime        @default(now())
+    updatedAt DateTime        @updatedAt()
+
+    artifactLocation String?
+
+    volumeBackupSchedule   VolumeBackupSchedule? @relation(fields: [volumeBackupScheduleId], references: [id])
+    volumeBackupScheduleId String?
 }
