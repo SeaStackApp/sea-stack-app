@@ -7,6 +7,16 @@ import Docker from '../../utils/docker/Docker';
 import { getServiceData } from '../../utils/services/getServiceData';
 
 export const listContainers = protectedProcedure
+    .meta({
+        openapi: {
+            method: 'GET',
+            path: '/services.listContainers',
+            tags: ['Services'],
+            summary: 'List service containers',
+            description: 'Returns a list of containers running for a service.',
+            protect: true,
+        },
+    })
     .input(serviceIdSchema)
     .query(
         async ({ ctx: { prisma, organizationId }, input: { serviceId } }) => {

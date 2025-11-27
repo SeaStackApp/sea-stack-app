@@ -4,6 +4,17 @@ import { checkDeploymentEnvExistsInOrg } from '../../utils/checks/checkDeploymen
 import { checkServerExistsInOrganisation } from '../../utils/checks/checkServerExistsInOrganisation';
 
 export const createSwarmService = protectedProcedure
+    .meta({
+        openapi: {
+            method: 'POST',
+            path: '/services.createSwarmService',
+            tags: ['Services'],
+            summary: 'Create a Docker Swarm service',
+            description:
+                'Creates a new Docker Swarm service in the specified environment.',
+            protect: true,
+        },
+    })
     .input(createSwarmServiceSchema)
     .mutation(async ({ ctx, input }) => {
         await checkDeploymentEnvExistsInOrg(

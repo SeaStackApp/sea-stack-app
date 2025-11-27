@@ -4,6 +4,16 @@ import { checkServiceExistsInOrganization } from '../../utils/checks/checkServic
 import { TRPCError } from '@trpc/server';
 
 export const deleteService = protectedProcedure
+    .meta({
+        openapi: {
+            method: 'POST',
+            path: '/services.deleteService',
+            tags: ['Services'],
+            summary: 'Delete a service',
+            description: 'Permanently deletes a service and its configurations.',
+            protect: true,
+        },
+    })
     .input(serviceIdSchema)
     .mutation(
         async ({ ctx: { prisma, organizationId }, input: { serviceId } }) => {

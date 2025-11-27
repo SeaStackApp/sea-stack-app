@@ -6,19 +6,43 @@ import { z } from 'zod';
 import { setupServer } from '../utils/remote-server/setup-server';
 
 export const serversRouter = router({
-    list: protectedProcedure.query(({ ctx: { prisma, organizationId } }) => {
-        return prisma.server.findMany({
-            where: {
-                organizations: {
-                    some: {
-                        id: organizationId,
+    list: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'GET',
+                path: '/servers.list',
+                tags: ['Servers'],
+                summary: 'List all servers',
+                description:
+                    'Returns a list of all servers configured in the organization.',
+                protect: true,
+            },
+        })
+        .input(z.void())
+        .query(({ ctx: { prisma, organizationId } }) => {
+            return prisma.server.findMany({
+                where: {
+                    organizations: {
+                        some: {
+                            id: organizationId,
+                        },
                     },
                 },
-            },
-        });
-    }),
+            });
+        }),
 
     create: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/servers.create',
+                tags: ['Servers'],
+                summary: 'Create a new server',
+                description:
+                    'Creates a new server connection with SSH credentials.',
+                protect: true,
+            },
+        })
         .input(createServerSchema)
         .mutation(({ ctx: { prisma, organizationId }, input }) => {
             return prisma.server.create({
@@ -34,6 +58,16 @@ export const serversRouter = router({
         }),
 
     delete: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/servers.delete',
+                tags: ['Servers'],
+                summary: 'Delete a server',
+                description: 'Permanently deletes a server from the organization.',
+                protect: true,
+            },
+        })
         .input(serverIdSchema)
         .query(({ ctx: { prisma, organizationId }, input }) => {
             return prisma.server.deleteMany({
@@ -49,6 +83,16 @@ export const serversRouter = router({
         }),
 
     reboot: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/servers.reboot',
+                tags: ['Servers'],
+                summary: 'Reboot a server',
+                description: 'Sends a reboot command to the remote server.',
+                protect: true,
+            },
+        })
         .input(serverIdSchema)
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
             return execRemoteServerCommand(
@@ -60,6 +104,16 @@ export const serversRouter = router({
         }),
 
     uptime: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'GET',
+                path: '/servers.uptime',
+                tags: ['Servers'],
+                summary: 'Get server uptime',
+                description: 'Returns the uptime information for the server.',
+                protect: true,
+            },
+        })
         .input(serverIdSchema)
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
             return execRemoteServerCommand(
@@ -102,7 +156,7 @@ export const serversRouter = router({
     shellInput: protectedProcedure
         .input(
             serverIdSchema.extend({
-                data: z.string(),
+                data: z.string().describe('Shell input data'),
             })
         )
         .mutation(({ ctx: { user }, input }) => {
@@ -111,6 +165,17 @@ export const serversRouter = router({
         }),
 
     setup: protectedProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/servers.setup',
+                tags: ['Servers'],
+                summary: 'Setup server for SeaStack',
+                description:
+                    'Configures the server with Docker Swarm and other dependencies.',
+                protect: true,
+            },
+        })
         .input(serverIdSchema)
         .query(async ({ ctx: { prisma, organizationId }, input }) => {
             return setupServer(prisma, input.serverId, organizationId);

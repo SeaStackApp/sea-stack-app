@@ -53,6 +53,7 @@
         "sonner": "^2.0.7",
         "ssh2": "^1.17.0",
         "superjson": "^2.2.5",
+        "swagger-ui-dist": "5",
         "tailwind-merge": "^3.4.0",
         "tailwindcss": "^4.1.17",
         "yaml": "^2.8.1",

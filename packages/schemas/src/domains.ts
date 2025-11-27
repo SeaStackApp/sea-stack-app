@@ -14,15 +14,30 @@ export const traefikHostSchema = z
             message:
                 'Invalid host: must be a valid FQDN (e.g. example.com, api.example.io, *.example.com)',
         }
+    )
+    .describe(
+        'Valid FQDN for the domain (e.g., example.com, api.example.io, *.example.com)'
     );
 
-export const createDomainSchema = serviceIdSchema.extend({
-    domain: traefikHostSchema,
-    internalPort: z.number().int().min(1).max(65535),
-    internalContainer: z.string().optional(),
-    https: z.boolean(),
-});
+export const createDomainSchema = serviceIdSchema
+    .extend({
+        domain: traefikHostSchema,
+        internalPort: z
+            .number()
+            .int()
+            .min(1)
+            .max(65535)
+            .describe('Internal container port to route traffic to'),
+        internalContainer: z
+            .string()
+            .optional()
+            .describe('Optional specific container name for routing'),
+        https: z.boolean().describe('Whether to enable HTTPS/TLS for this domain'),
+    })
+    .describe('Schema for creating a domain mapping for a service');
 
-export const domainIdSchema = z.object({
-    domainId: z.string(),
-});
+export const domainIdSchema = z
+    .object({
+        domainId: z.string().describe('Unique identifier of the domain'),
+    })
+    .describe('Schema for identifying a domain by ID');

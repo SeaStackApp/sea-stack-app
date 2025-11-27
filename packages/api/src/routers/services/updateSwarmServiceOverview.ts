@@ -5,6 +5,17 @@ import { TRPCError } from '@trpc/server';
 import { checkRegistryExistsInOrganization } from '../../utils/checks/checkRegistryExistsInOrganization';
 
 export const updateSwarmServiceOverview = protectedProcedure
+    .meta({
+        openapi: {
+            method: 'POST',
+            path: '/services.updateSwarmServiceOverview',
+            tags: ['Services'],
+            summary: 'Update Swarm service overview',
+            description:
+                'Updates the image and registry configuration for a Docker Swarm service.',
+            protect: true,
+        },
+    })
     .input(updateSwarmServiceOverviewSchema)
     .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
         await checkServiceExistsInOrganization(

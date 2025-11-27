@@ -12,6 +12,17 @@ import { decrypt } from '../../utils/crypto';
 import { notify } from '../../utils/notifications/notify';
 
 export const deployService = protectedProcedure
+    .meta({
+        openapi: {
+            method: 'POST',
+            path: '/services.deployService',
+            tags: ['Services', 'Deployments'],
+            summary: 'Deploy a service',
+            description:
+                'Deploys the service to its configured server. Returns true if successful.',
+            protect: true,
+        },
+    })
     .input(serviceIdSchema)
     .mutation(
         async ({ ctx: { prisma, organizationId }, input: { serviceId } }) => {
