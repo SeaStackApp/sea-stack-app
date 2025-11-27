@@ -313,7 +313,7 @@ model Volume {
     name      String
     mountPath String
     readOnly  Boolean @default(false)
-    service   Service @relation(fields: [serviceId], references: [id])
+    service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
     serviceId String
 }
 
@@ -329,7 +329,7 @@ model NotificationProvider {
 
 model SMTPNotificationProvider {
     id          String               @id
-    provider    NotificationProvider @relation(fields: [id], references: [id])
+    provider    NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     host        String
     port        Int
     username    String
@@ -340,13 +340,13 @@ model SMTPNotificationProvider {
 
 model DiscordNotificationProvider {
     id       String               @id
-    provider NotificationProvider @relation(fields: [id], references: [id])
+    provider NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     webhook  String
 }
 
 model TelegramNotificationProvider {
     id       String               @id
-    provider NotificationProvider @relation(fields: [id], references: [id])
+    provider NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     token    String
     chatId   String
 }
@@ -358,9 +358,9 @@ model Notification {
      */
     id                     Int                  @id @default(autoincrement())
     type                   String
-    organization           Organization         @relation(fields: [organizationId], references: [id])
+    organization           Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
     organizationId         String
-    provider               NotificationProvider @relation(fields: [notificationProviderId], references: [id])
+    provider               NotificationProvider @relation(fields: [notificationProviderId], references: [id], onDelete: Cascade)
     notificationProviderId String
 
     @@unique([type, organizationId, notificationProviderId])
@@ -376,7 +376,7 @@ model StorageDestination {
 
 model S3Storage {
     id          String             @id
-    destination StorageDestination @relation(fields: [id], references: [id])
+    destination StorageDestination @relation(fields: [id], references: [id], onDelete: Cascade)
     bucket      String
     endpoint    String
     region      String?
@@ -391,7 +391,7 @@ model S3Storage {
 model VolumeBackupSchedule {
     id String @id @default(cuid(2))
 
-    destination          StorageDestination @relation(fields: [storageDestinationId], references: [id])
+    destination          StorageDestination @relation(fields: [storageDestinationId], references: [id], onDelete: Cascade)
     storageDestinationId String
     cron                 String
     retention            String
@@ -413,6 +413,6 @@ model BackupRun {
 
     artifactLocation String?
 
-    volumeBackupSchedule   VolumeBackupSchedule? @relation(fields: [volumeBackupScheduleId], references: [id])
+    volumeBackupSchedule   VolumeBackupSchedule? @relation(fields: [volumeBackupScheduleId], references: [id], onDelete: Cascade)
     volumeBackupScheduleId String?
 }

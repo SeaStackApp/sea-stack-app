@@ -9,3 +9,4 @@ export * from './networks';
 export * from './volumes';
 export * from './environment-variables';
 export * from './notifications';
+export * from './storage';
