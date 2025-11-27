@@ -1,14 +1,10 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import type { Context } from './context';
 import superjson from 'superjson';
-import type { OpenApiMeta } from 'trpc-to-openapi';
 
-export const t = initTRPC
-    .context<Context>()
-    .meta<OpenApiMeta>()
-    .create({
-        transformer: superjson,
-    });
+export const t = initTRPC.context<Context>().create({
+    transformer: superjson,
+});
 
 export const router = t.router;
 

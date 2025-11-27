@@ -3,17 +3,6 @@ import { createDomainSchema } from '@repo/schemas';
 import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
 
 export const createDomain = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'POST',
-            path: '/services.createDomain',
-            tags: ['Services', 'Domains'],
-            summary: 'Create a domain for a service',
-            description:
-                'Creates a new domain mapping for a service with Traefik routing.',
-            protect: true,
-        },
-    })
     .input(createDomainSchema)
     .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
         const { serviceId, ...domainData } = input;

@@ -4,17 +4,6 @@ import { checkDomainExistsInOrganization } from '../utils/checks/checkDomainExis
 
 export const domainsRouter = router({
     delete: protectedProcedure
-        .meta({
-            openapi: {
-                method: 'POST',
-                path: '/domains.delete',
-                tags: ['Domains'],
-                summary: 'Delete a domain',
-                description:
-                    'Permanently deletes a domain mapping from a service.',
-                protect: true,
-            },
-        })
         .input(domainIdSchema)
         .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
             await checkDomainExistsInOrganization(

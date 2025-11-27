@@ -4,17 +4,6 @@ import { checkServiceExistsInOrganization } from '../../utils/checks/checkServic
 import { encrypt } from '../../utils/crypto';
 
 export const updateEnvVariables = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'POST',
-            path: '/services.updateEnvVariables',
-            tags: ['Services'],
-            summary: 'Update service environment variables',
-            description:
-                'Updates the environment variables for a service. Variables are encrypted at rest.',
-            protect: true,
-        },
-    })
     .input(updateServiceEnvironmentVariablesSchema)
     .mutation(
         async ({

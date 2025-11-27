@@ -3,22 +3,9 @@ import { z } from 'zod';
 import { checkDeploymentEnvExistsInOrg } from '../../utils/checks/checkDeploymentEnvExistsInOrg';
 
 export const listServices = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'GET',
-            path: '/services.listServices',
-            tags: ['Services'],
-            summary: 'List services in an environment',
-            description:
-                'Returns a list of all services in the specified deployment environment.',
-            protect: true,
-        },
-    })
     .input(
         z.object({
-            environmentId: z
-                .string()
-                .describe('ID of the deployment environment'),
+            environmentId: z.string(),
         })
     )
     .query(async ({ ctx: { prisma, organizationId }, input }) => {

@@ -10,23 +10,9 @@ import { z } from 'zod';
 
 export const volumesRouter = router({
     list: protectedProcedure
-        .meta({
-            openapi: {
-                method: 'GET',
-                path: '/volumes.list',
-                tags: ['Volumes'],
-                summary: 'List all volumes',
-                description:
-                    'Returns a list of volumes, optionally filtered by service.',
-                protect: true,
-            },
-        })
         .input(
             z.object({
-                serviceId: z
-                    .string()
-                    .optional()
-                    .describe('Optional service ID to filter volumes'),
+                serviceId: z.string().optional(),
             })
         )
         .query(({ ctx: { prisma, organizationId }, input }) => {
@@ -60,16 +46,6 @@ export const volumesRouter = router({
         }),
 
     create: protectedProcedure
-        .meta({
-            openapi: {
-                method: 'POST',
-                path: '/volumes.create',
-                tags: ['Volumes'],
-                summary: 'Create a new volume',
-                description: 'Creates a new volume for a service.',
-                protect: true,
-            },
-        })
         .input(createVolumeSchema)
         .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
             await checkServiceExistsInOrganization(
@@ -83,16 +59,6 @@ export const volumesRouter = router({
         }),
 
     update: protectedProcedure
-        .meta({
-            openapi: {
-                method: 'POST',
-                path: '/volumes.update',
-                tags: ['Volumes'],
-                summary: 'Update a volume',
-                description: 'Updates an existing volume configuration.',
-                protect: true,
-            },
-        })
         .input(updateVolumeSchema)
         .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
             await checkVolumeExistsInOrganization(
@@ -110,16 +76,6 @@ export const volumesRouter = router({
         }),
 
     delete: protectedProcedure
-        .meta({
-            openapi: {
-                method: 'POST',
-                path: '/volumes.delete',
-                tags: ['Volumes'],
-                summary: 'Delete a volume',
-                description: 'Permanently deletes a volume.',
-                protect: true,
-            },
-        })
         .input(volumeIdSchema)
         .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
             await checkVolumeExistsInOrganization(

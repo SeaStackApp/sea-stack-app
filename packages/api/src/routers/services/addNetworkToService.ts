@@ -4,16 +4,6 @@ import { TRPCError } from '@trpc/server';
 import { checkNetworkExistsInOrganization } from '../../utils/checks/checkNetworkExistsInOrganization';
 
 export const addNetworkToService = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'POST',
-            path: '/services.addNetworkToService',
-            tags: ['Services', 'Networks'],
-            summary: 'Add network to service',
-            description: 'Connects a Docker network to a service.',
-            protect: true,
-        },
-    })
     .input(addNetworkToServiceSchema)
     .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
         // Verify service exists and belongs to organization

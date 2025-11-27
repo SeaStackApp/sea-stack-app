@@ -5,17 +5,6 @@ import { decrypt } from '../../utils/crypto';
 import { TRPCError } from '@trpc/server';
 
 export const getEnvVariables = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'GET',
-            path: '/services.getEnvVariables',
-            tags: ['Services'],
-            summary: 'Get service environment variables',
-            description:
-                'Returns the decrypted environment variables for a service.',
-            protect: true,
-        },
-    })
     .input(serviceIdSchema)
     .query(
         async ({ ctx: { prisma, organizationId }, input: { serviceId } }) => {

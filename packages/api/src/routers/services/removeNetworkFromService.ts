@@ -3,16 +3,6 @@ import { removeNetworkFromServiceSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 
 export const removeNetworkFromService = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'POST',
-            path: '/services.removeNetworkFromService',
-            tags: ['Services', 'Networks'],
-            summary: 'Remove network from service',
-            description: 'Disconnects a Docker network from a service.',
-            protect: true,
-        },
-    })
     .input(removeNetworkFromServiceSchema)
     .mutation(async ({ ctx: { prisma, organizationId }, input }) => {
         // Verify service exists and belongs to organization

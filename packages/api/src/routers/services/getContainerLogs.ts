@@ -8,22 +8,9 @@ import { Client } from 'ssh2';
 import { remoteExec } from '../../utils/interactiveRemoteCommand';
 
 export const getContainerLogs = protectedProcedure
-    .meta({
-        openapi: {
-            method: 'GET',
-            path: '/services.getContainerLogs',
-            tags: ['Services'],
-            summary: 'Get container logs',
-            description: 'Returns the logs for a specific container.',
-            protect: true,
-        },
-    })
     .input(
         serviceIdSchema.extend({
-            containerId: z
-                .string()
-                .regex(/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/)
-                .describe('Docker container ID'),
+            containerId: z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/),
         })
     )
     .query(
