@@ -12,18 +12,19 @@
         "start": "node dist/index.mjs"
     },
     "dependencies": {
-        "bullmq": "^5.63.2",
-        "ioredis": "^5.8.2",
+        "@dotenvx/dotenvx": "^1.51.1",
+        "@repo/db": "workspace:*",
         "@repo/queues": "workspace:*",
         "@repo/utils": "workspace:*",
-        "@repo/db": "workspace:*"
+        "bullmq": "^5.63.2",
+        "ioredis": "^5.8.2"
     },
     "devDependencies": {
         "@repo/typescript-config": "workspace:*",
         "@types/node": "^22.19.1",
+        "tsx": "^4.19.2",
         "typescript": "^5.9.3",
         "vite": "^6.0.7",
-        "vite-node": "^2.1.8",
-        "tsx": "^4.19.2"
+        "vite-node": "^2.1.8"
     }
 }

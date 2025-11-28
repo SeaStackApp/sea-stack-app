@@ -274,6 +274,9 @@ importers:
 
   apps/workers:
     dependencies:
+      '@dotenvx/dotenvx':
+        specifier: ^1.51.1
+        version: 1.51.1
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
