@@ -4,7 +4,7 @@ import {
     sshKeyIdSchema,
     updateKeySchema,
 } from '@repo/schemas';
-import { encrypt, decrypt } from '../utils/crypto';
+import { decrypt, encrypt } from '@repo/utils';
 import { utils } from 'ssh2';
 import { TRPCError } from '@trpc/server';
 

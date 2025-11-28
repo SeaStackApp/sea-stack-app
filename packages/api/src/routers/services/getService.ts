@@ -1,13 +1,16 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
-import { Prisma } from '@repo/db';
 import { TRPCError } from '@trpc/server';
-import { getServiceData } from '../../utils/services/getServiceData';
+import { getServiceData } from '@repo/utils';
 
 export const getService = protectedProcedure
     .input(serviceIdSchema)
     .query(async ({ ctx, input }) => {
-        const service = await getServiceData(ctx.prisma, ctx.organizationId, input.serviceId);
+        const service = await getServiceData(
+            ctx.prisma,
+            ctx.organizationId,
+            input.serviceId
+        );
         if (!service)
             throw new TRPCError({
                 code: 'NOT_FOUND',

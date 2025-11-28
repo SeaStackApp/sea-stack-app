@@ -4,8 +4,7 @@ import {
     notificationProviderIdSchema,
 } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
-import { sendDiscordNotification } from '../utils/notifications/discord';
-import { getProviders } from '../utils/notifications/getProviders';
+import { getProviders, sendDiscordNotification } from '@repo/utils';
 
 export const notificationsRouter = router({
     listProviders: protectedProcedure.query(

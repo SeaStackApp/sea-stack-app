@@ -1,7 +1,6 @@
 import { protectedProcedure } from '../../trpc';
 import { updateServiceEnvironmentVariablesSchema } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
-import { encrypt } from '../../utils/crypto';
+import { checkServiceExistsInOrganization, encrypt } from '@repo/utils';
 
 export const updateEnvVariables = protectedProcedure
     .input(updateServiceEnvironmentVariablesSchema)

@@ -5,6 +5,7 @@ import {
     BellRingIcon,
     ContainerIcon,
     FolderOpenIcon,
+    HardDriveUpload,
     KeyIcon,
     NetworkIcon,
     ServerIcon,
@@ -36,11 +37,6 @@ const data = [
                 url: '/dashboard/projects',
                 icon: FolderOpenIcon,
             },
-        ],
-    },
-    {
-        name: 'Settings',
-        items: [
             {
                 name: 'Servers',
                 url: '/dashboard/servers',
@@ -51,11 +47,12 @@ const data = [
                 url: '/dashboard/networks',
                 icon: NetworkIcon,
             },
-            {
-                name: 'Members',
-                url: '/dashboard/settings/members',
-                icon: UsersIcon,
-            },
+        ],
+    },
+
+    {
+        name: 'Settings',
+        items: [
             {
                 name: 'SSH Keys',
                 url: '/dashboard/settings/ssh-keys',
@@ -71,6 +68,21 @@ const data = [
                 name: 'Notifications',
                 url: '/dashboard/settings/notifications',
                 icon: BellRingIcon,
+            },
+            {
+                name: 'Storage locations',
+                url: '/dashboard/settings/storage-locations',
+                icon: HardDriveUpload,
+            },
+        ],
+    },
+    {
+        name: 'Organization',
+        items: [
+            {
+                name: 'Members',
+                url: '/dashboard/settings/members',
+                icon: UsersIcon,
             },
         ],
     },

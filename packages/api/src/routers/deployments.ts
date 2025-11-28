@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { once } from 'events';
-import { router, protectedProcedure } from '../trpc';
-import { getLogsDirectory } from '../utils/deployments/getDeploymentLogger';
+import { protectedProcedure, router } from '../trpc';
+import { getLogsDirectory } from '@repo/utils';
 import { deploymentIdSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 

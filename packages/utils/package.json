@@ -1,0 +1,39 @@
+{
+    "name": "@repo/utils",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "src/index.ts",
+    "types": "src/index.ts",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "check-types": "tsc -p tsconfig.json --noEmit"
+    },
+    "dependencies": {
+        "@dotenvx/dotenvx": "^1.51.1",
+        "@repo/auth": "workspace:*",
+        "@repo/db": "workspace:*",
+        "@repo/schemas": "workspace:*",
+        "@trpc/react-query": "^11.7.1",
+        "@trpc/server": "^11.7.1",
+        "@types/ssh2": "^1.15.5",
+        "bullmq": "^5.63.2",
+        "ioredis": "^5.8.2",
+        "pino": "^10.1.0",
+        "pino-pretty": "^13.1.2",
+        "ssh2": "^1.17.0",
+        "superjson": "^2.2.5",
+        "yaml": "^2.8.1",
+        "zod": "^3.25.76"
+    },
+    "devDependencies": {
+        "@jest/globals": "^30.2.0",
+        "@repo/typescript-config": "workspace:*",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^22.19.1",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.5",
+        "typescript": "^5.9.3"
+    }
+}

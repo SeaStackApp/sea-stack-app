@@ -1,6 +1,6 @@
 import { protectedProcedure } from '../../trpc';
 import { createDomainSchema } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
+import { checkServiceExistsInOrganization } from '@repo/utils';
 
 export const createDomain = protectedProcedure
     .input(createDomainSchema)

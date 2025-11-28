@@ -1,6 +1,6 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
+import { checkServiceExistsInOrganization } from '@repo/utils';
 import { TRPCError } from '@trpc/server';
 
 export const deleteService = protectedProcedure

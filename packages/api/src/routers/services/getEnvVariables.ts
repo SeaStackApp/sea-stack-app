@@ -1,7 +1,6 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
-import { decrypt } from '../../utils/crypto';
+import { checkServiceExistsInOrganization, decrypt } from '@repo/utils';
 import { TRPCError } from '@trpc/server';
 
 export const getEnvVariables = protectedProcedure

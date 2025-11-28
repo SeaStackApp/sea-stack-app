@@ -1,7 +1,9 @@
 import { protectedProcedure, router } from '../trpc';
 import { createNetworkSchema, networkIdSchema } from '@repo/schemas';
-import { checkServerExistsInOrganisation } from '../utils/checks/checkServerExistsInOrganisation';
-import { checkNetworkExistsInOrganization } from '../utils/checks/checkNetworkExistsInOrganization';
+import {
+    checkNetworkExistsInOrganization,
+    checkServerExistsInOrganisation,
+} from '@repo/utils';
 import { z } from 'zod';
 
 export const networksRouter = router({

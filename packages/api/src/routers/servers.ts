@@ -1,9 +1,12 @@
 import { protectedProcedure, router } from '../trpc';
 import { createServerSchema, serverIdSchema } from '@repo/schemas';
-import { execRemoteServerCommand } from '../utils/execRemote';
-import { ee, remoteServerShell } from '../utils/remoteShell';
+import {
+    ee,
+    execRemoteServerCommand,
+    remoteServerShell,
+    setupServer,
+} from '@repo/utils';
 import { z } from 'zod';
-import { setupServer } from '../utils/remote-server/setup-server';
 
 export const serversRouter = router({
     list: protectedProcedure.query(({ ctx: { prisma, organizationId } }) => {

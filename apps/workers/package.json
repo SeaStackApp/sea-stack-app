@@ -1,0 +1,30 @@
+{
+    "name": "workers",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "dist/index.mjs",
+    "types": "src/index.ts",
+    "scripts": {
+        "build": "vite build",
+        "check-types": "tsc -p tsconfig.json --noEmit",
+        "dev": "tsx watch src/index.ts",
+        "start": "node dist/index.mjs"
+    },
+    "dependencies": {
+        "@dotenvx/dotenvx": "^1.51.1",
+        "@repo/db": "workspace:*",
+        "@repo/queues": "workspace:*",
+        "@repo/utils": "workspace:*",
+        "bullmq": "^5.63.2",
+        "ioredis": "^5.8.2"
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "@types/node": "^22.19.1",
+        "tsx": "^4.19.2",
+        "typescript": "^5.9.3",
+        "vite": "^6.0.7",
+        "vite-node": "^2.1.8"
+    }
+}

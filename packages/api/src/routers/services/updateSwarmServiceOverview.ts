@@ -1,8 +1,10 @@
 import { protectedProcedure } from '../../trpc';
 import { updateSwarmServiceOverviewSchema } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../../utils/checks/checkServiceExistsInOrganization';
+import {
+    checkRegistryExistsInOrganization,
+    checkServiceExistsInOrganization,
+} from '@repo/utils';
 import { TRPCError } from '@trpc/server';
-import { checkRegistryExistsInOrganization } from '../../utils/checks/checkRegistryExistsInOrganization';
 
 export const updateSwarmServiceOverview = protectedProcedure
     .input(updateSwarmServiceOverviewSchema)

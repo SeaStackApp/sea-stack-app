@@ -1,11 +1,13 @@
 import { protectedProcedure, router } from '../trpc';
 import {
     createVolumeSchema,
-    volumeIdSchema,
     updateVolumeSchema,
+    volumeIdSchema,
 } from '@repo/schemas';
-import { checkServiceExistsInOrganization } from '../utils/checks/checkServiceExistsInOrganization';
-import { checkVolumeExistsInOrganization } from '../utils/checks/checkVolumeExistsInOrganization';
+import {
+    checkServiceExistsInOrganization,
+    checkVolumeExistsInOrganization,
+} from '@repo/utils';
 import { z } from 'zod';
 
 export const volumesRouter = router({
