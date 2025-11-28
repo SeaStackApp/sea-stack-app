@@ -1,9 +1,9 @@
 import { Queue, Worker } from 'bullmq';
-import { redis } from '../redis';
+import { redis } from './redis';
 
-const queueName = 'deployments';
+export const queueName = 'deployments';
 
-type DeploymentJob = {};
+export type DeploymentJob = {};
 
 export const deploymentQueue = new Queue<DeploymentJob>(queueName, {
     connection: redis,

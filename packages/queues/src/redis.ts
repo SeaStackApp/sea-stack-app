@@ -1,5 +1,11 @@
 import IORedis from 'ioredis';
-export const redis = new IORedis({
+
+declare global {
+    // eslint-disable-next-line no-var
+    var __redis: IORedis | undefined;
+}
+
+globalThis.__redis ??= new IORedis({
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT || '6379'),
     password: process.env.REDIS_PASSWORD || 'devpassword',
@@ -10,6 +16,8 @@ export const redis = new IORedis({
         return delay;
     },
 });
+
+export const redis = globalThis.__redis;
 
 redis.on('error', (err) => {
     console.error('Redis connection error:', err);

@@ -1,0 +1,23 @@
+{
+    "name": "workers",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "src/index.ts",
+    "types": "src/index.ts",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "check-types": "tsc -p tsconfig.json --noEmit",
+        "dev": "ts-node src/index.ts"
+    },
+    "dependencies": {
+        "bullmq": "^5.63.2",
+        "ioredis": "^5.8.2",
+        "ts-node": "^10.9.1"
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "@types/node": "^22.19.1",
+        "typescript": "^5.9.3"
+    }
+}
