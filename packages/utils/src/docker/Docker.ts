@@ -2,7 +2,7 @@ import { jsonDockerRequest } from './dockerRequest';
 import { Client } from 'ssh2';
 import { operations, paths } from './schema';
 
-export default class Docker {
+export class Docker {
     constructor(
         private connection: Client,
         private auth?: string | undefined

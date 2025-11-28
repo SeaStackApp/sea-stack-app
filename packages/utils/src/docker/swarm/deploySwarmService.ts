@@ -1,5 +1,5 @@
 import { Client } from 'ssh2';
-import Docker from '../Docker';
+import { Docker } from '../Docker';
 import { PrismaClient } from '@repo/db';
 import { SwarmService } from './SwarmService';
 import { createNetwork } from '../common/createNetwork';

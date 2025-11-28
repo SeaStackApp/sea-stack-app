@@ -1,6 +1,6 @@
 import { protectedProcedure } from '../../trpc';
 import { z } from 'zod';
-import { checkDeploymentEnvExistsInOrg } from '../../utils/checks/checkDeploymentEnvExistsInOrg';
+import { checkDeploymentEnvExistsInOrg } from '@repo/utils';
 
 export const listServices = protectedProcedure
     .input(

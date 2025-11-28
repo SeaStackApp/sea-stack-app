@@ -1,10 +1,8 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
 import { Client } from 'ssh2';
-import { getSSHClient } from '../../utils/getSSHClient';
+import { Docker, getServiceData, getSSHClient } from '@repo/utils';
 import { TRPCError } from '@trpc/server';
-import Docker from '../../utils/docker/Docker';
-import { getServiceData } from '../../utils/services/getServiceData';
 
 export const listContainers = protectedProcedure
     .input(serviceIdSchema)

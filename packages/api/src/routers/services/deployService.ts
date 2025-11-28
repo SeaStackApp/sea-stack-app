@@ -3,14 +3,14 @@ import { serviceIdSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 import { Client } from 'ssh2';
 import {
+    createDeployment,
+    decrypt,
+    deploySwarmService,
+    getDeploymentLogger,
     getServiceData,
     getSSHClient,
-    deploySwarmService,
     isSwarmService,
-    getDeploymentLogger,
-    decrypt,
     notify,
-    createDeployment,
 } from '@repo/utils';
 
 export const deployService = protectedProcedure

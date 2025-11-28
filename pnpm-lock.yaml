@@ -159,6 +159,9 @@ importers:
       '@repo/schemas':
         specifier: workspace:*
         version: link:../../packages/schemas
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/postcss':
         specifier: ^4.1.17
         version: 4.1.17

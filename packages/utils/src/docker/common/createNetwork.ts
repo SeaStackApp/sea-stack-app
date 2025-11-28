@@ -1,5 +1,5 @@
 import { PrismaClient } from '@repo/db';
-import Docker from '../Docker';
+import { Docker } from '../Docker';
 import { TRPCError } from '@trpc/server';
 import { DeploymentLogger } from '../../deployments';
 
