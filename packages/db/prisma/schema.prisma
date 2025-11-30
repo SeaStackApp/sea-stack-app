@@ -309,12 +309,13 @@ model Deployment {
 }
 
 model Volume {
-    id        String  @id @default(cuid(2))
-    name      String
-    mountPath String
-    readOnly  Boolean @default(false)
-    service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-    serviceId String
+    id              String                 @id @default(cuid(2))
+    name            String
+    mountPath       String
+    readOnly        Boolean                @default(false)
+    service         Service                @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+    serviceId       String
+    backupSchedules VolumeBackupSchedule[]
 }
 
 model NotificationProvider {
@@ -393,10 +394,14 @@ model VolumeBackupSchedule {
 
     destination          StorageDestination @relation(fields: [storageDestinationId], references: [id], onDelete: Cascade)
     storageDestinationId String
-    cron                 String
-    retention            String
-    isActive             Boolean
-    runs                 BackupRun[]
+
+    volume Volume @relation(fields: [volumeId], references: [id])
+
+    cron      String
+    retention String
+    isActive  Boolean
+    runs      BackupRun[]
+    volumeId  String
 }
 
 enum BackupRunStatus {

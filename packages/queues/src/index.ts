@@ -1,3 +1,3 @@
 export * from './deploymentQueue';
-export * from './backupsQueue';
+export * from './volumeBackupsQueue';
 export * from './redis';

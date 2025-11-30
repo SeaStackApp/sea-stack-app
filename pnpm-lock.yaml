@@ -323,6 +323,9 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../db
+      '@repo/queues':
+        specifier: workspace:*
+        version: link:../queues
       '@repo/schemas':
         specifier: workspace:*
         version: link:../schemas

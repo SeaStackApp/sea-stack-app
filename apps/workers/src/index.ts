@@ -1,9 +1,9 @@
-import { BackupJob, BACKUPS_QUEUE_NAME, redis } from '@repo/queues';
+import { VolumeBackupJob, BACKUPS_QUEUE_NAME, redis } from '@repo/queues';
 import '@dotenvx/dotenvx/config';
 import { setupWorker } from './setupWorker';
 
 async function main() {
-    const backupsWorker = setupWorker<BackupJob>(
+    const backupsWorker = setupWorker<VolumeBackupJob>(
         BACKUPS_QUEUE_NAME,
         async (job) => {
             console.log(

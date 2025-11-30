@@ -21,6 +21,7 @@
         "@repo/db": "workspace:*",
         "@repo/schemas": "workspace:*",
         "@repo/utils": "workspace:*",
+        "@repo/queues": "workspace:*",
         "@trpc/react-query": "^11.7.1",
         "@trpc/server": "^11.7.1",
         "@types/ssh2": "^1.15.5",
