@@ -4,6 +4,7 @@ import {
     DEFAULT_RETENTION_CONFIG,
     parseRetentionString,
 } from './retention';
+import { retentionRegex } from '@repo/schemas';
 
 describe('Retention', () => {
     describe('buildRetentionString', () => {
@@ -116,6 +117,34 @@ describe('Retention', () => {
             expect(parseRetentionString('@latest')).toEqual({
                 rules: [],
             });
+        });
+    });
+
+    describe('retentionRegex', () => {
+        it('should match the retention string', () => {
+            expect(retentionRegex.test('@days:6 @weeks:1 @latest:7')).toBe(
+                true
+            );
+        });
+
+        it('should not match the retention string with invalid rules', () => {
+            expect(retentionRegex.test('@days:6 @weeks:1 @invalid:1')).toBe(
+                false
+            );
+        });
+
+        it('should not match the retention string with invalid values', () => {
+            expect(retentionRegex.test('@days:6 @weeks:1 @latest:0')).toBe(
+                false
+            );
+        });
+
+        it('should match the retention string with multiple spaces', () => {
+            expect(retentionRegex.test('   @days:6    @weeks:1   ')).toBe(true);
+        });
+
+        it('should not match retention string with spaces inside rule', () => {
+            expect(retentionRegex.test('@days :6 @weeks: 1')).toBe(false);
         });
     });
 });
