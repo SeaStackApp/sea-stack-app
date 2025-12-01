@@ -10,3 +10,4 @@ export * from './services';
 export * from './notifications';
 export * from './docker';
 export * from './remote-server';
+export * from './backups';
