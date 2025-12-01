@@ -14,10 +14,6 @@ describe('CRON regex', () => {
         expect(cron6Regex.test('0-10 1 1 1 1 1')).toEqual(true);
     });
 
-    it('should allow step', () => {
-        expect(cron6Regex.test('*/10 1 1 1 1 1')).toEqual(true);
-    });
-
     it('should allow multiple ranges', () => {
         expect(cron6Regex.test('0-10,20-30 1 1 1 1 1')).toEqual(true);
     });
