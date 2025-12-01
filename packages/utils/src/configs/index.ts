@@ -1,2 +1,2 @@
 export * from './config';
-export * from './treafik.config';
+export * from './traefik.config';
