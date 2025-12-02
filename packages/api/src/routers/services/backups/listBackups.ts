@@ -25,6 +25,17 @@ export const listBackups = protectedProcedure
                             id: 'desc',
                         },
                     },
+                    destination: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                    volume: {
+                        select: {
+                            name: true,
+                            mountPath: true,
+                        },
+                    },
                 },
             });
         }
