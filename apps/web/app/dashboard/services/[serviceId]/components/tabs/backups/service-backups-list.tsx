@@ -27,7 +27,7 @@ export default function ServiceBackupsList({
     return (
         <>
             {backupsQuery.data.map((backup) => (
-                <Card>
+                <Card key={backup.id}>
                     <CardHeader>
                         <CardTitle>
                             {backup.volume.name} @ {backup.cron}
