@@ -12,3 +12,7 @@ export const volumeBackupScheduleCreateSchema = volumeIdSchema.extend({
     retention: z.string().regex(retentionRegex).optional(),
     storageDestinationId: z.string(),
 });
+
+export const volumeBackupScheduleIdSchema = z.object({
+    volumeBackupScheduleId: z.string(),
+});

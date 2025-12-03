@@ -8,6 +8,7 @@ import { TRAEFIK_CERT_RESOLVER, TRAEFIK_SERVICE_NAME } from '../../configs';
 import { components } from '../schema';
 import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
 import { createEnvFromString } from '../common/createEnv';
+import { generateVolumeName } from '../common/generateVolumeName';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -111,7 +112,7 @@ export const deploySwarmService = async (
         spec.TaskTemplate!.ContainerSpec!.Mounts = service.volumes.map(
             (volume) => ({
                 Type: 'volume',
-                Source: service.id + '_' + volume.name,
+                Source: generateVolumeName(volume.name, service.id),
                 Target: volume.mountPath,
                 ReadOnly: volume.readOnly,
             })

@@ -286,12 +286,18 @@ importers:
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@types/ssh2':
+        specifier: ^1.15.5
+        version: 1.15.5
       bullmq:
         specifier: ^5.63.2
         version: 5.63.2
       ioredis:
         specifier: ^5.8.2
         version: 5.8.2
+      ssh2:
+        specifier: ^1.17.0
+        version: 1.17.0
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

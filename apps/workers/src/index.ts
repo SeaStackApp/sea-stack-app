@@ -1,17 +1,9 @@
-import { VolumeBackupJob, BACKUPS_QUEUE_NAME, redis } from '@repo/queues';
+import { redis } from '@repo/queues';
 import '@dotenvx/dotenvx/config';
-import { setupWorker } from './setupWorker';
+import { setUpVolumeBackups } from './backups';
 
 async function main() {
-    const backupsWorker = setupWorker<VolumeBackupJob>(
-        BACKUPS_QUEUE_NAME,
-        async (job) => {
-            console.log(
-                `[workers] Processing job ${job.data.volumeId}`,
-                job.repeatJobKey
-            );
-        }
-    );
+    const backupsWorker = setUpVolumeBackups();
 
     const shutdown = async (signal: string) => {
         console.log(`[workers] Received ${signal}, shutting down workers...`);
