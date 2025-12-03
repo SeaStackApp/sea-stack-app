@@ -156,6 +156,9 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@repo/queues':
+        specifier: workspace:*
+        version: link:../../packages/queues
       '@repo/schemas':
         specifier: workspace:*
         version: link:../../packages/schemas
