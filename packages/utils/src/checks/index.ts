@@ -5,3 +5,4 @@ export * from './checkServerExistsInOrganisation';
 export * from './checkVolumeExistsInOrganization';
 export * from './checkServiceExistsInOrganization';
 export * from './checkRegistryExistsInOrganization';
+export * from './checkDestinationExistsInOrg';
