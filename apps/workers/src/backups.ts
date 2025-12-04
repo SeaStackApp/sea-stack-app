@@ -1,7 +1,7 @@
 import { setupWorker } from './setupWorker';
 import { BACKUPS_QUEUE_NAME, VolumeBackupJob } from '@repo/queues';
 import { prisma } from '@repo/db';
-import { generateVolumeName, getSSHClient, remoteExec } from '@repo/utils';
+import { generateVolumeName, getSSHClient, remoteExec, sh } from '@repo/utils';
 import { Client } from 'ssh2';
 
 export const setUpVolumeBackups = () => {
@@ -45,15 +45,16 @@ export const setUpVolumeBackups = () => {
             );
             console.log('Connected to server via SSH');
 
-            const command = `docker run --rm -v ${volumeName}:/data alpine sh -c "tar -C /data -cf - ." | zstd -z -19 -o ${backupFilename}`;
+            const command = sh`docker run --rm -v ${volumeName}:/data alpine sh -c "tar -C /data -cf - ." | zstd -z -19 -o ${backupFilename}`;
 
             console.log(`Running command: ${command}`);
             await remoteExec(connection, command);
             console.log(`Backup created: ${backupFilename}`);
             console.log('Deleting local backup file');
-            await remoteExec(connection, `rm ${backupFilename}`);
+            await remoteExec(connection, sh`rm ${backupFilename}`);
         } catch (error) {
             console.error(error);
+            throw error;
         } finally {
             if (connection) connection.end();
         }
