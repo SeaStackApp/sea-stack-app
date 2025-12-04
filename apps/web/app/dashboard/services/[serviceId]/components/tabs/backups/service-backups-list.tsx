@@ -38,7 +38,10 @@ export default function ServiceBackupsList({
                             Location : {backup.destination.name}
                         </CardDescription>
                         <CardAction>
-                            <BackupSettingsDropDown backup={backup} />
+                            <BackupSettingsDropDown
+                                backup={backup}
+                                serviceId={serviceId}
+                            />
                         </CardAction>
                     </CardHeader>
                 </Card>

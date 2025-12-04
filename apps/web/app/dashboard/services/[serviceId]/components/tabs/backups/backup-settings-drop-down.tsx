@@ -7,6 +7,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontalIcon } from 'lucide-react';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -15,10 +25,12 @@ import { useTRPC } from '@/lib/trpc';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
+import { useState } from 'react';
 
 export default function BackupSettingsDropDown({
     backup,
-}: Readonly<{ backup: Backup }>) {
+    serviceId,
+}: Readonly<{ backup: Backup; serviceId: string }>) {
     const trpc = useTRPC();
     const queryClient = useQueryClient();
     const startBackupMutation = useMutation(
@@ -29,12 +41,13 @@ export default function BackupSettingsDropDown({
             onSuccess: async () => {
                 await queryClient.invalidateQueries({
                     queryKey: trpc.services.backups.listBackups.queryKey({
-                        serviceId: backup.volume.serviceId,
+                        serviceId,
                     }),
                 });
             },
         })
     );
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     return (
         <ButtonGroup>
             <Button
@@ -71,28 +84,51 @@ export default function BackupSettingsDropDown({
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                         variant='destructive'
-                        onClick={async () => {
-                            try {
-                                await deleteMutation.mutateAsync({
-                                    volumeBackupScheduleId: backup.id,
-                                });
-                                toast.success('Backup schedule deleted');
-                            } catch (e) {
-                                console.error(e);
-                                toast.error('Unable to delete backup schedule');
-                            }
-                        }}
+                        onClick={() => setShowDeleteModal(true)}
                     >
-                        {deleteMutation.isPending ? (
-                            <span className='flex items-center gap-2'>
-                                <Spinner /> Deleting...
-                            </span>
-                        ) : (
-                            'Delete backup schedule'
-                        )}
+                        Delete backup schedule
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+            <AlertDialog
+                open={showDeleteModal}
+                onOpenChange={setShowDeleteModal}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete this backup schedule. Existing backup
+                            archives in your storage destination will not be
+                            removed.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={async () => {
+                                try {
+                                    await deleteMutation.mutateAsync({
+                                        volumeBackupScheduleId: backup.id,
+                                    });
+                                    setShowDeleteModal(false);
+                                    toast.success('Backup schedule deleted');
+                                } catch (e) {
+                                    console.error(e);
+                                    toast.error(
+                                        'Unable to delete backup schedule'
+                                    );
+                                }
+                            }}
+                        >
+                            Continue
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </ButtonGroup>
     );
 }
