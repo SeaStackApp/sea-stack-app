@@ -1,7 +1,13 @@
 import { setupWorker } from './setupWorker';
 import { BACKUPS_QUEUE_NAME, VolumeBackupJob } from '@repo/queues';
 import { prisma } from '@repo/db';
-import { generateVolumeName, getSSHClient, remoteExec, sh } from '@repo/utils';
+import {
+    decrypt,
+    generateVolumeName,
+    getSSHClient,
+    remoteExec,
+    sh,
+} from '@repo/utils';
 import { Client } from 'ssh2';
 
 export const setUpVolumeBackups = () => {
@@ -50,6 +56,35 @@ export const setUpVolumeBackups = () => {
             console.log(`Running command: ${command}`);
             await remoteExec(connection, command);
             console.log(`Backup created: ${backupFilename}`);
+
+            console.log('Uploading backup file to S3 using rclone');
+
+            const s3 = await prisma.s3Storage.findFirst({
+                where: { id: schedule.storageDestinationId },
+            });
+
+            if (!s3) {
+                throw new Error(
+                    `Could not find S3 storage destination ${schedule.storageDestinationId}`
+                );
+            }
+
+            const flags = [
+                '--s3-provider=Other',
+                sh`--s3-access-key-id=${decrypt(s3.accessKeyId)}`,
+                sh`--s3-secret-access-key=${decrypt(s3.secretAccessKey)}`,
+                sh`--s3-endpoint=${s3.endpoint}`,
+                s3.region ? `--s3-region=${s3.region}` : '',
+                '--s3-acl=private',
+                sh`--s3-force-path-style=${s3.usePathStyle ? 'true' : 'false'}`,
+            ].join(' ');
+            const target = sh`:s3:${s3.bucket}`;
+            const secureName = sh`${backupFilename}`;
+            const rcloneCommand = `rclone copy ${secureName} ${target} ${flags} --progress`;
+
+            console.log(`Running command: ${rcloneCommand}`);
+            console.log(await remoteExec(connection, rcloneCommand));
+
             console.log('Deleting local backup file');
             await remoteExec(connection, sh`rm ${backupFilename}`);
         } catch (error) {
