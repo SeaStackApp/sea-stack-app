@@ -12,7 +12,7 @@ import { MoreHorizontalIcon } from 'lucide-react';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Backup } from '@/app/dashboard/services/[serviceId]/components/tabs/backups/Backup';
 import { useTRPC } from '@/lib/trpc';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 
@@ -20,8 +20,20 @@ export default function BackupSettingsDropDown({
     backup,
 }: Readonly<{ backup: Backup }>) {
     const trpc = useTRPC();
+    const queryClient = useQueryClient();
     const startBackupMutation = useMutation(
         trpc.services.backups.startBackup.mutationOptions()
+    );
+    const deleteMutation = useMutation(
+        trpc.services.backups.deleteVolumeBackupSchedule.mutationOptions({
+            onSuccess: async () => {
+                await queryClient.invalidateQueries({
+                    queryKey: trpc.services.backups.listBackups.queryKey({
+                        serviceId: backup.volume.serviceId,
+                    }),
+                });
+            },
+        })
     );
     return (
         <ButtonGroup>
@@ -57,8 +69,27 @@ export default function BackupSettingsDropDown({
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem variant='destructive'>
-                        Delete backup schedule
+                    <DropdownMenuItem
+                        variant='destructive'
+                        onClick={async () => {
+                            try {
+                                await deleteMutation.mutateAsync({
+                                    volumeBackupScheduleId: backup.id,
+                                });
+                                toast.success('Backup schedule deleted');
+                            } catch (e) {
+                                console.error(e);
+                                toast.error('Unable to delete backup schedule');
+                            }
+                        }}
+                    >
+                        {deleteMutation.isPending ? (
+                            <span className='flex items-center gap-2'>
+                                <Spinner /> Deleting...
+                            </span>
+                        ) : (
+                            'Delete backup schedule'
+                        )}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

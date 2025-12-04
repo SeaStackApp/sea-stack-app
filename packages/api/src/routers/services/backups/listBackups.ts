@@ -34,6 +34,7 @@ export const listBackups = protectedProcedure
                         select: {
                             name: true,
                             mountPath: true,
+                            serviceId: true,
                         },
                     },
                 },
