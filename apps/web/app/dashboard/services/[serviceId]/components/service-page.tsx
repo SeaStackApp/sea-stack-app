@@ -14,6 +14,7 @@ import AdvancedTab from '@/app/dashboard/services/[serviceId]/components/tabs/ad
 import DeploymentsTab from '@/app/dashboard/services/[serviceId]/components/tabs/deployments/deployments-tab';
 import { EnvTab } from '@/app/dashboard/services/[serviceId]/components/tabs/environment/env-tab';
 import LogsTab from '@/app/dashboard/services/[serviceId]/components/tabs/logs/logs-tab';
+import { BackupsTab } from '@/app/dashboard/services/[serviceId]/components/tabs/backups/backups-tab';
 
 export default function ServicePage({
     serviceId,
@@ -78,8 +79,9 @@ export default function ServicePage({
                 <EnvTab service={service} />
                 <LogsTab service={service} />
                 <DeploymentsTab service={service} />
+                <BackupsTab service={service} />
                 <AdvancedTab service={service} />
-                {['terminal', 'backups'].map((x) => (
+                {['terminal'].map((x) => (
                     <TodoTab value={x} key={x} />
                 ))}
             </Tabs>

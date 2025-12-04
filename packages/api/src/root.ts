@@ -10,6 +10,7 @@ import { deploymentsRouter } from './routers/deployments';
 import { networksRouter } from './routers/networks';
 import { volumesRouter } from './routers/volumes';
 import { notificationsRouter } from './routers/notifications';
+import { storageRouter } from './routers/storage';
 
 export const appRouter = router({
     health: healthRouter,
@@ -23,6 +24,7 @@ export const appRouter = router({
     networks: networksRouter,
     volumes: volumesRouter,
     notifications: notificationsRouter,
+    storage: storageRouter,
 });
 
 export type AppRouter = typeof appRouter;

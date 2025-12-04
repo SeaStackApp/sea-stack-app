@@ -1,11 +1,9 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
 import { z } from 'zod';
-import { getServiceData } from '../../utils/services/getServiceData';
+import { getServiceData, getSSHClient, remoteExec } from '@repo/utils';
 import { TRPCError } from '@trpc/server';
-import { getSSHClient } from '../../utils/getSSHClient';
 import { Client } from 'ssh2';
-import { remoteExec } from '../../utils/interactiveRemoteCommand';
 
 export const getContainerLogs = protectedProcedure
     .input(

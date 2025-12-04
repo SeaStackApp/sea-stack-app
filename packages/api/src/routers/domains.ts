@@ -1,6 +1,6 @@
 import { protectedProcedure, router } from '../trpc';
 import { domainIdSchema } from '@repo/schemas';
-import { checkDomainExistsInOrganization } from '../utils/checks/checkDomainExistsInOrganization';
+import { checkDomainExistsInOrganization } from '@repo/utils';
 
 export const domainsRouter = router({
     delete: protectedProcedure

@@ -12,6 +12,7 @@ import { getEnvVariables } from './getEnvVariables';
 import { updateEnvVariables } from './updateEnvVariables';
 import { listContainers } from './listContainers';
 import { getContainerLogs } from './getContainerLogs';
+import { backupsRouter } from './backups';
 
 export const servicesRouter = router({
     createSwarmService,
@@ -27,4 +28,5 @@ export const servicesRouter = router({
     updateEnvVariables,
     listContainers,
     getContainerLogs,
+    backups: backupsRouter,
 });

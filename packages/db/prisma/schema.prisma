@@ -134,6 +134,7 @@ model Organization {
     registryId            String?
     notificationProviders NotificationProvider[]
     notifications         Notification[]
+    storageDestinations   StorageDestination[]
 
     @@unique([slug])
     @@map("organization")
@@ -308,12 +309,13 @@ model Deployment {
 }
 
 model Volume {
-    id        String  @id @default(cuid(2))
-    name      String
-    mountPath String
-    readOnly  Boolean @default(false)
-    service   Service @relation(fields: [serviceId], references: [id])
-    serviceId String
+    id              String                 @id @default(cuid(2))
+    name            String
+    mountPath       String
+    readOnly        Boolean                @default(false)
+    service         Service                @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+    serviceId       String
+    backupSchedules VolumeBackupSchedule[]
 }
 
 model NotificationProvider {
@@ -328,7 +330,7 @@ model NotificationProvider {
 
 model SMTPNotificationProvider {
     id          String               @id
-    provider    NotificationProvider @relation(fields: [id], references: [id])
+    provider    NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     host        String
     port        Int
     username    String
@@ -339,13 +341,13 @@ model SMTPNotificationProvider {
 
 model DiscordNotificationProvider {
     id       String               @id
-    provider NotificationProvider @relation(fields: [id], references: [id])
+    provider NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     webhook  String
 }
 
 model TelegramNotificationProvider {
     id       String               @id
-    provider NotificationProvider @relation(fields: [id], references: [id])
+    provider NotificationProvider @relation(fields: [id], references: [id], onDelete: Cascade)
     token    String
     chatId   String
 }
@@ -357,10 +359,65 @@ model Notification {
      */
     id                     Int                  @id @default(autoincrement())
     type                   String
-    organization           Organization         @relation(fields: [organizationId], references: [id])
+    organization           Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
     organizationId         String
-    provider               NotificationProvider @relation(fields: [notificationProviderId], references: [id])
+    provider               NotificationProvider @relation(fields: [notificationProviderId], references: [id], onDelete: Cascade)
     notificationProviderId String
 
     @@unique([type, organizationId, notificationProviderId])
+}
+
+model StorageDestination {
+    id                    String                 @id @default(cuid(2))
+    name                  String
+    S3Storage             S3Storage?
+    organizations         Organization[]
+    volumeBackupSchedules VolumeBackupSchedule[]
+}
+
+model S3Storage {
+    id          String             @id
+    destination StorageDestination @relation(fields: [id], references: [id], onDelete: Cascade)
+    bucket      String
+    endpoint    String
+    region      String?
+
+    // Encrypted credentials
+    accessKeyId     String
+    secretAccessKey String
+
+    usePathStyle Boolean @default(false)
+}
+
+model VolumeBackupSchedule {
+    id String @id @default(cuid(2))
+
+    destination          StorageDestination @relation(fields: [storageDestinationId], references: [id], onDelete: Cascade)
+    storageDestinationId String
+
+    volume Volume @relation(fields: [volumeId], references: [id])
+
+    cron      String
+    retention String
+    isActive  Boolean
+    runs      BackupRun[]
+    volumeId  String
+}
+
+enum BackupRunStatus {
+    FAILED
+    SUCCESS
+    RUNNING
+}
+
+model BackupRun {
+    id        String          @id @default(uuid(7))
+    status    BackupRunStatus @default(RUNNING)
+    createdAt DateTime        @default(now())
+    updatedAt DateTime        @updatedAt()
+
+    artifactLocation String?
+
+    volumeBackupSchedule   VolumeBackupSchedule? @relation(fields: [volumeBackupScheduleId], references: [id], onDelete: Cascade)
+    volumeBackupScheduleId String?
 }

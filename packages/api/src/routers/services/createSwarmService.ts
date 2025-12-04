@@ -1,7 +1,9 @@
 import { protectedProcedure } from '../../trpc';
 import { createSwarmServiceSchema } from '@repo/schemas';
-import { checkDeploymentEnvExistsInOrg } from '../../utils/checks/checkDeploymentEnvExistsInOrg';
-import { checkServerExistsInOrganisation } from '../../utils/checks/checkServerExistsInOrganisation';
+import {
+    checkDeploymentEnvExistsInOrg,
+    checkServerExistsInOrganisation,
+} from '@repo/utils';
 
 export const createSwarmService = protectedProcedure
     .input(createSwarmServiceSchema)

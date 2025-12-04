@@ -1,15 +1,17 @@
 import { protectedProcedure } from '../../trpc';
 import { serviceIdSchema } from '@repo/schemas';
-import { getServiceData } from '../../utils/services/getServiceData';
 import { TRPCError } from '@trpc/server';
-import { getSSHClient } from '../../utils/getSSHClient';
 import { Client } from 'ssh2';
-import { deploySwarmService } from '../../utils/docker/swarm/deploySwarmService';
-import { isSwarmService } from '../../utils/docker/swarm/isSwarmService';
-import createDeployment from '../../utils/deployments/createDeployment';
-import { getDeploymentLogger } from '../../utils/deployments/getDeploymentLogger';
-import { decrypt } from '../../utils/crypto';
-import { notify } from '../../utils/notifications/notify';
+import {
+    createDeployment,
+    decrypt,
+    deploySwarmService,
+    getDeploymentLogger,
+    getServiceData,
+    getSSHClient,
+    isSwarmService,
+    notify,
+} from '@repo/utils';
 
 export const deployService = protectedProcedure
     .input(serviceIdSchema)

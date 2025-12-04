@@ -4,7 +4,7 @@ import {
     registryIdSchema,
     updateRegistrySchema,
 } from '@repo/schemas';
-import { encrypt, decrypt } from '../utils/crypto';
+import { decrypt, encrypt } from '@repo/utils';
 import { TRPCError } from '@trpc/server';
 
 export const registriesRouter = router({

@@ -144,7 +144,7 @@ export function TeamSwitcher() {
                         <NewOrganizationForm
                             onCreate={() => {
                                 setShowNewOrgModal(false);
-                                refetch();
+                                void refetch();
                             }}
                         />
                     </DialogHeader>
