@@ -16,6 +16,7 @@ import { useTheme } from 'next-themes';
 import ServiceSettingsDropdown from './service-settings-dropdown';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
+import dagre from 'dagre';
 
 type Service = inferProcedureOutput<
     typeof appRouter.services.listServices
@@ -23,6 +24,36 @@ type Service = inferProcedureOutput<
 
 type ServiceFlowDiagramProps = {
     readonly services: Service[];
+};
+
+// Function to calculate automatic layout using Dagre
+const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
+    const dagreGraph = new dagre.graphlib.Graph();
+    dagreGraph.setDefaultEdgeLabel(() => ({}));
+    dagreGraph.setGraph({ rankdir: 'LR', ranksep: 150, nodesep: 100 });
+
+    nodes.forEach((node) => {
+        dagreGraph.setNode(node.id, { width: 300, height: 150 });
+    });
+
+    edges.forEach((edge) => {
+        dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
+
+    const layoutedNodes = nodes.map((node) => {
+        const nodeWithPosition = dagreGraph.node(node.id);
+        return {
+            ...node,
+            position: {
+                x: nodeWithPosition.x - 150,
+                y: nodeWithPosition.y - 75,
+            },
+        };
+    });
+
+    return { nodes: layoutedNodes, edges };
 };
 
 export default function ServiceFlowDiagram({
@@ -50,15 +81,12 @@ export default function ServiceFlowDiagram({
             });
         });
 
-        // Create nodes for services
-        const nodes: Node[] = services.map((service, index) => {
-            const row = Math.floor(index / 3);
-            const col = index % 3;
-            
+        // Create nodes for services (initial positioning will be updated by layout)
+        const nodes: Node[] = services.map((service) => {
             return {
                 id: service.id,
                 type: 'default',
-                position: { x: col * 350, y: row * 200 },
+                position: { x: 0, y: 0 }, // Will be set by dagre layout
                 data: {
                     label: (
                         <div className="flex flex-col gap-2 p-2 w-full">
@@ -132,11 +160,8 @@ export default function ServiceFlowDiagram({
             const target = parts[1];
             
             if (!source || !target) {
-                console.warn('Invalid edge ID:', edgeId);
                 return;
             }
-            
-            console.log(`Creating edge from ${source} to ${target} with networks:`, networks);
             
             edges.push({
                 id: edgeId,
@@ -149,8 +174,9 @@ export default function ServiceFlowDiagram({
                 selectable: false,
                 focusable: false,
                 style: {
-                    stroke: isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.205 0 0)',
+                    stroke: isDark ? 'oklch(0.556 0 0)' : 'oklch(0.556 0 0)',
                     strokeWidth: 2,
+                    strokeDasharray: '5,5',
                 },
                 labelStyle: {
                     fill: isDark ? 'oklch(0.985 0 0)' : 'oklch(0.145 0 0)',
@@ -164,12 +190,9 @@ export default function ServiceFlowDiagram({
             });
         });
 
-        console.log('ServiceFlowDiagram - networkToServices:', Array.from(networkToServices.entries()));
-        console.log('ServiceFlowDiagram - edgeMap:', Array.from(edgeMap.entries()));
-        console.log('ServiceFlowDiagram - Created edges:', edges.length, edges);
-        console.log('ServiceFlowDiagram - Created nodes:', nodes.length, nodes.map(n => ({ id: n.id, name: nodes.find(node => node.id === n.id)?.data.label })));
-
-        return { nodes, edges };
+        // Apply automatic layout based on edges
+        const layouted = getLayoutedElements(nodes, edges);
+        return layouted;
     }, [services, isDark]);
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);

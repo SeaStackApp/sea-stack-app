@@ -46,6 +46,7 @@
         "bullmq": "^5.65.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "dagre": "^0.8.5",
         "ioredis": "^5.8.2",
         "lucide-react": "^0.548.0",
         "next": "^16.0.6",
@@ -68,6 +69,7 @@
     "devDependencies": {
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
+        "@types/dagre": "^0.7.53",
         "@types/node": "^22.19.1",
         "@types/react": "19.2.0",
         "@types/react-dom": "19.2.0",
