@@ -131,7 +131,12 @@ export default function ServiceFlowDiagram({
             const source = parts[0];
             const target = parts[1];
             
-            if (!source || !target) return;
+            if (!source || !target) {
+                console.warn('Invalid edge ID:', edgeId);
+                return;
+            }
+            
+            console.log(`Creating edge from ${source} to ${target} with networks:`, networks);
             
             edges.push({
                 id: edgeId,
@@ -159,8 +164,10 @@ export default function ServiceFlowDiagram({
             });
         });
 
+        console.log('ServiceFlowDiagram - networkToServices:', Array.from(networkToServices.entries()));
+        console.log('ServiceFlowDiagram - edgeMap:', Array.from(edgeMap.entries()));
         console.log('ServiceFlowDiagram - Created edges:', edges.length, edges);
-        console.log('ServiceFlowDiagram - Created nodes:', nodes.length, nodes.map(n => n.id));
+        console.log('ServiceFlowDiagram - Created nodes:', nodes.length, nodes.map(n => ({ id: n.id, name: nodes.find(node => node.id === n.id)?.data.label })));
 
         return { nodes, edges };
     }, [services, isDark]);
@@ -210,7 +217,6 @@ export default function ServiceFlowDiagram({
                     gap={16}
                 />
                 <Controls
-                    className={isDark ? 'react-flow__controls-dark' : ''}
                     style={{
                         background: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
                         border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,

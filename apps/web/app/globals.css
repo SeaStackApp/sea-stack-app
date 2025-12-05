@@ -121,16 +121,20 @@
 }
 
 /* React Flow dark mode control buttons fix */
-.react-flow__controls-dark button {
-    background: oklch(0.269 0 0);
-    border-color: oklch(1 0 0 / 10%);
-    color: oklch(0.985 0 0);
+.dark .react-flow__controls button {
+    background: oklch(0.269 0 0) !important;
+    border-color: oklch(1 0 0 / 10%) !important;
+    color: oklch(0.985 0 0) !important;
 }
 
-.react-flow__controls-dark button:hover {
-    background: oklch(0.35 0 0);
+.dark .react-flow__controls button:hover {
+    background: oklch(0.35 0 0) !important;
 }
 
-.react-flow__controls-dark .react-flow__controls-button svg {
-    fill: oklch(0.985 0 0);
+.dark .react-flow__controls button svg {
+    fill: oklch(0.985 0 0) !important;
+}
+
+.dark .react-flow__controls button path {
+    fill: oklch(0.985 0 0) !important;
 }
