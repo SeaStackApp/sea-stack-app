@@ -119,3 +119,22 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* React Flow dark mode control buttons fix */
+.dark .react-flow__controls button {
+    background: oklch(0.269 0 0) !important;
+    border-color: oklch(1 0 0 / 10%) !important;
+    color: oklch(0.985 0 0) !important;
+}
+
+.dark .react-flow__controls button:hover {
+    background: oklch(0.35 0 0) !important;
+}
+
+.dark .react-flow__controls button svg {
+    fill: oklch(0.985 0 0) !important;
+}
+
+.dark .react-flow__controls button path {
+    fill: oklch(0.985 0 0) !important;
+}

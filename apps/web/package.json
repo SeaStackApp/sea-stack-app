@@ -1,6 +1,6 @@
 {
     "name": "web",
-    "version": "0.11.1",
+    "version": "0.11.2",
     "type": "module",
     "private": true,
     "scripts": {
@@ -41,10 +41,12 @@
         "@trpc/tanstack-react-query": "^11.7.2",
         "@types/pg": "^8.15.6",
         "@xterm/xterm": "^5.5.0",
+        "@xyflow/react": "^12.10.0",
         "better-auth": "^1.4.5",
         "bullmq": "^5.65.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "dagre": "^0.8.5",
         "ioredis": "^5.8.2",
         "lucide-react": "^0.548.0",
         "next": "^16.0.6",
@@ -67,6 +69,7 @@
     "devDependencies": {
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
+        "@types/dagre": "^0.7.53",
         "@types/node": "^22.19.1",
         "@types/react": "19.2.0",
         "@types/react-dom": "19.2.0",

@@ -2,21 +2,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTRPC } from '@/lib/trpc';
 import PaddedSpinner from '@/components/padded-spinner';
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
 import { BreadCrumbs } from '@/components/app-page-context';
 import PageTitle from '@/components/page-title';
 import { Badge } from '@/components/ui/badge';
 import { CreateService } from '@/app/dashboard/environments/[deploymentEnvId]/components/create-service';
-import { useRouter } from 'next/navigation';
-import ServiceSettingsDropdown from '@/app/dashboard/environments/[deploymentEnvId]/components/service-settings-dropdown';
-import CardsGrid from '@/components/cards-grid';
+import ServiceFlowDiagram from '@/app/dashboard/environments/[deploymentEnvId]/components/service-flow-diagram';
 
 export default function EnvServicesPage({
     deploymentEnvId,
@@ -24,7 +14,6 @@ export default function EnvServicesPage({
     readonly deploymentEnvId: string;
 }) {
     const trpc = useTRPC();
-    const router = useRouter();
     const { data: services } = useQuery(
         trpc.services.listServices.queryOptions({
             environmentId: deploymentEnvId,
@@ -37,7 +26,7 @@ export default function EnvServicesPage({
     );
     if (!services || !env) return <PaddedSpinner />;
     return (
-        <>
+        <div className='space-y-4'>
             <BreadCrumbs
                 breadcrumbs={[
                     {
@@ -60,32 +49,7 @@ export default function EnvServicesPage({
                 <CreateService environmentId={deploymentEnvId} />
             </div>
 
-            <CardsGrid>
-                {services.map((service) => (
-                    <Card
-                        key={service.id}
-                        onClick={() =>
-                            router.push(`/dashboard/services/${service.id}`)
-                        }
-                        className='cursor-pointer hover:bg-muted'
-                    >
-                        <CardHeader>
-                            <CardTitle>{service.name}</CardTitle>
-                            {service.description && (
-                                <CardDescription>
-                                    {service.description}
-                                </CardDescription>
-                            )}
-                            <CardAction onClick={(e) => e.stopPropagation()}>
-                                <ServiceSettingsDropdown service={service} />
-                            </CardAction>
-                        </CardHeader>
-                        <CardContent className='flex justify-end'>
-                            <Badge>{service.server.name}</Badge>
-                        </CardContent>
-                    </Card>
-                ))}
-            </CardsGrid>
-        </>
+            <ServiceFlowDiagram services={services} />
+        </div>
     );
 }
