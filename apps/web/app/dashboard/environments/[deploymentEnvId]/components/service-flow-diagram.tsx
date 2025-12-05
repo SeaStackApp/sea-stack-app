@@ -8,6 +8,7 @@ import {
     Edge,
     useNodesState,
     useEdgesState,
+    ConnectionMode,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useRouter } from 'next/navigation';
@@ -30,23 +31,23 @@ type ServiceFlowDiagramProps = {
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
     const dagreGraph = new dagre.graphlib.Graph();
     dagreGraph.setDefaultEdgeLabel(() => ({}));
-    
+
     // Configure graph with increased spacing to prevent overlaps
-    dagreGraph.setGraph({ 
+    dagreGraph.setGraph({
         rankdir: 'LR', // Left to right for bipartite graph (services -> networks)
-        ranksep: 200,  // Increased spacing between ranks
-        nodesep: 100,  // Spacing between nodes
-        edgesep: 30,   // Spacing between edges
-        marginx: 50,   // Margin on x-axis
-        marginy: 50,   // Margin on y-axis
+        ranksep: 200, // Increased spacing between ranks
+        nodesep: 100, // Spacing between nodes
+        edgesep: 30, // Spacing between edges
+        marginx: 50, // Margin on x-axis
+        marginy: 50, // Margin on y-axis
     });
 
     nodes.forEach((node) => {
         // Different sizes for service and network nodes
         const isNetworkNode = node.id.startsWith('network-');
-        dagreGraph.setNode(node.id, { 
-            width: isNetworkNode ? 200 : 300, 
-            height: isNetworkNode ? 80 : 150 
+        dagreGraph.setNode(node.id, {
+            width: isNetworkNode ? 200 : 300,
+            height: isNetworkNode ? 80 : 150,
         });
     });
 
@@ -82,7 +83,7 @@ export default function ServiceFlowDiagram({
     const { nodes: initialNodes, edges: initialEdges } = useMemo(() => {
         // Collect all unique networks
         const networksMap = new Map<string, { id: string; name: string }>();
-        
+
         services.forEach((service) => {
             service.networks.forEach((network) => {
                 const networkId = String(network.id);
@@ -103,22 +104,24 @@ export default function ServiceFlowDiagram({
                 position: { x: 0, y: 0 }, // Will be set by dagre layout
                 data: {
                     label: (
-                        <div className="flex flex-col gap-2 p-2 w-full">
-                            <div className="flex items-center justify-between">
-                                <div className="font-semibold text-base">
+                        <div className='flex flex-col gap-2 p-2 w-full'>
+                            <div className='flex items-center justify-between'>
+                                <div className='font-semibold text-base'>
                                     {service.name}
                                 </div>
                                 <div onClick={(e) => e.stopPropagation()}>
-                                    <ServiceSettingsDropdown service={service} />
+                                    <ServiceSettingsDropdown
+                                        service={service}
+                                    />
                                 </div>
                             </div>
                             {service.description && (
-                                <div className="text-xs text-muted-foreground">
+                                <div className='text-xs text-muted-foreground'>
                                     {service.description}
                                 </div>
                             )}
-                            <div className="flex justify-end">
-                                <Badge variant="secondary" className="text-xs">
+                            <div className='flex justify-end'>
+                                <Badge variant='secondary' className='text-xs'>
                                     {service.server.name}
                                 </Badge>
                             </div>
@@ -137,52 +140,58 @@ export default function ServiceFlowDiagram({
         });
 
         // Create network nodes
-        const networkNodes: Node[] = Array.from(networksMap.values()).map((network) => {
-            return {
-                id: `network-${network.id}`,
-                type: 'default',
-                position: { x: 0, y: 0 }, // Will be set by dagre layout
-                data: {
-                    label: (
-                        <div className="flex items-center justify-center p-3 w-full">
-                            <div className="font-medium text-sm text-center">
-                                {network.name}
+        const networkNodes: Node[] = Array.from(networksMap.values()).map(
+            (network) => {
+                return {
+                    id: `network-${network.id}`,
+                    type: 'default',
+                    position: { x: 0, y: 0 }, // Will be set by dagre layout
+                    data: {
+                        label: (
+                            <div className='flex items-center justify-center p-3 w-full'>
+                                <div className='font-medium text-sm text-center'>
+                                    {network.name}
+                                </div>
                             </div>
-                        </div>
-                    ),
-                },
-                style: {
-                    background: isDark ? 'oklch(0.269 0 0)' : 'oklch(0.97 0 0)',
-                    border: `2px solid ${isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.646 0.222 41.116)'}`,
-                    borderRadius: '0.625rem',
-                    padding: 0,
-                    width: 200,
-                    cursor: 'default',
-                },
-            };
-        });
+                        ),
+                    },
+                    style: {
+                        background: isDark
+                            ? 'oklch(0.269 0 0)'
+                            : 'oklch(0.97 0 0)',
+                        border: `2px solid ${isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.646 0.222 41.116)'}`,
+                        borderRadius: '0.625rem',
+                        padding: 0,
+                        width: 200,
+                        cursor: 'default',
+                    },
+                };
+            }
+        );
 
         const nodes = [...serviceNodes, ...networkNodes];
 
         // Create edges connecting services to networks
         const edges: Edge[] = [];
-        
+
         services.forEach((service) => {
             service.networks.forEach((network) => {
                 const networkId = String(network.id);
                 const edgeId = `${service.id}|||network-${networkId}`;
-                
+
                 edges.push({
                     id: edgeId,
                     source: service.id,
                     target: `network-${networkId}`,
                     type: 'smoothstep',
-                    animated: false,
+                    animated: true,
                     deletable: false,
                     selectable: false,
                     focusable: false,
                     style: {
-                        stroke: isDark ? 'oklch(0.556 0 0)' : 'oklch(0.556 0 0)',
+                        stroke: isDark
+                            ? 'oklch(0.556 0 0)'
+                            : 'oklch(0.556 0 0)',
                         strokeWidth: 2,
                         strokeDasharray: '5,5',
                     },
@@ -216,14 +225,14 @@ export default function ServiceFlowDiagram({
 
     if (services.length === 0) {
         return (
-            <div className="flex items-center justify-center h-[600px] border border-border rounded-lg bg-card text-muted-foreground">
+            <div className='flex items-center justify-center h-[600px] border border-border rounded-lg bg-card text-muted-foreground'>
                 No services found in this environment
             </div>
         );
     }
 
     return (
-        <div style={{ width: '100%', height: '600px' }} className="border border-border rounded-lg">
+        <div className='border border-border rounded-lg w-full h-[70vh]'>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -231,12 +240,12 @@ export default function ServiceFlowDiagram({
                 onEdgesChange={onEdgesChange}
                 onNodeClick={onNodeClick}
                 fitView
-                attributionPosition="bottom-left"
-                edgesUpdatable={false}
+                attributionPosition='bottom-left'
                 edgesFocusable={false}
                 nodesDraggable={true}
                 nodesConnectable={false}
                 elementsSelectable={true}
+                connectionMode={ConnectionMode.Loose}
             >
                 <Background
                     color={isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}
@@ -244,7 +253,9 @@ export default function ServiceFlowDiagram({
                 />
                 <Controls
                     style={{
-                        background: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
+                        background: isDark
+                            ? 'oklch(0.205 0 0)'
+                            : 'oklch(1 0 0)',
                         border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,
                     }}
                 />
