@@ -9,6 +9,8 @@ import {
     useNodesState,
     useEdgesState,
     ConnectionMode,
+    Position,
+    Handle,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useRouter } from 'next/navigation';
@@ -18,6 +20,14 @@ import ServiceSettingsDropdown from './service-settings-dropdown';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
 import dagre from 'dagre';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 
 type Service = inferProcedureOutput<
     typeof appRouter.services.listServices
@@ -36,10 +46,10 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
     dagreGraph.setGraph({
         rankdir: 'LR', // Left to right for bipartite graph (services -> networks)
         ranksep: 200, // Increased spacing between ranks
-        nodesep: 100, // Spacing between nodes
-        edgesep: 30, // Spacing between edges
-        marginx: 50, // Margin on x-axis
-        marginy: 50, // Margin on y-axis
+        nodesep: 50, // Spacing between nodes
+        edgesep: 100, // Spacing between edges
+        marginx: 0, // Margin on x-axis
+        marginy: 0, // Margin on y-axis
     });
 
     nodes.forEach((node) => {
@@ -100,42 +110,11 @@ export default function ServiceFlowDiagram({
         const serviceNodes: Node[] = services.map((service) => {
             return {
                 id: service.id,
-                type: 'default',
-                position: { x: 0, y: 0 }, // Will be set by dagre layout
+                type: 'service',
                 data: {
-                    label: (
-                        <div className='flex flex-col gap-2 p-2 w-full'>
-                            <div className='flex items-center justify-between'>
-                                <div className='font-semibold text-base'>
-                                    {service.name}
-                                </div>
-                                <div onClick={(e) => e.stopPropagation()}>
-                                    <ServiceSettingsDropdown
-                                        service={service}
-                                    />
-                                </div>
-                            </div>
-                            {service.description && (
-                                <div className='text-xs text-muted-foreground'>
-                                    {service.description}
-                                </div>
-                            )}
-                            <div className='flex justify-end'>
-                                <Badge variant='secondary' className='text-xs'>
-                                    {service.server.name}
-                                </Badge>
-                            </div>
-                        </div>
-                    ),
+                    service,
                 },
-                style: {
-                    background: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
-                    border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,
-                    borderRadius: '0.625rem',
-                    padding: 0,
-                    width: 300,
-                    cursor: 'pointer',
-                },
+                position: { x: 0, y: 0 }, // Will be set by dagre layout
             };
         });
 
@@ -144,26 +123,10 @@ export default function ServiceFlowDiagram({
             (network) => {
                 return {
                     id: `network-${network.id}`,
-                    type: 'default',
+                    type: 'network',
                     position: { x: 0, y: 0 }, // Will be set by dagre layout
                     data: {
-                        label: (
-                            <div className='flex items-center justify-center p-3 w-full'>
-                                <div className='font-medium text-sm text-center'>
-                                    {network.name}
-                                </div>
-                            </div>
-                        ),
-                    },
-                    style: {
-                        background: isDark
-                            ? 'oklch(0.269 0 0)'
-                            : 'oklch(0.97 0 0)',
-                        border: `2px solid ${isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.646 0.222 41.116)'}`,
-                        borderRadius: '0.625rem',
-                        padding: 0,
-                        width: 200,
-                        cursor: 'default',
+                        network,
                     },
                 };
             }
@@ -183,7 +146,7 @@ export default function ServiceFlowDiagram({
                     id: edgeId,
                     source: service.id,
                     target: `network-${networkId}`,
-                    type: 'smoothstep',
+                    type: 'bezier',
                     animated: true,
                     deletable: false,
                     selectable: false,
@@ -200,8 +163,7 @@ export default function ServiceFlowDiagram({
         });
 
         // Apply automatic layout based on edges
-        const layouted = getLayoutedElements(nodes, edges);
-        return layouted;
+        return getLayoutedElements(nodes, edges);
     }, [services, isDark]);
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -240,12 +202,76 @@ export default function ServiceFlowDiagram({
                 onEdgesChange={onEdgesChange}
                 onNodeClick={onNodeClick}
                 fitView
-                attributionPosition='bottom-left'
+                attributionPosition='bottom-right'
                 edgesFocusable={false}
                 nodesDraggable={true}
                 nodesConnectable={false}
                 elementsSelectable={true}
                 connectionMode={ConnectionMode.Loose}
+                nodeTypes={{
+                    service: ({
+                        data: { service },
+                        isConnectable,
+                    }: Readonly<{
+                        data: { service: Service };
+                        isConnectable: boolean;
+                    }>) => (
+                        <>
+                            <Handle
+                                type='source'
+                                position={Position.Right}
+                                isConnectable={isConnectable}
+                            />
+
+                            <Card className='w-[300px]'>
+                                <CardHeader>
+                                    <CardTitle>{service.name}</CardTitle>
+                                    {service.description && (
+                                        <CardDescription>
+                                            {service.description}
+                                        </CardDescription>
+                                    )}
+                                    <CardAction
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <ServiceSettingsDropdown
+                                            service={service}
+                                        />
+                                    </CardAction>
+                                </CardHeader>
+                                <CardContent>
+                                    <Badge
+                                        variant='secondary'
+                                        className='text-xs'
+                                    >
+                                        {service.server.name}
+                                    </Badge>
+                                </CardContent>
+                            </Card>
+                        </>
+                    ),
+                    network: ({
+                        data: { network },
+                        isConnectable,
+                    }: Readonly<{
+                        data: { network: Service['networks'][number] };
+                        isConnectable: boolean;
+                    }>) => (
+                        <>
+                            <Handle
+                                type='source'
+                                position={Position.Left}
+                                isConnectable={isConnectable}
+                            />
+
+                            <Card className='w-[300px]'>
+                                <CardHeader>
+                                    <CardTitle>{network.name}</CardTitle>
+                                </CardHeader>
+                            </Card>
+                        </>
+                    ),
+                }}
             >
                 <Background
                     color={isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}
@@ -258,6 +284,7 @@ export default function ServiceFlowDiagram({
                             : 'oklch(1 0 0)',
                         border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,
                     }}
+                    showInteractive={false}
                 />
             </ReactFlow>
         </div>

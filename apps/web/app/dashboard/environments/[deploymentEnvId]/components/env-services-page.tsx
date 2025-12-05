@@ -26,7 +26,7 @@ export default function EnvServicesPage({
     );
     if (!services || !env) return <PaddedSpinner />;
     return (
-        <>
+        <div className='space-y-4'>
             <BreadCrumbs
                 breadcrumbs={[
                     {
@@ -50,6 +50,6 @@ export default function EnvServicesPage({
             </div>
 
             <ServiceFlowDiagram services={services} />
-        </>
+        </div>
     );
 }
