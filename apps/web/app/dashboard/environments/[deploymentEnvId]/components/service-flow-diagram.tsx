@@ -9,25 +9,15 @@ import {
     useNodesState,
     useEdgesState,
     ConnectionMode,
-    Position,
-    Handle,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useRouter } from 'next/navigation';
-import { Badge } from '@/components/ui/badge';
 import { useTheme } from 'next-themes';
-import ServiceSettingsDropdown from './service-settings-dropdown';
 import { inferProcedureOutput } from '@trpc/server';
 import { appRouter } from '@repo/api';
-import dagre from 'dagre';
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { getLayoutedElements } from './flow-utils';
+import { ServiceNode } from './service-node';
+import { NetworkNode } from './network-node';
 
 type Service = inferProcedureOutput<
     typeof appRouter.services.listServices
@@ -37,49 +27,11 @@ type ServiceFlowDiagramProps = {
     readonly services: Service[];
 };
 
-// Function to calculate automatic layout using Dagre
-const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
-    const dagreGraph = new dagre.graphlib.Graph();
-    dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-    // Configure graph with increased spacing to prevent overlaps
-    dagreGraph.setGraph({
-        rankdir: 'LR', // Left to right for bipartite graph (services -> networks)
-        ranksep: 200, // Increased spacing between ranks
-        nodesep: 50, // Spacing between nodes
-        edgesep: 100, // Spacing between edges
-    });
-
-    nodes.forEach((node) => {
-        // Different sizes for service and network nodes
-        const isNetworkNode = node.id.startsWith('network-');
-        dagreGraph.setNode(node.id, {
-            width: isNetworkNode ? 200 : 300,
-            height: isNetworkNode ? 80 : 150,
-        });
-    });
-
-    edges.forEach((edge) => {
-        dagreGraph.setEdge(edge.source, edge.target);
-    });
-
-    dagre.layout(dagreGraph);
-
-    const layoutedNodes = nodes.map((node) => {
-        const nodeWithPosition = dagreGraph.node(node.id);
-        const isNetworkNode = node.id.startsWith('network-');
-        return {
-            ...node,
-            position: {
-                x: nodeWithPosition.x - (isNetworkNode ? 100 : 150),
-                y: nodeWithPosition.y - (isNetworkNode ? 40 : 75),
-            },
-        };
-    });
-
-    return { nodes: layoutedNodes, edges };
-};
-
+/**
+ * ServiceFlowDiagram component displays services and networks as a bipartite graph.
+ * Services are shown on the left, networks on the right, with edges connecting
+ * services to their associated networks. Uses Dagre for automatic layout.
+ */
 export default function ServiceFlowDiagram({
     services,
 }: ServiceFlowDiagramProps) {
@@ -144,15 +96,13 @@ export default function ServiceFlowDiagram({
                     id: edgeId,
                     source: service.id,
                     target: `network-${networkId}`,
-                    type: 'bezier',
-                    animated: true,
+                    type: 'smoothstep',
+                    animated: false,
                     deletable: false,
                     selectable: false,
                     focusable: false,
                     style: {
-                        stroke: isDark
-                            ? 'oklch(0.556 0 0)'
-                            : 'oklch(0.556 0 0)',
+                        stroke: 'oklch(0.556 0 0)',
                         strokeWidth: 2,
                         strokeDasharray: '5,5',
                     },
@@ -162,12 +112,12 @@ export default function ServiceFlowDiagram({
 
         // Apply automatic layout based on edges
         return getLayoutedElements(nodes, edges);
-    }, [services, isDark]);
+    }, [services]);
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-    // Update nodes and edges when theme changes
+    // Update nodes and edges when they change
     useEffect(() => {
         setNodes(initialNodes);
         setEdges(initialEdges);
@@ -207,68 +157,8 @@ export default function ServiceFlowDiagram({
                 elementsSelectable={true}
                 connectionMode={ConnectionMode.Loose}
                 nodeTypes={{
-                    service: ({
-                        data: { service },
-                        isConnectable,
-                    }: Readonly<{
-                        data: { service: Service };
-                        isConnectable: boolean;
-                    }>) => (
-                        <>
-                            <Handle
-                                type='source'
-                                position={Position.Right}
-                                isConnectable={isConnectable}
-                            />
-
-                            <Card className='w-[300px]'>
-                                <CardHeader>
-                                    <CardTitle>{service.name}</CardTitle>
-                                    {service.description && (
-                                        <CardDescription>
-                                            {service.description}
-                                        </CardDescription>
-                                    )}
-                                    <CardAction
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <ServiceSettingsDropdown
-                                            service={service}
-                                        />
-                                    </CardAction>
-                                </CardHeader>
-                                <CardContent>
-                                    <Badge
-                                        variant='secondary'
-                                        className='text-xs'
-                                    >
-                                        {service.server.name}
-                                    </Badge>
-                                </CardContent>
-                            </Card>
-                        </>
-                    ),
-                    network: ({
-                        data: { network },
-                        isConnectable,
-                    }: Readonly<{
-                        data: { network: Service['networks'][number] };
-                        isConnectable: boolean;
-                    }>) => (
-                        <>
-                            <Handle
-                                type='source'
-                                position={Position.Left}
-                                isConnectable={isConnectable}
-                            />
-
-                            <Card className='w-[300px]'>
-                                <CardHeader>
-                                    <CardTitle>{network.name}</CardTitle>
-                                </CardHeader>
-                            </Card>
-                        </>
-                    ),
+                    service: ServiceNode,
+                    network: NetworkNode,
                 }}
             >
                 <Background
