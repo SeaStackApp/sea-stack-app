@@ -113,7 +113,7 @@ export default function ServiceFlowDiagram({
                     
                     const sourceId = sourceService.id;
                     const targetId = targetService.id;
-                    const edgeId = [sourceId, targetId].sort().join('-');
+                    const edgeId = [sourceId, targetId].sort().join('|||');
 
                     if (!edgeMap.has(edgeId)) {
                         edgeMap.set(edgeId, { networks: [] });
@@ -127,7 +127,7 @@ export default function ServiceFlowDiagram({
         });
 
         edgeMap.forEach(({ networks }, edgeId) => {
-            const parts = edgeId.split('-');
+            const parts = edgeId.split('|||');
             const source = parts[0];
             const target = parts[1];
             
