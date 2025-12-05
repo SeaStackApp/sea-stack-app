@@ -30,7 +30,16 @@ type ServiceFlowDiagramProps = {
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
     const dagreGraph = new dagre.graphlib.Graph();
     dagreGraph.setDefaultEdgeLabel(() => ({}));
-    dagreGraph.setGraph({ rankdir: 'LR', ranksep: 150, nodesep: 100 });
+    
+    // Configure graph with increased spacing to prevent overlaps
+    dagreGraph.setGraph({ 
+        rankdir: 'TB', // Top to bottom for better vertical spacing
+        ranksep: 200,  // Increased spacing between ranks
+        nodesep: 150,  // Increased spacing between nodes
+        edgesep: 50,   // Spacing between edges
+        marginx: 50,   // Margin on x-axis
+        marginy: 50,   // Margin on y-axis
+    });
 
     nodes.forEach((node) => {
         dagreGraph.setNode(node.id, { width: 300, height: 150 });
@@ -138,6 +147,8 @@ export default function ServiceFlowDiagram({
                 for (let j = i + 1; j < servicesInNetwork.length; j++) {
                     const sourceService = servicesInNetwork[i];
                     const targetService = servicesInNetwork[j];
+                    
+                    if (!sourceService || !targetService) continue;
                     
                     const sourceId = sourceService.id;
                     const targetId = targetService.id;
