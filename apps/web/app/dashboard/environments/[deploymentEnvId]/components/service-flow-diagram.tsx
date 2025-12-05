@@ -48,8 +48,6 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
         ranksep: 200, // Increased spacing between ranks
         nodesep: 50, // Spacing between nodes
         edgesep: 100, // Spacing between edges
-        marginx: 0, // Margin on x-axis
-        marginy: 0, // Margin on y-axis
     });
 
     nodes.forEach((node) => {
