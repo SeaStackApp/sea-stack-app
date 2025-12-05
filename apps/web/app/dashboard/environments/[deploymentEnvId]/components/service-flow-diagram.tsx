@@ -9,8 +9,6 @@ import {
     Edge,
     useNodesState,
     useEdgesState,
-    addEdge,
-    Connection,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useRouter } from 'next/navigation';
@@ -109,7 +107,6 @@ export default function ServiceFlowDiagram({
                 for (let j = i + 1; j < servicesInNetwork.length; j++) {
                     const sourceService = servicesInNetwork[i];
                     const targetService = servicesInNetwork[j];
-                    if (!sourceService || !targetService) continue;
                     
                     const sourceId = sourceService.id;
                     const targetId = targetService.id;
@@ -125,7 +122,6 @@ export default function ServiceFlowDiagram({
 
         edgeMap.forEach(({ networks }, edgeId) => {
             const [source, target] = edgeId.split('-');
-            if (!source || !target) return;
             
             edges.push({
                 id: edgeId,
@@ -154,12 +150,7 @@ export default function ServiceFlowDiagram({
     }, [services, isDark]);
 
     const [nodes, , onNodesChange] = useNodesState(initialNodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-    const onConnect = useCallback(
-        (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-        [setEdges]
-    );
+    const [edges, , onEdgesChange] = useEdgesState(initialEdges);
 
     const onNodeClick = useCallback(
         (_event: React.MouseEvent, node: Node) => {
@@ -183,11 +174,9 @@ export default function ServiceFlowDiagram({
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
                 onNodeClick={onNodeClick}
                 fitView
                 attributionPosition="bottom-left"
-                proOptions={{ hideAttribution: true }}
             >
                 <Background
                     color={isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}
