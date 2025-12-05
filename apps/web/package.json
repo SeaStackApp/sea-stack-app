@@ -41,6 +41,7 @@
         "@trpc/tanstack-react-query": "^11.7.2",
         "@types/pg": "^8.15.6",
         "@xterm/xterm": "^5.5.0",
+        "@xyflow/react": "^12.10.0",
         "better-auth": "^1.4.5",
         "bullmq": "^5.65.1",
         "class-variance-authority": "^0.7.1",
