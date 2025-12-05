@@ -1,10 +1,9 @@
 'use client';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useEffect } from 'react';
 import {
     ReactFlow,
     Background,
     Controls,
-    MiniMap,
     Node,
     Edge,
     useNodesState,
@@ -40,10 +39,14 @@ export default function ServiceFlowDiagram({
         
         services.forEach((service) => {
             service.networks.forEach((network) => {
-                if (!networkToServices.has(network.id)) {
-                    networkToServices.set(network.id, []);
+                const networkId = String(network.id);
+                if (!networkToServices.has(networkId)) {
+                    networkToServices.set(networkId, []);
                 }
-                networkToServices.get(network.id)!.push(service);
+                const servicesArray = networkToServices.get(networkId);
+                if (servicesArray) {
+                    servicesArray.push(service);
+                }
             });
         });
 
@@ -98,7 +101,7 @@ export default function ServiceFlowDiagram({
         networkToServices.forEach((servicesInNetwork, networkId) => {
             const network = services
                 .flatMap((s) => s.networks)
-                .find((n) => n.id === networkId);
+                .find((n) => String(n.id) === networkId);
             
             if (!network || servicesInNetwork.length < 2) return;
 
@@ -115,21 +118,31 @@ export default function ServiceFlowDiagram({
                     if (!edgeMap.has(edgeId)) {
                         edgeMap.set(edgeId, { networks: [] });
                     }
-                    edgeMap.get(edgeId)!.networks.push(network.name);
+                    const edgeData = edgeMap.get(edgeId);
+                    if (edgeData) {
+                        edgeData.networks.push(String(network.name));
+                    }
                 }
             }
         });
 
         edgeMap.forEach(({ networks }, edgeId) => {
-            const [source, target] = edgeId.split('-');
+            const parts = edgeId.split('-');
+            const source = parts[0];
+            const target = parts[1];
+            
+            if (!source || !target) return;
             
             edges.push({
                 id: edgeId,
-                source,
-                target,
+                source: source,
+                target: target,
                 label: networks.join(', '),
                 type: 'smoothstep',
                 animated: false,
+                deletable: false,
+                selectable: false,
+                focusable: false,
                 style: {
                     stroke: isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.205 0 0)',
                     strokeWidth: 2,
@@ -146,11 +159,20 @@ export default function ServiceFlowDiagram({
             });
         });
 
+        console.log('ServiceFlowDiagram - Created edges:', edges.length, edges);
+        console.log('ServiceFlowDiagram - Created nodes:', nodes.length, nodes.map(n => n.id));
+
         return { nodes, edges };
     }, [services, isDark]);
 
-    const [nodes, , onNodesChange] = useNodesState(initialNodes);
-    const [edges, , onEdgesChange] = useEdgesState(initialEdges);
+    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+    // Update nodes and edges when theme changes
+    useEffect(() => {
+        setNodes(initialNodes);
+        setEdges(initialEdges);
+    }, [initialNodes, initialEdges, setNodes, setEdges]);
 
     const onNodeClick = useCallback(
         (_event: React.MouseEvent, node: Node) => {
@@ -177,20 +199,18 @@ export default function ServiceFlowDiagram({
                 onNodeClick={onNodeClick}
                 fitView
                 attributionPosition="bottom-left"
+                edgesUpdatable={false}
+                edgesFocusable={false}
+                nodesDraggable={true}
+                nodesConnectable={false}
+                elementsSelectable={true}
             >
                 <Background
                     color={isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}
                     gap={16}
                 />
                 <Controls
-                    style={{
-                        background: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
-                        border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,
-                    }}
-                />
-                <MiniMap
-                    nodeColor={isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.205 0 0)'}
-                    maskColor={isDark ? 'oklch(0.205 0 0 / 0.5)' : 'oklch(1 0 0 / 0.5)'}
+                    className={isDark ? 'react-flow__controls-dark' : ''}
                     style={{
                         background: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
                         border: `1px solid ${isDark ? 'oklch(1 0 0 / 10%)' : 'oklch(0.922 0 0)'}`,
