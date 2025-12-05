@@ -33,16 +33,21 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
     
     // Configure graph with increased spacing to prevent overlaps
     dagreGraph.setGraph({ 
-        rankdir: 'TB', // Top to bottom for better vertical spacing
+        rankdir: 'LR', // Left to right for bipartite graph (services -> networks)
         ranksep: 200,  // Increased spacing between ranks
-        nodesep: 150,  // Increased spacing between nodes
-        edgesep: 50,   // Spacing between edges
+        nodesep: 100,  // Spacing between nodes
+        edgesep: 30,   // Spacing between edges
         marginx: 50,   // Margin on x-axis
         marginy: 50,   // Margin on y-axis
     });
 
     nodes.forEach((node) => {
-        dagreGraph.setNode(node.id, { width: 300, height: 150 });
+        // Different sizes for service and network nodes
+        const isNetworkNode = node.id.startsWith('network-');
+        dagreGraph.setNode(node.id, { 
+            width: isNetworkNode ? 200 : 300, 
+            height: isNetworkNode ? 80 : 150 
+        });
     });
 
     edges.forEach((edge) => {
@@ -53,11 +58,12 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
 
     const layoutedNodes = nodes.map((node) => {
         const nodeWithPosition = dagreGraph.node(node.id);
+        const isNetworkNode = node.id.startsWith('network-');
         return {
             ...node,
             position: {
-                x: nodeWithPosition.x - 150,
-                y: nodeWithPosition.y - 75,
+                x: nodeWithPosition.x - (isNetworkNode ? 100 : 150),
+                y: nodeWithPosition.y - (isNetworkNode ? 40 : 75),
             },
         };
     });
@@ -74,24 +80,23 @@ export default function ServiceFlowDiagram({
 
     // Create nodes and edges from services
     const { nodes: initialNodes, edges: initialEdges } = useMemo(() => {
-        // Group services by networks
-        const networkToServices = new Map<string, Service[]>();
+        // Collect all unique networks
+        const networksMap = new Map<string, { id: string; name: string }>();
         
         services.forEach((service) => {
             service.networks.forEach((network) => {
                 const networkId = String(network.id);
-                if (!networkToServices.has(networkId)) {
-                    networkToServices.set(networkId, []);
-                }
-                const servicesArray = networkToServices.get(networkId);
-                if (servicesArray) {
-                    servicesArray.push(service);
+                if (!networksMap.has(networkId)) {
+                    networksMap.set(networkId, {
+                        id: networkId,
+                        name: String(network.name),
+                    });
                 }
             });
         });
 
-        // Create nodes for services (initial positioning will be updated by layout)
-        const nodes: Node[] = services.map((service) => {
+        // Create service nodes
+        const serviceNodes: Node[] = services.map((service) => {
             return {
                 id: service.id,
                 type: 'default',
@@ -131,73 +136,57 @@ export default function ServiceFlowDiagram({
             };
         });
 
-        // Create edges based on shared networks
-        const edges: Edge[] = [];
-        const edgeMap = new Map<string, { networks: string[] }>();
-
-        networkToServices.forEach((servicesInNetwork, networkId) => {
-            const network = services
-                .flatMap((s) => s.networks)
-                .find((n) => String(n.id) === networkId);
-            
-            if (!network || servicesInNetwork.length < 2) return;
-
-            // Connect all services in the same network
-            for (let i = 0; i < servicesInNetwork.length; i++) {
-                for (let j = i + 1; j < servicesInNetwork.length; j++) {
-                    const sourceService = servicesInNetwork[i];
-                    const targetService = servicesInNetwork[j];
-                    
-                    if (!sourceService || !targetService) continue;
-                    
-                    const sourceId = sourceService.id;
-                    const targetId = targetService.id;
-                    const edgeId = [sourceId, targetId].sort().join('|||');
-
-                    if (!edgeMap.has(edgeId)) {
-                        edgeMap.set(edgeId, { networks: [] });
-                    }
-                    const edgeData = edgeMap.get(edgeId);
-                    if (edgeData) {
-                        edgeData.networks.push(String(network.name));
-                    }
-                }
-            }
+        // Create network nodes
+        const networkNodes: Node[] = Array.from(networksMap.values()).map((network) => {
+            return {
+                id: `network-${network.id}`,
+                type: 'default',
+                position: { x: 0, y: 0 }, // Will be set by dagre layout
+                data: {
+                    label: (
+                        <div className="flex items-center justify-center p-3 w-full">
+                            <div className="font-medium text-sm text-center">
+                                {network.name}
+                            </div>
+                        </div>
+                    ),
+                },
+                style: {
+                    background: isDark ? 'oklch(0.269 0 0)' : 'oklch(0.97 0 0)',
+                    border: `2px solid ${isDark ? 'oklch(0.488 0.243 264.376)' : 'oklch(0.646 0.222 41.116)'}`,
+                    borderRadius: '0.625rem',
+                    padding: 0,
+                    width: 200,
+                    cursor: 'default',
+                },
+            };
         });
 
-        edgeMap.forEach(({ networks }, edgeId) => {
-            const parts = edgeId.split('|||');
-            const source = parts[0];
-            const target = parts[1];
-            
-            if (!source || !target) {
-                return;
-            }
-            
-            edges.push({
-                id: edgeId,
-                source: source,
-                target: target,
-                label: networks.join(', '),
-                type: 'smoothstep',
-                animated: false,
-                deletable: false,
-                selectable: false,
-                focusable: false,
-                style: {
-                    stroke: isDark ? 'oklch(0.556 0 0)' : 'oklch(0.556 0 0)',
-                    strokeWidth: 2,
-                    strokeDasharray: '5,5',
-                },
-                labelStyle: {
-                    fill: isDark ? 'oklch(0.985 0 0)' : 'oklch(0.145 0 0)',
-                    fontSize: 12,
-                    fontWeight: 500,
-                },
-                labelBgStyle: {
-                    fill: isDark ? 'oklch(0.205 0 0)' : 'oklch(1 0 0)',
-                    fillOpacity: 0.9,
-                },
+        const nodes = [...serviceNodes, ...networkNodes];
+
+        // Create edges connecting services to networks
+        const edges: Edge[] = [];
+        
+        services.forEach((service) => {
+            service.networks.forEach((network) => {
+                const networkId = String(network.id);
+                const edgeId = `${service.id}|||network-${networkId}`;
+                
+                edges.push({
+                    id: edgeId,
+                    source: service.id,
+                    target: `network-${networkId}`,
+                    type: 'smoothstep',
+                    animated: false,
+                    deletable: false,
+                    selectable: false,
+                    focusable: false,
+                    style: {
+                        stroke: isDark ? 'oklch(0.556 0 0)' : 'oklch(0.556 0 0)',
+                        strokeWidth: 2,
+                        strokeDasharray: '5,5',
+                    },
+                });
             });
         });
 
@@ -217,7 +206,10 @@ export default function ServiceFlowDiagram({
 
     const onNodeClick = useCallback(
         (_event: React.MouseEvent, node: Node) => {
-            router.push(`/dashboard/services/${node.id}`);
+            // Only navigate for service nodes, not network nodes
+            if (!node.id.startsWith('network-')) {
+                router.push(`/dashboard/services/${node.id}`);
+            }
         },
         [router]
     );
