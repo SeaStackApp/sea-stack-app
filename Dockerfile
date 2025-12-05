@@ -65,7 +65,7 @@ ENV NODE_ENV=production
 RUN adduser -D nextjs
 
 # Install Prisma CLI globally for runtime migrations (use npm for predictable global bin path)
-RUN npm i -g prisma@6.18.0
+RUN npm i -g prisma@7.1.0
 
 # Ensure application can write to /etc/seastack without running as root
 # - create the directory at build time
@@ -87,6 +87,7 @@ COPY --from=build /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=build /app/apps/web/public ./apps/web/public
 # Copy prisma schema and migrations
 COPY ./packages/db/prisma ./prisma
+COPY ./packages/db/prisma.config.ts /app/apps/web/prisma.config.ts
 
 # The app listens on PORT (defaults to 3000)
 ENV PORT=3000
