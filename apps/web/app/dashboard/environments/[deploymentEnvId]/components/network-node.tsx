@@ -1,9 +1,6 @@
 import { Handle, Position } from '@xyflow/react';
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { NetworkIcon } from 'lucide-react';
 
 type NetworkNodeProps = Readonly<{
     data: { network: { id: string; name: string } };
@@ -15,7 +12,10 @@ type NetworkNodeProps = Readonly<{
  * Displays network name as a smaller card on the right side of the graph.
  * Has a target handle on the left for receiving connections from service nodes.
  */
-export function NetworkNode({ data: { network }, isConnectable }: NetworkNodeProps) {
+export function NetworkNode({
+    data: { network },
+    isConnectable,
+}: NetworkNodeProps) {
     return (
         <>
             <Handle
@@ -24,9 +24,11 @@ export function NetworkNode({ data: { network }, isConnectable }: NetworkNodePro
                 isConnectable={isConnectable}
             />
 
-            <Card className='w-[200px]'>
+            <Card className='w-[300px]'>
                 <CardHeader>
-                    <CardTitle>{network.name}</CardTitle>
+                    <CardTitle className='leading-relaxed'>
+                        <NetworkIcon className='inline size-3' /> {network.name}
+                    </CardTitle>
                 </CardHeader>
             </Card>
         </>
