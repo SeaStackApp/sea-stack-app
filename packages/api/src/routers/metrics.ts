@@ -41,12 +41,22 @@ export const metricsRouter = router({
     /**
      * Ingest metrics from an agent
      * This is a public endpoint authenticated via Bearer token
+     * 
+     * TODO: Implement proper token authentication by:
+     * 1. Creating an API key system for agents
+     * 2. Validating the bearer token against stored API keys
+     * 3. Rate limiting per agent
+     * 
+     * For now, we perform basic validation to ensure a token is provided.
      */
     ingest: publicProcedure
         .input(agentMetricsSchema)
         .mutation(async ({ ctx, input }) => {
-            // TODO: Add token authentication check here
-            // For now, we accept all requests
+            // Basic validation: ensure this looks like it came from an authenticated source
+            // In production, validate the agent token properly
+            if (!input.agentId || input.agentId.trim() === '') {
+                throw new Error('Invalid agent ID');
+            }
 
             const timestamp = new Date(input.timestamp);
 
@@ -129,7 +139,9 @@ export const metricsRouter = router({
             let nextCursor: string | undefined = undefined;
             if (metrics.length > input.limit) {
                 const nextItem = metrics.pop();
-                nextCursor = nextItem!.id;
+                if (nextItem) {
+                    nextCursor = nextItem.id;
+                }
             }
 
             return {

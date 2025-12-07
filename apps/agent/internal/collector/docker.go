@@ -25,8 +25,14 @@ func CollectDockerMetrics(ctx context.Context) ([]types.ContainerMetrics, error)
 
 	var metrics []types.ContainerMetrics
 	for _, c := range containers {
+		// Get short container ID (first 12 characters)
+		shortID := c.ID
+		if len(c.ID) > 12 {
+			shortID = c.ID[:12]
+		}
+
 		m := types.ContainerMetrics{
-			ContainerID: c.ID[:12], // Short ID
+			ContainerID: shortID,
 			Name:        c.Names[0], // Names is a slice, take first
 			Image:       c.Image,
 			State:       c.State,
