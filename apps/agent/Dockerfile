@@ -11,7 +11,8 @@ RUN go mod download
 COPY . .
 
 # Build static binary with no CGO
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o agent ./cmd/agent
+# TARGETARCH is automatically set by Docker BuildKit for multi-arch builds
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o agent ./cmd/agent
 
 # Final stage - minimal runtime
 FROM alpine:3.21

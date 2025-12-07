@@ -15,7 +15,7 @@ const systemMetricsSchema = z.object({
     loadAverage1: z.number(),
     loadAverage5: z.number(),
     loadAverage15: z.number(),
-    processCount: z.number(),
+    processCount: z.number().int(),
 });
 
 const containerMetricsSchema = z.object({
