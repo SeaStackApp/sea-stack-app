@@ -17,6 +17,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o agent ./cmd/agent
 # Final stage - minimal runtime
 FROM alpine:3.21
 
+# Install ca-certificates for HTTPS connections
+RUN apk add --no-cache ca-certificates
+
 WORKDIR /app
 
 # Copy the binary from builder
