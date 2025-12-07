@@ -6,7 +6,6 @@
     "main": "src/index.ts",
     "types": "src/index.ts",
     "scripts": {
-        "build": "tsc -p tsconfig.json",
         "check-types": "tsc -p tsconfig.json --noEmit",
         "test": "ENCRYPTION_SECRET=abc jest",
         "test:watch": "ENCRYPTION_SECRET=abc jest --watch",

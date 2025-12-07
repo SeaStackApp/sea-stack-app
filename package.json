@@ -12,8 +12,8 @@
         "push-image": "export SEA_STACK_VERSION=$(jq -r .version apps/web/package.json) && docker push ghcr.io/seastackapp/seastack:latest && docker push ghcr.io/seastackapp/seastack:$SEA_STACK_VERSION"
     },
     "devDependencies": {
-        "prettier": "^3.7.3",
-        "turbo": "^2.6.1",
+        "prettier": "^3.7.4",
+        "turbo": "^2.6.3",
         "typescript": "5.9.3"
     },
     "packageManager": "pnpm@9.0.0",

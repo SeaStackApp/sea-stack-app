@@ -45,7 +45,7 @@ jobs:
         run: pnpm --filter @repo/db generate
 
       - name: Build web app
-        run: pnpm --filter web build
+        run: pnpm build
         env:
           # CI-only placeholder values for build testing.
           # These values are only used to satisfy build-time validation in CI and are not used for runtime operations or actual connections.
