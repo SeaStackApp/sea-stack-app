@@ -420,3 +420,48 @@ model BackupRun {
     volumeBackupSchedule   VolumeBackupSchedule? @relation(fields: [volumeBackupScheduleId], references: [id], onDelete: Cascade)
     volumeBackupScheduleId String?
 }
+
+model SystemMetric {
+    id               String            @id @default(uuid())
+    agentId          String
+    timestamp        DateTime
+    cpuPercent       Float
+    memoryUsedGB     Float
+    memoryTotalGB    Float
+    memoryPercent    Float
+    diskUsedGB       Float
+    diskTotalGB      Float
+    diskPercent      Float
+    networkRxMB      Float
+    networkTxMB      Float
+    loadAverage1     Float
+    loadAverage5     Float
+    loadAverage15    Float
+    processCount     Int
+    containerMetrics ContainerMetric[]
+    createdAt        DateTime          @default(now())
+
+    @@index([agentId])
+    @@index([timestamp])
+    @@map("system_metric")
+}
+
+model ContainerMetric {
+    id             String       @id @default(uuid())
+    systemMetric   SystemMetric @relation(fields: [systemMetricId], references: [id], onDelete: Cascade)
+    systemMetricId String
+    containerId    String
+    name           String
+    image          String
+    state          String
+    cpuPercent     Float
+    memoryUsedMB   Float
+    memoryLimitMB  Float
+    networkRxMB    Float
+    networkTxMB    Float
+    createdAt      DateTime     @default(now())
+
+    @@index([systemMetricId])
+    @@index([containerId])
+    @@map("container_metric")
+}
