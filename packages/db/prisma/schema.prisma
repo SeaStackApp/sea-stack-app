@@ -414,6 +414,7 @@ model BackupRun {
     status    BackupRunStatus @default(RUNNING)
     createdAt DateTime        @default(now())
     updatedAt DateTime        @updatedAt()
+    logs      String          @default("")
 
     artifactLocation String?
 

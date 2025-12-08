@@ -3,7 +3,9 @@ import { BACKUPS_QUEUE_NAME, VolumeBackupJob } from '@repo/queues';
 import { prisma } from '@repo/db';
 import {
     decrypt,
+    encrypt,
     generateVolumeName,
+    getLogger,
     getSSHClient,
     remoteExec,
     sh,
@@ -12,7 +14,8 @@ import { Client } from 'ssh2';
 
 export const setUpVolumeBackups = () => {
     return setupWorker<VolumeBackupJob>(BACKUPS_QUEUE_NAME, async (job) => {
-        console.log(`Processing job ${job.id}`);
+        const { logger, logs } = getLogger();
+        console.info(`Processing job ${job.id}`);
         const schedule = await prisma.volumeBackupSchedule.findUnique({
             where: { id: job.data.schedule },
             include: {
@@ -34,7 +37,7 @@ export const setUpVolumeBackups = () => {
             console.error(`Could not find schedule ${job.data.schedule}`);
             return;
         }
-        console.log(
+        console.info(
             `Starting backup for schedule ${schedule.id} (${schedule.volume.name})`
         );
         const service = schedule.volume.service;
@@ -57,15 +60,14 @@ export const setUpVolumeBackups = () => {
                 serverId,
                 schedule.volume.service.server.organizations[0]!.id
             );
-            console.log('Connected to server via SSH');
+            logger.debug('Connected to server via SSH');
 
             const command = sh`docker run --rm -v ${volumeName}:/data alpine sh -c "tar -C /data -cf - ." | zstd -z -19 -o ${backupFilename}`;
 
-            console.log(`Running command: ${command}`);
+            logger.debug(`Running command: ${command}`);
             await remoteExec(connection, command);
-            console.log(`Backup created: ${backupFilename}`);
 
-            console.log('Uploading backup file to S3 using rclone');
+            logger.debug('Uploading backup file to S3 using rclone');
 
             const s3 = await prisma.s3Storage.findFirst({
                 where: { id: schedule.storageDestinationId },
@@ -90,21 +92,28 @@ export const setUpVolumeBackups = () => {
             const secureName = sh`${backupFilename}`;
             const rcloneCommand = `rclone copy ${secureName} ${target} ${flags} --progress`;
 
-            console.log(`Running command: ${rcloneCommand}`);
-            console.log(await remoteExec(connection, rcloneCommand));
+            logger.info(`Running command: ${rcloneCommand}`);
+            logger.info(await remoteExec(connection, rcloneCommand));
 
-            console.log('Deleting local backup file');
-            await remoteExec(connection, sh`rm ${backupFilename}`);
+            logger.debug('Deleting local backup file');
+            logger.debug(
+                await remoteExec(connection, sh`rm ${backupFilename}`)
+            );
 
+            logger.info(`Backup created: ${backupFilename}`);
             await prisma.backupRun.update({
                 where: { id: run.id },
-                data: { status: 'SUCCESS', artifactLocation: backupFilename },
+                data: {
+                    status: 'SUCCESS',
+                    artifactLocation: backupFilename,
+                    logs: encrypt(logs.join('')),
+                },
             });
         } catch (error) {
-            console.error(error);
+            logger.error(error);
             await prisma.backupRun.update({
                 where: { id: run.id },
-                data: { status: 'FAILED' },
+                data: { status: 'FAILED', logs: encrypt(logs.join('')) },
             });
             throw error;
         } finally {
