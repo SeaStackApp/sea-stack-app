@@ -50,6 +50,7 @@ jobs:
           # CI-only placeholder values for build testing.
           # These values are only used to satisfy build-time validation in CI and are not used for runtime operations or actual connections.
           # They are not real credentials and are safe for public repositories.
+          TURBO_ENV_MODE: loose
           DATABASE_URL: postgresql://user:password@localhost:5432/test
           REDIS_HOST: localhost
           REDIS_PORT: 6379
