@@ -13,12 +13,14 @@
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.51.1",
+        "@prisma/adapter-pg": "^7.1.0",
         "@repo/db": "workspace:*",
         "@repo/queues": "workspace:*",
         "@repo/utils": "workspace:*",
         "@types/ssh2": "^1.15.5",
         "bullmq": "^5.65.1",
         "ioredis": "^5.8.2",
+        "prisma": "^7.1.0",
         "ssh2": "^1.17.0"
     },
     "devDependencies": {

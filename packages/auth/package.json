@@ -9,7 +9,6 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc -p tsconfig.json",
         "check-types": "tsc -p tsconfig.json --noEmit"
     },
     "devDependencies": {

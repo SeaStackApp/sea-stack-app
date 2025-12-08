@@ -2,6 +2,8 @@ import { appRouter, createContext } from '@repo/api';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export const runtime = 'nodejs';
 
 const handler = (req: Request) =>
