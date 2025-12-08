@@ -2,6 +2,7 @@ import { protectedProcedure } from '../../../trpc';
 import { volumeBackupScheduleIdSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 import { checkServiceExistsInOrganization } from '@repo/utils';
+import { volumeBackupsQueue } from '@repo/queues/dist';
 
 export const deleteVolumeBackupSchedule = protectedProcedure
     .input(volumeBackupScheduleIdSchema)
@@ -29,6 +30,10 @@ export const deleteVolumeBackupSchedule = protectedProcedure
         await prisma.volumeBackupSchedule.delete({
             where: { id: input.volumeBackupScheduleId },
         });
+
+        await volumeBackupsQueue.removeJobScheduler(
+            'backup-cron-job-' + schedule.id
+        );
 
         return { success: true } as const;
     });

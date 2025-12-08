@@ -40,7 +40,15 @@ export const setUpVolumeBackups = () => {
         const service = schedule.volume.service;
         const serverId = service.server.id;
         const volumeName = generateVolumeName(schedule.volume.name, service.id);
-        const backupFilename = `backup-${volumeName}-${job.id}.tar.zst`;
+        const backupFilename = `backup-${volumeName}-${new Date().getTime()}.tar.zst`;
+        const run = await prisma.backupRun.create({
+            data: {
+                status: 'RUNNING',
+                volumeBackupSchedule: {
+                    connect: { id: schedule.id },
+                },
+            },
+        });
 
         let connection: Client | undefined = undefined;
         try {
@@ -87,8 +95,17 @@ export const setUpVolumeBackups = () => {
 
             console.log('Deleting local backup file');
             await remoteExec(connection, sh`rm ${backupFilename}`);
+
+            await prisma.backupRun.update({
+                where: { id: run.id },
+                data: { status: 'SUCCESS', artifactLocation: backupFilename },
+            });
         } catch (error) {
             console.error(error);
+            await prisma.backupRun.update({
+                where: { id: run.id },
+                data: { status: 'FAILED' },
+            });
             throw error;
         } finally {
             if (connection) connection.end();
