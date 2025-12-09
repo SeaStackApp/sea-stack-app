@@ -12,3 +12,4 @@ export * from './docker';
 export * from './remote-server';
 export * from './backups';
 export * from './sh';
+export * from './getLogger';

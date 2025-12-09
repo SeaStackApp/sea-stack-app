@@ -4,6 +4,7 @@ import {
     checkDestinationExistsInOrg,
     checkVolumeExistsInOrganization,
 } from '@repo/utils';
+import { volumeBackupsQueue } from '@repo/queues';
 
 export const createVolumeBackup = protectedProcedure
     .input(volumeBackupScheduleCreateSchema)
@@ -23,26 +24,42 @@ export const createVolumeBackup = protectedProcedure
                 organizationId
             );
 
-            return prisma.volumeBackupSchedule.create({
-                data: {
-                    volumeId,
-                    cron,
-                    retention: retention ?? '@latest:7 @days:30 @months:12',
-                    storageDestinationId,
-                    isActive: true,
-                },
-                include: {
-                    runs: {
-                        take: 10,
-                        orderBy: { id: 'desc' },
+            return prisma.$transaction(async (tx) => {
+                const schedule = await tx.volumeBackupSchedule.create({
+                    data: {
+                        volumeId,
+                        cron,
+                        retention: retention ?? '@latest:7 @days:30 @months:12',
+                        storageDestinationId,
+                        isActive: true,
                     },
-                    destination: {
-                        select: { name: true },
+                    include: {
+                        runs: {
+                            take: 10,
+                            orderBy: { id: 'desc' },
+                        },
+                        destination: {
+                            select: { name: true },
+                        },
+                        volume: {
+                            select: { name: true, mountPath: true },
+                        },
                     },
-                    volume: {
-                        select: { name: true, mountPath: true },
+                });
+
+                await volumeBackupsQueue.upsertJobScheduler(
+                    'backup-cron-job-' + schedule.id,
+                    {
+                        pattern: schedule.cron,
                     },
-                },
+                    {
+                        data: {
+                            schedule: schedule.id,
+                        },
+                    }
+                );
+
+                return schedule;
             });
         }
     );
