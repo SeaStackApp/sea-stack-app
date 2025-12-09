@@ -21,6 +21,33 @@ services:
             BETTER_AUTH_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
             BETTER_AUTH_URL: http://localhost:3000
             ENCRYPTION_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            REDIS_PASSWORD: devpassword
+
+    worker:
+        image: ghcr.io/seastackapp/seastack-worker:latest
+        depends_on:
+            - postgres
+            - redis
+        environment:
+            DATABASE_URL: "postgresql://postgres:password@postgres:5432/public?schema=public"
+            BETTER_AUTH_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+            BETTER_AUTH_URL: http://localhost:3000
+            ENCRYPTION_SECRET: CeOx3AmjqVWNIlmeMLOgwtq87J49YpQX
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            REDIS_PASSWORD: devpassword
+    redis:
+        image: redis:7.4-alpine
+        command: redis-server --requirepass devpassword
+        environment:
+            REDIS_PASSWORD: devpassword
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis_data:/data
 
 volumes:
     postgres_data:
+    redis_data:
