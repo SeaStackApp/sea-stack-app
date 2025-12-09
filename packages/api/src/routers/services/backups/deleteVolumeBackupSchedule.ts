@@ -2,7 +2,7 @@ import { protectedProcedure } from '../../../trpc';
 import { volumeBackupScheduleIdSchema } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 import { checkServiceExistsInOrganization } from '@repo/utils';
-import { volumeBackupsQueue } from '@repo/queues/dist';
+import { volumeBackupsQueue } from '@repo/queues';
 
 export const deleteVolumeBackupSchedule = protectedProcedure
     .input(volumeBackupScheduleIdSchema)

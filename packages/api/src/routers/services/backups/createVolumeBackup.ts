@@ -4,7 +4,7 @@ import {
     checkDestinationExistsInOrg,
     checkVolumeExistsInOrganization,
 } from '@repo/utils';
-import { volumeBackupsQueue } from '@repo/queues/dist';
+import { volumeBackupsQueue } from '@repo/queues';
 
 export const createVolumeBackup = protectedProcedure
     .input(volumeBackupScheduleCreateSchema)
