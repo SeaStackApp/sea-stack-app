@@ -130,6 +130,21 @@ export default function ServiceOverviewFormSwarm({
                         </FormItem>
                     )}
                 />
+
+                <FormField
+                    control={form.control}
+                    name='command'
+                    defaultValue={swarmService.command ?? ''}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Command</FormLabel>
+                            <FormControl>
+                                <Input placeholder='node index.js' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
                 <div className='flex justify-end'>
                     <Button type={'submit'}>Save</Button>
                 </div>

@@ -9,6 +9,7 @@ import { components } from '../schema';
 import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry';
 import { createEnvFromString } from '../common/createEnv';
 import { generateVolumeName } from '../common/generateVolumeName';
+import { splitCommand } from '../../cli';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -98,6 +99,10 @@ export const deploySwarmService = async (
         logger.info('Image : ' + service.swarmService.image);
 
         spec.TaskTemplate!.ContainerSpec!.Image = service.swarmService.image;
+        if (service.swarmService.command)
+            spec.TaskTemplate!.ContainerSpec!.Command = splitCommand(
+                service.swarmService.command
+            );
         spec.TaskTemplate!.Networks = service.networks.map((network) => ({
             Target: network.name,
         }));
