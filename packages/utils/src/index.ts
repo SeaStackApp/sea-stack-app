@@ -13,3 +13,4 @@ export * from './remote-server';
 export * from './backups';
 export * from './sh';
 export * from './getLogger';
+export * from './cli';

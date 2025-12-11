@@ -15,6 +15,7 @@ export const serviceIdSchema = z.object({
 export const updateSwarmServiceOverviewSchema = serviceIdSchema.extend({
     image: z.string().optional(),
     registryId: z.string().nullable().optional(),
+    command: z.string().optional(),
 });
 
 export const addNetworkToServiceSchema = serviceIdSchema.extend({

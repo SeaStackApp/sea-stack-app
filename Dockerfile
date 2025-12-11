@@ -86,13 +86,13 @@ COPY --from=build /app/apps/web/.next/static ./apps/web/.next/static
 # Public assets used at runtime
 COPY --from=build /app/apps/web/public ./apps/web/public
 # Copy prisma schema and migrations
-COPY ./packages/db/prisma ./prisma
-COPY ./packages/db/prisma.config.ts /app/apps/web/prisma.config.ts
+COPY ./packages/db/prisma ./apps/web/prisma
+COPY ./packages/db/prisma.config.ts ./apps/web/prisma.config.ts
 
 # The app listens on PORT (defaults to 3000)
 ENV PORT=3000
 # Path to Prisma schema (copied from packages/db/prisma)
-ENV PRISMA_SCHEMA_PATH=/app/prisma/schema.prisma
+ENV PRISMA_SCHEMA_PATH=/app/apps/web/prisma/schema.prisma
 EXPOSE 3000
 
 # Switch to the app directory inside standalone output and run the server
