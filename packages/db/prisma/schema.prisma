@@ -129,8 +129,7 @@ model Organization {
     projects              Project[]
     servers               Server[]
     sshKeys               SSHKey[]
-    registries            Registry?              @relation(fields: [registryId], references: [id])
-    registryId            String?
+    registries            Registry[]
     notificationProviders NotificationProvider[]
     notifications         Notification[]
     storageDestinations   StorageDestination[]
