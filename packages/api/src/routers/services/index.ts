@@ -27,6 +27,5 @@ export const servicesRouter = router({
     getEnvVariables,
     updateEnvVariables,
     listContainers,
-    getContainerLogs,
     backups: backupsRouter,
 });

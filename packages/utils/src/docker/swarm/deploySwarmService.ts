@@ -10,6 +10,8 @@ import getBase64AuthForRegistry from '../../registries/getBase64AuthForRegistry'
 import { createEnvFromString } from '../common/createEnv';
 import { generateVolumeName } from '../common/generateVolumeName';
 import { splitCommand } from '../../cli';
+import { remoteExec } from '../../interactiveRemoteCommand';
+import { sh } from '../../sh';
 
 export const deploySwarmService = async (
     connection: Client,
@@ -103,6 +105,8 @@ export const deploySwarmService = async (
             spec.TaskTemplate!.ContainerSpec!.Command = splitCommand(
                 service.swarmService.command
             );
+        else spec.TaskTemplate!.ContainerSpec!.Command = [];
+
         spec.TaskTemplate!.Networks = service.networks.map((network) => ({
             Target: network.name,
         }));
@@ -130,6 +134,8 @@ export const deploySwarmService = async (
 
         // Build Traefik labels from service domains
         const labels: Record<string, string> = { ...(spec.Labels ?? {}) };
+
+        labels['app.seastack.serviceId'] = service.id;
 
         // Remove previously generated Traefik HTTP labels to avoid stale routers/services
         for (const key of Object.keys(labels)) {
@@ -196,9 +202,10 @@ export const deploySwarmService = async (
         const sleep = (ms: number) =>
             new Promise((resolve) => setTimeout(resolve, ms));
 
-        logger.info("Waiting for the service's tasks to be up and running");
-
+        let containerId = '';
+        let lastTaskId = '';
         while (!isUp) {
+            logger.info("Waiting for the service's tasks to be up and running");
             await sleep(1000);
             const tasks = (
                 await docker.listTasks({
@@ -214,18 +221,58 @@ export const deploySwarmService = async (
                 break;
             }
 
-            const firstTask = tasks[0]!;
-            isUp = firstTask.Status?.State === 'running';
+            if (lastTaskId) {
+                const task = tasks.find((t) => t.ID === lastTaskId);
+                if (task && task.Status && task.Status.State === 'failed') {
+                    logger.error('The task failed - ' + task.Status.Err);
+                    break;
+                }
+            }
 
+            const firstTask = tasks[0]!;
             logger.debug(
                 `Task status : ${firstTask.Status?.State} - ${firstTask.UpdatedAt}`
             );
+
+            if (firstTask.Status?.ContainerStatus?.ContainerID)
+                containerId = firstTask.Status.ContainerStatus.ContainerID;
+
+            const statuses = tasks.map((t) => JSON.stringify(t.Status)).join();
+            logger.debug(`Statuses : ${statuses}`);
+
+            if (containerId !== '') {
+                logger.debug(`Container ID : ${containerId}`);
+                const containerInfo =
+                    await docker.inspectContainer(containerId);
+                if (containerInfo.State?.Status === 'exited') {
+                    logger.info('Waiting for container logs');
+                    await sleep(5000);
+                    const command = sh`docker container logs ${containerInfo.Name?.replace('/', '')} --timestamps`;
+                    logger.debug('Running ' + command);
+                    const logs = await remoteExec(connection, command);
+                    logger.info(logs);
+                    logger.error("The container exited with status 'exited'");
+                    break;
+                }
+            }
 
             if (firstTask.Status?.Err) {
                 logger.error(firstTask.Status.Err);
                 break;
             }
+
+            if (firstTask.Status?.State === 'running') {
+                isUp = true;
+            }
+
+            lastTaskId = firstTask.ID!;
         }
+
+        if (!isUp && !isUpdate) {
+            logger.info('Removing service');
+            await docker.rmService(service.id);
+        }
+
         return isUp;
     } catch (e) {
         if (e instanceof Error) logger.error(e.message);

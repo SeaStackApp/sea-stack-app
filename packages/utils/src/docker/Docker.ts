@@ -1,4 +1,4 @@
-import { jsonDockerRequest } from './dockerRequest';
+import { dockerRequest, jsonDockerRequest } from './dockerRequest';
 import { Client } from 'ssh2';
 import { operations, paths } from './schema';
 
@@ -130,5 +130,19 @@ export class Docker {
                     })
                 )
         )) as paths['/tasks']['get']['responses']['200']['content']['application/json'];
+    }
+
+    async inspectContainer(containerId: string) {
+        return (await jsonDockerRequest(
+            this.connection,
+            `/containers/${containerId}/json`
+        )) as paths['/containers/{id}/json']['get']['responses']['200']['content']['application/json'];
+    }
+
+    async rmService(serviceId: string) {
+        return await dockerRequest(this.connection, `/services/${serviceId}`, {
+            method: 'DELETE',
+            headers: {},
+        });
     }
 }

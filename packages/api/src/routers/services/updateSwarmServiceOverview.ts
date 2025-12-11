@@ -42,10 +42,7 @@ export const updateSwarmServiceOverview = protectedProcedure
                 data: {
                     image: input.image,
                     registryId: input.registryId,
-                    command:
-                        input.command?.trim() === ''
-                            ? null
-                            : (input.command ?? null),
+                    command: input.command?.trim() || null,
                 },
             });
         } catch (e) {
