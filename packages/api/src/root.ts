@@ -11,6 +11,7 @@ import { networksRouter } from './routers/networks';
 import { volumesRouter } from './routers/volumes';
 import { notificationsRouter } from './routers/notifications';
 import { storageRouter } from './routers/storage';
+import { metricsRouter } from './routers/metrics';
 
 export const appRouter = router({
     health: healthRouter,
@@ -25,6 +26,7 @@ export const appRouter = router({
     volumes: volumesRouter,
     notifications: notificationsRouter,
     storage: storageRouter,
+    metrics: metricsRouter,
 });
 
 export type AppRouter = typeof appRouter;
