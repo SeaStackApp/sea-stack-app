@@ -41,6 +41,7 @@ export const listContainers = protectedProcedure
                             task.Status &&
                             task.Status.ContainerStatus &&
                             task.Status.ContainerStatus.ContainerID &&
+                            task.Status.ContainerStatus.ExitCode === 0 &&
                             task.CreatedAt &&
                             task.ServiceID
                     )

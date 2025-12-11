@@ -14,6 +14,14 @@ import {
 import * as React from 'react';
 import { Badge } from '@/components/ui/badge';
 import ContainerLogs from '@/app/dashboard/services/[serviceId]/components/tabs/logs/container-logs';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyMedia,
+    EmptyTitle,
+} from '@/components/ui/empty';
+import { ContainerIcon } from 'lucide-react';
 
 export default function ContainerSelector({
     service,
@@ -52,9 +60,19 @@ export default function ContainerSelector({
     if (containersQuery.isError) return <div>Error loading containers</div>;
     if (!containersQuery.data || containersQuery.data.length === 0)
         return (
-            <div className='text-center py-4 text-muted-foreground'>
-                No containers found for this service.
-            </div>
+            <Empty>
+                <EmptyHeader>
+                    <EmptyMedia variant='icon'>
+                        <ContainerIcon />
+                    </EmptyMedia>
+                    <EmptyTitle>No containers found</EmptyTitle>
+                    <EmptyDescription>
+                        No viable containers found for this service. This is
+                        likely due to the service not having any running
+                        containers.
+                    </EmptyDescription>
+                </EmptyHeader>
+            </Empty>
         );
 
     return (

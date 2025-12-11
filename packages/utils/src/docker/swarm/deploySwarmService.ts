@@ -202,10 +202,10 @@ export const deploySwarmService = async (
         const sleep = (ms: number) =>
             new Promise((resolve) => setTimeout(resolve, ms));
 
+        logger.info("Waiting for the service's tasks to be up and running");
         let containerId = '';
         let lastTaskId = '';
         while (!isUp) {
-            logger.info("Waiting for the service's tasks to be up and running");
             await sleep(1000);
             const tasks = (
                 await docker.listTasks({
@@ -236,9 +236,6 @@ export const deploySwarmService = async (
 
             if (firstTask.Status?.ContainerStatus?.ContainerID)
                 containerId = firstTask.Status.ContainerStatus.ContainerID;
-
-            const statuses = tasks.map((t) => JSON.stringify(t.Status)).join();
-            logger.debug(`Statuses : ${statuses}`);
 
             if (containerId !== '') {
                 logger.debug(`Container ID : ${containerId}`);
